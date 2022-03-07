@@ -39,9 +39,7 @@ PRIMARY KEY (id)
 CREATE TABLE intersted(
 id INT AUTO_INCREMENT NOT NULL,
 product_id INT,
-user_id INT,
 FOREIGN KEY (product_id) REFERENCES products(id),
-FOREIGN KEY (user_id) REFERENCES users(id),
 is_deleted TINYINT DEFAULT 0,
 PRIMARY KEY (id)
 );
