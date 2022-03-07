@@ -33,4 +33,28 @@ const createNewUser = async (req, res) => {
       }
     });
   };
-  module.exports = {createNewUser}
+  //update user information
+const updateInfo = async (req, res) => {
+    const { firstName, lastName, country, email, password, image } = req.body;
+    const hashPassword = await bcrypt.hash(password, 5);
+    const id = req.params.id;
+    const query = `UPDATE users SET firstName = ? , lastName = ? , country = ? , email = ? ,password = ?  ,image = ? WHERE id = ? `;
+    const data = [firstName, lastName, country, email, hashPassword, image, id];
+    connection.query(query, data, (err, result) => {
+      if (err) throw err;
+      if (result.affectedRows === 0) {
+        res.status(404).json({
+          success: false,
+          message: `The user: ${id} is not found`,
+        });
+      } else {
+        res.status(202).json({
+          success: true,
+          message: `The information of user that id = ${id} is updated`,
+          results: result,
+          data: data,
+        });
+      }
+    });
+  };
+  module.exports = {createNewUser,updateInfo}
