@@ -34,7 +34,7 @@ const createNewUser = async (req, res) => {
     });
   };
   //update user information
-const updateInfo = async (req, res) => {
+  const updateInfo = async (req, res) => {
     const { firstName, lastName, country, email, password, image } = req.body;
     const hashPassword = await bcrypt.hash(password, 5);
     const id = req.params.id;
