@@ -26,7 +26,25 @@ FOREIGN KEY (role_id) REFERENCES roles(id),
 FOREIGN KEY (permission_id) REFERENCES permission(id),
 PRIMARY KEY (id)
 );
-
+CREATE TABLE products(
+id INT AUTO_INCREMENT NOT NULL,
+image VARCHAR(255) ,
+prodectName VARCHAR(255),
+description VARCHAR(255),
+price INT,
+type VARCHAR(255),
+is_deleted TINYINT DEFAULT 0,
+PRIMARY KEY (id)
+);
+CREATE TABLE intersted(
+id INT AUTO_INCREMENT NOT NULL,
+product_id INT,
+user_id INT,
+FOREIGN KEY (product_id) REFERENCES products(id),
+FOREIGN KEY (user_id) REFERENCES users(id),
+is_deleted TINYINT DEFAULT 0,
+PRIMARY KEY (id)
+);
 
 CREATE TABLE users(
 id INT AUTO_INCREMENT NOT NULL,
@@ -37,20 +55,9 @@ email VARCHAR(255) UNIQUE,
 password VARCHAR(255),
 role_id INT,
 image VARCHAR(255),
-intersted VARCHAR(255),
+interstedId INT,
 FOREIGN KEY (role_id) REFERENCES roles(id),
-is_deleted TINYINT DEFAULT 0,
-PRIMARY KEY (id)
-);
-
-
-CREATE TABLE products(
-id INT AUTO_INCREMENT NOT NULL,
-image VARCHAR(255) ,
-prodectName VARCHAR(255),
-description VARCHAR(255),
-price INT,
-type VARCHAR(255),
+FOREIGN KEY (interstedId) REFERENCES intersted(id),
 is_deleted TINYINT DEFAULT 0,
 PRIMARY KEY (id)
 );
