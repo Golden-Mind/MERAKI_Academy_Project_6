@@ -24,8 +24,48 @@ const createNewProduct = (req, res) => {
   });
 };
 
+//get all products
+const getAllProducts = (req, res) => {
+    const query = `SELECT * FROM products WHERE is_deleted=0`;
+    connection.query(query, (err, results) => {
+      if (err) {
+        res.status(500).json({
+          success: false,
+          message: "server error",
+        });
+      }
+      res
+        .status(200)
+        .json({ success: true, message: "all productss", result: results });
+    });
+  };
+//update product by id
+const updateProductById = (req, res) => {
+    const { image, productName, description, price, type } = req.body;
+    const id = req.params.id;
+  
+    const query = `UPDATE products SET image=?,productName=?,description=?,price=?,type=?  WHERE id=?`;
+    const data = [image, productName, description, price, type, id];
+    connection.query(query, data, (err, result) => {
+      if (err) throw err;
+      if (result.affectedRows === 0) {
+        res.status(404).json({
+          success: false,
+          message: `The product: ${_id} is not found`,
+        });
+      } else {
+        res.status(202).json({
+          success: true,
+          message: `product updated`,
+          results: result,
+          data: data,
+        });
+      }
+    });
+  };
 module.exports = {
     createNewProduct,
-    
+    getAllProducts,
+    updateProductById,
   };
   
