@@ -86,11 +86,34 @@ const deleteProductById = (req, res) => {
       }
     });
   };
+  const getPageProducts = (req, res) => {
+    // limit as 8
+    const limit = 8;
+    // page number
+    const page = req.query.page;
+    const offset = (page - 1) * limit;
+    const query = "select * from products limit " + limit + " OFFSET " + offset;
+  
+    connection.query(query, (err, results) => {
+      if (err) {
+        res.status(500).json({
+          success: false,
+          message: "server error",
+        });
+      }
+      res.status(200).json({
+        success: true,
+        message: `page ${page} productss`,
+        result: results,
+      });
+    });
+  };
   
 module.exports = {
     createNewProduct,
     getAllProducts,
     updateProductById,
     deleteProductById,
+    getPageProducts,
   };
   
