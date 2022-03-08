@@ -1,6 +1,6 @@
 const express = require("express");
 const loginRouter = express.Router();
-const {login} = require("../controllers/permission")
+const login = require("../controllers/permission")
 loginRouter.post("/",login)
 
 module.exports = loginRouter
