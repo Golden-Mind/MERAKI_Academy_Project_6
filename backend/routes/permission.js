@@ -4,4 +4,5 @@ const permission = require("../controllers/permission");
 
 permissionRouter.post("/",permission);
 
+
 module.exports = permissionRouter
