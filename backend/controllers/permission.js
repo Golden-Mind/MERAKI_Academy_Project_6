@@ -20,4 +20,4 @@ const permission = (req,res) =>{
           }
     })
 }
-module.exports = {permission}
+module.exports = permission
