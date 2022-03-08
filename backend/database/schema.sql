@@ -29,10 +29,11 @@ PRIMARY KEY (id)
 CREATE TABLE products(
 id INT AUTO_INCREMENT NOT NULL,
 image VARCHAR(255) ,
-prodectName VARCHAR(255),
+productName VARCHAR(255),
 description VARCHAR(255),
 price INT,
 type VARCHAR(255),
+date DATE NOT NULL,
 is_deleted TINYINT DEFAULT 0,
 PRIMARY KEY (id)
 );
