@@ -8,7 +8,7 @@ const userRouter = require("./routes/users");
 const roleRouter = require("./routes/roles");
 const permissionRouter = require("./routes/permission");
 const loginRouter = require("./routes/login");
-const favoriteRouter = require("./routes/favorite")
+const favoriteRouter = require("./routes/favorite");
 app.use(cors());
 app.use(express.json());
 //================================
@@ -17,10 +17,10 @@ app.use(express.json());
 //=================================
 
 app.use("/user",userRouter);
-app.use("/roles",roleRouter)
-app.use("/permission",permissionRouter)
-app.use("/login",loginRouter)
-app.use("/favorite",favoriteRouter)
+app.use("/roles",roleRouter);
+app.use("/permission",permissionRouter);
+app.use("/login",loginRouter);
+app.use("/favorite",favoriteRouter);
 
 
 
