@@ -8,7 +8,9 @@ const userRouter = require("./routes/users");
 app.use(cors());
 app.use(express.json());
 //================================
-app.use("/user",userRouter);
+app.use("/user", userRouter);
+
+//=================================
 const PORT = 5000;
 
 app.listen(PORT, () => {
