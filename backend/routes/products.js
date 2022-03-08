@@ -2,8 +2,16 @@ const express = require("express");
 
 const productsRouter = express.Router();
 const {
-    
-  } = require("../controllers/products");
+  createNewProduct,
+  getAllProducts,
+  updateProductById,
+  deleteProductById,
+  getPageProducts,
+} = require("../controllers/products");
 
-
-  module.exports = productsRouter;
+productsRouter.post("/", createNewProduct);
+productsRouter.get("/", getAllProducts);
+productsRouter.patch("/:id", updateProductById);
+productsRouter.delete("/:id", deleteProductById);
+productsRouter.get("/search", getPageProducts);
+module.exports = productsRouter;
