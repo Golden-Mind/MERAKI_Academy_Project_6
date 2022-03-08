@@ -12,11 +12,16 @@ const favoriteRouter = require("./routes/favorite")
 app.use(cors());
 app.use(express.json());
 //================================
+
+
+//=================================
+
 app.use("/user",userRouter);
 app.use("/roles",roleRouter)
 app.use("/permission",permissionRouter)
 app.use("/login",loginRouter)
 app.use("/favorite",favoriteRouter)
+
 
 
 const PORT = 5000;
