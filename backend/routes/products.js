@@ -8,6 +8,7 @@ const {
   deleteProductById,
   getPageProducts,
   getProductByName,
+  getProductsByType
 } = require("../controllers/products");
 
 productsRouter.post("/", createNewProduct);
@@ -16,4 +17,5 @@ productsRouter.patch("/:id", updateProductById);
 productsRouter.delete("/:id", deleteProductById);
 productsRouter.get("/search", getPageProducts);
 productsRouter.get("/search_1", getProductByName);
+productsRouter.get("/search_2", getProductsByType);
 module.exports = productsRouter;
