@@ -8,6 +8,7 @@ const userRouter = require("./routes/users");
 
 const productRouter = require("./routes/products"); //import products router
 const intrestedRouter=require("./routes/intrested")
+const commentRouter=require("./routes/comments")
 app.use(cors());
 app.use(express.json());
 //================================
@@ -32,7 +33,7 @@ app.use("/permission",permissionRouter);
 app.use("/login",loginRouter);
 app.use("/favorite",favoriteRouter);
 app.use("/intrested",intrestedRouter)
-
+app.use("/comment",commentRouter)
 
 const PORT = 5000;
 
