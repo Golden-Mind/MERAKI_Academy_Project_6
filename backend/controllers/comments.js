@@ -21,7 +21,20 @@ const addNewComment=(req,res)=>{
 }
 
 const getAllComment=(req,res)=>{
-
+    const query = `SELECT * FROM comments INNER JOIN users ON  commenter_id=users.id INNER JOIN products ON comments.productId=products.id`;
+    
+    connection.query(query,(err,results)=>{
+        if (err) {
+            res.status(500).json({
+              success: false,
+              message: "server error",
+            });
+          }
+          res
+            .status(200)
+            .json({ success: true, message: "all products comment", result: results });
+        
+    })
 }
 
 module.exports = {addNewComment,getAllComment};
