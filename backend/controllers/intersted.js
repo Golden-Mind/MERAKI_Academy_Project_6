@@ -22,9 +22,9 @@ connection.query(query,data,(err,results)=>{
 }
 
 const getUserIntersted=(req,res)=>{
-    const id = req.params.id;
+   
     const query = `SELECT * FROM intersted INNER JOIN users ON  user_id=users.id INNER JOIN products ON intersted.product_id=products.id`;
-    const data=[id]
+    
     connection.query(query,(err,results)=>{
         if (err) {
             res.status(500).json({
