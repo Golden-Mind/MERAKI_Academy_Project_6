@@ -7,5 +7,5 @@ const {
 
 
 commentRouter.post("/:id",addNewComment)
-// commentRouter.get("/",getAllComment)
+commentRouter.get("/",getAllComment)
 module.exports = commentRouter;
