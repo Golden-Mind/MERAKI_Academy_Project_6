@@ -37,14 +37,6 @@ date DATE NOT NULL,
 is_deleted TINYINT DEFAULT 0,
 PRIMARY KEY (id)
 );
-CREATE TABLE intersted(
-id INT AUTO_INCREMENT NOT NULL,
-product_id INT,
-FOREIGN KEY (product_id) REFERENCES products(id),
-is_deleted TINYINT DEFAULT 0,
-PRIMARY KEY (id)
-);
-
 CREATE TABLE users(
 id INT AUTO_INCREMENT NOT NULL,
 firstName VARCHAR(255),
@@ -54,9 +46,16 @@ email VARCHAR(255) UNIQUE,
 password VARCHAR(255),
 role_id INT,
 image VARCHAR(255),
-interstedId INT,
 FOREIGN KEY (role_id) REFERENCES roles(id),
-FOREIGN KEY (interstedId) REFERENCES intersted(id),
+is_deleted TINYINT DEFAULT 0,
+PRIMARY KEY (id)
+);
+CREATE TABLE intersted(
+id INT AUTO_INCREMENT NOT NULL,
+product_id INT,
+user_id INT ,
+FOREIGN KEY (product_id) REFERENCES products(id),
+FOREIGN KEY (user_id) REFERENCES users(id),
 is_deleted TINYINT DEFAULT 0,
 PRIMARY KEY (id)
 );
