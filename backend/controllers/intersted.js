@@ -20,4 +20,22 @@ connection.query(query,data,(err,results)=>{
     });
 
 }
-module.exports = {addIntersted};
+
+const getUserIntersted=(req,res)=>{
+    const id = req.params.id;
+    const query = `SELECT * FROM intersted INNER JOIN users ON  user_id=users.id INNER JOIN products ON intersted.product_id=products.id`;
+    const data=[id]
+    connection.query(query,(err,results)=>{
+        if (err) {
+            res.status(500).json({
+              success: false,
+              message: "server error",
+            });
+          }
+          res
+            .status(200)
+            .json({ success: true, message: "all intersted products", result: results });
+        
+    })
+}
+module.exports = {addIntersted,getUserIntersted};
