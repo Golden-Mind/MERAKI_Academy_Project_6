@@ -17,6 +17,11 @@ import { useDispatch, useSelector } from "react-redux";
 
 
 export default function Home() {
+
+    const [home, setHome] = useState(false);
+    const [profile, setProfile] = useState(false);
+    const navigate=useNavigate()
+
   const [home, setHome] = useState(true);
   const [profile, setProfile] = useState(false);
   const navigate = useNavigate();
@@ -29,7 +34,7 @@ export default function Home() {
     };
   });
 
-  // ===========================================
+
 
   return (
     <>
