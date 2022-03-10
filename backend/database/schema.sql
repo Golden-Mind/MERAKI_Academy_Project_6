@@ -2,12 +2,12 @@ DROP DATABASE  MERAKI_Academy_Project_6;
 CREATE DATABASE  MERAKI_Academy_Project_6;
 USE  MERAKI_Academy_Project_6;
 
+
 CREATE TABLE roles (
 id INT AUTO_INCREMENT NOT NULL,
 role VARCHAR(255) NOT NULL,
 PRIMARY KEY (id)
 );
-
 
 
 CREATE TABLE permission (
@@ -26,6 +26,8 @@ FOREIGN KEY (role_id) REFERENCES roles(id),
 FOREIGN KEY (permission_id) REFERENCES permission(id),
 PRIMARY KEY (id)
 );
+
+
 CREATE TABLE products(
 id INT AUTO_INCREMENT NOT NULL,
 image VARCHAR(255) ,
@@ -37,6 +39,8 @@ date DATE NOT NULL,
 is_deleted TINYINT DEFAULT 0,
 PRIMARY KEY (id)
 );
+
+
 CREATE TABLE users(
 id INT AUTO_INCREMENT NOT NULL,
 firstName VARCHAR(255),
@@ -50,6 +54,8 @@ FOREIGN KEY (role_id) REFERENCES roles(id),
 is_deleted TINYINT DEFAULT 0,
 PRIMARY KEY (id)
 );
+
+
 CREATE TABLE intersted(
 id INT AUTO_INCREMENT NOT NULL,
 product_id INT,
@@ -59,6 +65,7 @@ FOREIGN KEY (user_id) REFERENCES users(id),
 is_deleted TINYINT DEFAULT 0,
 PRIMARY KEY (id)
 );
+
 
 CREATE TABLE comments(
     id INT AUTO_INCREMENT NOT NULL,
@@ -70,6 +77,7 @@ CREATE TABLE comments(
     is_deleted TINYINT DEFAULT 0,
     PRIMARY KEY (id)
 );
+
 
 CREATE TABLE favorite_list(
 id INT AUTO_INCREMENT NOT NULL,
