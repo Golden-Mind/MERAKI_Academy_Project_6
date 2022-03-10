@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Button,
@@ -14,16 +14,12 @@ import "../home/home.css";
 import Profile from "../profile/Profile";
 import { logout } from "../../reducer/login/index";
 import { useDispatch, useSelector } from "react-redux";
-
+import axios from "axios";
 
 export default function Home() {
-
-    const [home, setHome] = useState(false);
-    const [profile, setProfile] = useState(false);
-    const navigate=useNavigate()
-
   const [home, setHome] = useState(true);
   const [profile, setProfile] = useState(false);
+  const [page, setPage] = useState();
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
@@ -33,18 +29,28 @@ export default function Home() {
       isLoggedIn: state.loginReducer.isLoggedIn,
     };
   });
-
-
+  useEffect(() => {
+    axios.get("");
+  }, []);
 
   return (
     <>
-      <Container class="d-row justify-content-center ">
-        <Container style={{ width: "90vw", marginTop: "2%" }}>
-          <Navbar bg="light" expand="lg">
+      <Container>
+        <Container style={{ marginTop: "2%" }}>
+          <Navbar
+            bg="#13B2A7"
+            expand="lg"
+            style={{ backgroundColor: "#13B2A7", width: "100%" }}
+          >
             <Container fluid>
-              <Navbar.Brand href="#">Navbar scroll</Navbar.Brand>
-              <Navbar.Toggle aria-controls="navbarScroll" />
-              <Navbar.Collapse id="navbarScroll">
+              <Navbar.Brand style={{ color: "white" }}>
+                Navbar scroll
+              </Navbar.Brand>
+              <Navbar.Toggle
+                aria-controls="navbarScroll"
+                style={{ color: "white" }}
+              />
+              <Navbar.Collapse id="navbarScroll" style={{ color: "white" }}>
                 <Nav
                   className="me-auto my-2 my-lg-0"
                   style={{ maxHeight: "100px" }}
@@ -54,10 +60,12 @@ export default function Home() {
                     onClick={() => {
                       setHome(true);
                     }}
+                    style={{ color: "white" }}
                   >
                     Home
                   </Nav.Link>
                   <Nav.Link
+                    style={{ color: "white" }}
                     onClick={() => {
                       setProfile(true);
                       setHome(false);
@@ -65,7 +73,11 @@ export default function Home() {
                   >
                     Profile
                   </Nav.Link>
-                  <NavDropdown title="Category" id="navbarScrollingDropdown">
+                  <NavDropdown
+                    title="Category"
+                    id="navbarScrollingDropdown"
+                    style={{ backgroundColor: "#13B2A7" }}
+                  >
                     <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
                     <NavDropdown.Item href="#action4">
                       Another action
@@ -76,6 +88,7 @@ export default function Home() {
                     </NavDropdown.Item>
                   </NavDropdown>
                   <Nav.Link
+                    style={{ color: "white" }}
                     onClick={() => {
                       dispatch(logout());
                       localStorage.clear();
@@ -135,7 +148,6 @@ export default function Home() {
                   variant="top"
                   src="https://images.autodaily.com.au/2022/02/bmw_3_series_facelift_m_performance_5.jpg"
                 />
-
                 <Card.Body>
                   <Card.Title>Card Title</Card.Title>
                   <Card.Text>
@@ -158,7 +170,6 @@ export default function Home() {
                   variant="top"
                   src="https://images.autodaily.com.au/2022/02/bmw_3_series_facelift_m_performance_5.jpg"
                 />
-
                 <Card.Body>
                   <Card.Title>Card Title</Card.Title>
                   <Card.Text>
@@ -181,7 +192,6 @@ export default function Home() {
                   variant="top"
                   src="https://images.autodaily.com.au/2022/02/bmw_3_series_facelift_m_performance_5.jpg"
                 />
-
                 <Card.Body>
                   <Card.Title>Card Title</Card.Title>
                   <Card.Text>
@@ -193,9 +203,46 @@ export default function Home() {
               </Card>
             </Container>
           ) : (
-            <Profile />
+            <Container>
+              <Profile />
+            </Container>
           )}
         </Container>
+        {home ? (
+          <Container className="d-flex flex-row justify-content-center">
+            <nav aria-label="Page navigation example">
+              <ul class="pagination">
+                <li class="page-item">
+                  <a class="page-link" href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                  </a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="#">
+                    1
+                  </a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="#">
+                    2
+                  </a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="#">
+                    3
+                  </a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </Container>
+        ) : (
+          <></>
+        )}
       </Container>
     </>
   );
