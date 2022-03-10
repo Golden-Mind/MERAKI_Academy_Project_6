@@ -60,7 +60,7 @@ function Login({ setUserInfo }) {
         localStorage.setItem("token", res.data.token);
         dispatch(login(res.data.token));
         setUserInfo(res.data.payload);
-        console.log(res.data.token);
+        console.log("token", res.data.token);
       } else throw Error;
     } catch (error) {
       if (error.response && error.response.data) {
@@ -74,10 +74,10 @@ function Login({ setUserInfo }) {
 
   useEffect(() => {
     if (state.isLoggedIn) {
-      console.log(state.token);
+      console.log("token", state.token);
       navigate("/home");
     }
-  }, []);
+  }, [state.isLoggedIn]);
 
   //==============================================
 
@@ -92,7 +92,7 @@ function Login({ setUserInfo }) {
             className="form col-10 col-sm-6 col-md-4 col-lg-4 col-xl-4 shadow mb-5 bg-body pb-5 pt-3"
             onSubmit={loginUser}
           >
-            <h1 className="loginHeader">LOGIN</h1>
+            <h1 className="loginHeader">SIGN IN</h1>
             <p>
               Doesn't have an account yet?{" "}
               <Link to="/register" className="signUp">
@@ -132,7 +132,7 @@ function Login({ setUserInfo }) {
                 </Col>
               </Row>
             </Form.Group>
-            <button className="btnLogin">Login</button>
+            <button className="btnLogin">Sign In</button>
             {status
               ? message && (
                   <Alert variant="success" className="successMessageLogin mt-2">
