@@ -6,8 +6,7 @@ import login2 from "./login2.gif";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import login from "../../reducer/login/index";
-import { useState } from "react";
+import {login} from "../../reducer/login/index";
 // import GoogleLogin from "react-google-login";
 
 
