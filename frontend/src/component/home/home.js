@@ -4,7 +4,7 @@ import { Button, Col, Row,Card,Nav, Container,Image,Form,Navbar,NavDropdown,Form
 import "../home/home.css"
 import Profile from '../profile/Profile';
 export default function Home() {
-    const [home, setHome] = useState(true);
+    const [home, setHome] = useState(false);
     const [profile, setProfile] = useState(false);
     const navigate=useNavigate()
   return (
