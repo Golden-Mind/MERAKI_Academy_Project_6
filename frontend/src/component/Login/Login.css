@@ -1,6 +1,5 @@
 .form {
   margin-top: 4%;
-  /* border-radius: 30px; */
   font-family: 'Courier New', Courier, monospace;
   font-weight: bolder;
   text-align: left;
@@ -14,7 +13,7 @@
     border: #13B2A7 1px solid;
     background-color: white;
     color: #13B2A7;
-    /* border-radius: 5px; */
+    font-weight: bolder;
 }
 
 .btnLogin:hover {
@@ -34,6 +33,7 @@
 .loginHeader {
     color: #13B2A7;
     text-align: center;
+    font-weight: bolder;
 }
 
 .lableEmail {
@@ -42,5 +42,5 @@
 
 .signUp {
     color: #13B2A7;
-
+    text-decoration: none;
 }
