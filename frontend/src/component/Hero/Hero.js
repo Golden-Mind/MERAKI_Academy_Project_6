@@ -1,15 +1,73 @@
-import React from "react";
+import React, { useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import Container from "react-bootstrap/Container";
-import {Nav,Navbar} from "react-bootstrap";
+import { Nav, Button, Navbar, NavDropdown, FormControl } from "react-bootstrap";
+import Form from "react-bootstrap/Form";
 import "./hero.css";
 import background from "./background.jpg";
 import about from "./Business Plan.gif";
 import home from "./home.jpg";
-
+import Modal from "react-bootstrap/Modal";
+import emailjs from "@emailjs/browser";
 const Hero = () => {
+  const form = useRef();
+  const [show, setShow] = useState(false);
+  const [feedback, setFeedback] = useState({});
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const navigate = useNavigate();
+  const sendEmail = (e) => {
+    e.preventDefault();
+
+    emailjs
+      .send(
+        "service_52xer57",
+        "template_3qy35xj",
+        feedback,
+        "ANlTbm_bAOim6gpyh"
+      )
+      .then(
+        (result) => {
+          // setFeda("");
+          console.log(result.text);
+        },
+        (error) => {
+          console.log(error.text);
+        }
+      );
+  };
   return (
     <>
-      <div className="position-relative">
+      <Navbar bg="light" expand="lg">
+        <Container fluid>
+          <Navbar.Brand href="#">Amore</Navbar.Brand>
+          <Navbar.Toggle aria-controls="navbarScroll" />
+          <Navbar.Collapse id="navbarScroll">
+            <Nav
+              className="me-auto my-2 my-lg-0"
+              style={{ maxHeight: "100px" }}
+              navbarScroll
+              defaultActiveKey="/home"
+            >
+              <Nav.Item>
+                <Nav.Link href="#home">Active</Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link href="#about">About</Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link href="#need">Need</Nav.Link>
+              </Nav.Item>
+            </Nav>
+            <Form className="d-flex">
+              <Nav.Link  onClick={() => {
+                      navigate("/login");
+                    }}>Log in</Nav.Link>
+            </Form>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
+      {/* <div className="position-relative">
         <Nav variant="pills" defaultActiveKey="/home">
           <Nav.Item>
             <Nav.Link href="#home">Active</Nav.Link>
@@ -18,12 +76,10 @@ const Hero = () => {
             <Nav.Link href="#about">About</Nav.Link>
           </Nav.Item>
           <Nav.Item>
-            <Nav.Link href="#need">
-              Need
-            </Nav.Link>
+            <Nav.Link href="#need">Need</Nav.Link>
           </Nav.Item>
         </Nav>
-      </div>
+      </div> */}
       <img src={background} alt="background" width="100%" id="home" />
       <div className="container-fluid ">
         <h1 className="text-center about"> About </h1>
@@ -54,15 +110,17 @@ const Hero = () => {
           </p>
         </div>
       </div>
-      <h1 className="text-center about"> If You Need </h1>
+      <h1 className="text-center about" id="need">
+        {" "}
+        If You Need{" "}
+      </h1>
       <div
         className="container-fluid d-flex flex-row flex-wrap gap-3 justify-content-center  aboutt
  "
- id="need"
       >
         <div className="card c col-10 col-sm-6 col-md-4 col-lg-4 col-xl-4">
           <div className="bg-image hover-zoom">
-            <img src={home} class="card-img-top " alt="home" />
+            <img src={home} className="card-img-top " alt="home" />
           </div>
           <div className="card-body">
             <p className="card-text">
@@ -81,7 +139,7 @@ const Hero = () => {
           </div>
         </div>
         <div className="card c col-10 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-          <img src={home} className="card-img-top " alt="" />
+          <img src={home} className="card-img-top " alt="home" />
           <div className="card-body">
             <p className="card-text">
               Some quick example text to build on the card title and make up the
@@ -90,10 +148,10 @@ const Hero = () => {
           </div>
         </div>
       </div>
-      <div className="fotter">
-        <div className="container-fluid d-flex justify-content-start">
-        <h2 className="foot-name">Amore</h2>
-        <p
+      <div className="fotter foot-name ">
+        <h2 className="hed2">Amore</h2>
+        <div className=" d-flex flex-row justify-content-between hed2">
+          <p
             className="about-p col-10 col-sm-6 col-md-4 col-lg-4 col-xl-4 
 "
           >
@@ -101,9 +159,52 @@ const Hero = () => {
             industry. Lorem Ipsum has been the industry's standard dummy text
             ever since the 1500s, when an unknown printer took a galley of type
           </p>
+          <div className="link-foot">
+            <a href="#home"> <p> Active </p></a>
+            <a href="#about"> <p> About </p></a>
+            <a href="#need"> <p> Need </p></a>
+
+         
+         
+            </div>
         </div>
-          <button type="button" class="btn btn-lg btn-danger" data-bs-toggle="popover" title="Popover title" data-bs-content="And here's some amazing content. It's very engaging. Right?">Click to toggle popover</button>
       </div>
+      <div className="d-flex justify-content-end feed">
+        <Button variant="primary" onClick={handleShow}>
+          Contact Us
+        </Button>
+      </div>
+      <Modal
+        ref={form}
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Write Any Feedback</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form.Group controlId="exampleForm.ControlTextarea1">
+            <Form.Control
+              as="textarea"
+              rows="3"
+              name="address"
+              onChange={(e) => {
+                setFeedback({ name: "sender", message: e.target.value });
+              }}
+            />
+          </Form.Group>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={sendEmail}>
+            Send
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 };
