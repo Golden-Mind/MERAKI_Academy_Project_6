@@ -7,7 +7,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import login from "../../reducer/login/index";
-import GoogleLogin from "react-google-login";
+import { useState } from "react";
+// import GoogleLogin from "react-google-login";
+
 
 
 function Login({ setUserInfo }) {
