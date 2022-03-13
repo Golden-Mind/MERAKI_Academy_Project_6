@@ -5,6 +5,7 @@ import { Nav, Button, Navbar, NavDropdown, FormControl } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import "./hero.css";
 import background from "./background.jpg";
+import Ecommerce from "./Ecommerce.gif"
 import about from "./Business Plan.gif";
 import home from "./home.jpg";
 import Modal from "react-bootstrap/Modal";
@@ -28,7 +29,7 @@ const Hero = () => {
       )
       .then(
         (result) => {
-          // setFeda("");
+          setFeedback({});
           console.log(result.text);
         },
         (error) => {
@@ -38,8 +39,8 @@ const Hero = () => {
   };
   return (
     <>
-      <Navbar bg="light" expand="lg">
-        <Container fluid>
+      <Navbar bg="light" expand="lg" >
+        <Container fluid className="hero-nav"> 
           <Navbar.Brand href="#">Amore</Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
@@ -67,26 +68,20 @@ const Hero = () => {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      {/* <div className="position-relative">
-        <Nav variant="pills" defaultActiveKey="/home">
-          <Nav.Item>
-            <Nav.Link href="#home">Active</Nav.Link>
-          </Nav.Item>
-          <Nav.Item>
-            <Nav.Link href="#about">About</Nav.Link>
-          </Nav.Item>
-          <Nav.Item>
-            <Nav.Link href="#need">Need</Nav.Link>
-          </Nav.Item>
-        </Nav>
-      </div> */}
-      <img src={background} alt="background" width="100%" id="home" />
-      <div className="container-fluid ">
-        <h1 className="text-center about"> About </h1>
+      <div className="d-flex justify-content-between ">
+      <div className="d-flex justify-content-center align-items-center hero-title">
+        <h1 className="fs-1">Amore</h1>
+      </div>
+      <div className="d-flex justify-content-end backHero col-10 col-sm-6 col-md-4 col-lg-4 col-xl-4 ">
+      <img src={Ecommerce} alt="background"  id="home" />
+      </div>
+      </div>
+      <div className="container-fluid "  id="about">
+        <h1 className="text-center about" > About </h1>
         <div
           className="d-flex flex-wrap justify-content-center
  "
-          id="about"
+         
         >
           <img
             src={about}
@@ -119,8 +114,11 @@ const Hero = () => {
  "
       >
         <div className="card c col-10 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-          <div className="bg-image hover-zoom">
-            <img src={home} className="card-img-top " alt="home" />
+          <div className=" div-need">
+            <img src={home} className="card-img-top need" alt="home" 
+            onClick={() => {
+              navigate("/login")
+            }} />
           </div>
           <div className="card-body">
             <p className="card-text">
@@ -130,7 +128,13 @@ const Hero = () => {
           </div>
         </div>
         <div className="card c col-10 col-sm-6 col-md-4 col-lg-4 col-xl-4 ">
-          <img src={home} className="card-img-top" alt="" />
+        <div className=" div-need">
+            <img src={home} className="card-img-top need" alt="home" 
+            onClick={() => {
+              navigate("/login")
+            }}
+            />
+          </div>
           <div className="card-body">
             <p className="card-text">
               Some quick example text to build on the card title and make up the
@@ -139,7 +143,13 @@ const Hero = () => {
           </div>
         </div>
         <div className="card c col-10 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-          <img src={home} className="card-img-top " alt="home" />
+        <div className=" div-need">
+            <img src={home} className="card-img-top need" alt="home" 
+            onClick={() => {
+              navigate("/login")
+            }}
+            />
+          </div>
           <div className="card-body">
             <p className="card-text">
               Some quick example text to build on the card title and make up the
@@ -152,7 +162,7 @@ const Hero = () => {
         <h2 className="hed2">Amore</h2>
         <div className=" d-flex flex-row justify-content-between hed2">
           <p
-            className="about-p col-10 col-sm-6 col-md-4 col-lg-4 col-xl-4 
+            className="foot-p col-10 col-sm-6 col-md-4 col-lg-4 col-xl-4 
 "
           >
             Lorem Ipsum is simply dummy text of the printing and typesetting

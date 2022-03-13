@@ -21,9 +21,19 @@ export default function Home() {
   const [profile, setProfile] = useState(false);
   const [page, setPage] = useState();
   const navigate = useNavigate();
-
+  const [category, setCategory] = useState("Category");
   const dispatch = useDispatch();
-
+  const [categoryOfProduct,setCategoryOfProduct] = useState();
+  // of category 
+  const getAllProductsCategory = () => {
+    axios
+      .get(`http://localhost:5000/products/search_2?type=${category}`)
+      .then((res) => {
+        setCategoryOfProduct(res.data.result);
+        console.log(res.data.result);
+      })
+      .catch((err) => {});
+  };
   const state = useSelector((state) => {
     return {
       isLoggedIn: state.loginReducer.isLoggedIn,
@@ -32,7 +42,15 @@ export default function Home() {
   useEffect(() => {
     axios.get("");
   }, []);
-
+  // to add to fav 
+  const addFav = (req,res) => {
+    axios
+        .post("http://localhost:5000/favorite/")
+        .then((res) => {
+          console.log(res.data);
+        })
+        .catch((err) => {});
+  }
   return (
     <>
           <Navbar
@@ -40,6 +58,9 @@ export default function Home() {
             expand="lg"
             style={{ backgroundColor: "#13B2A7", width: "100%", fontFamily: "cursive", fontSize: "1.3rem" }}
           >
+            <Container fluid>
+              <Navbar.Brand style={{ color: "white" }}>
+                Amore
             <Container fluid className="d-flex flex-row gap-5">
               <Navbar.Brand style={{ color: "white", fontSize: "1.5rem", fontWeight: "bolder" }}>
                 Navbar scroll
@@ -73,11 +94,15 @@ export default function Home() {
                   <NavDropdown
                     title="Category"
                     id="navbarScrollingDropdown"
+                    onChange={(e) => {
+                      setCategory(`${e.target.value}`);
+                    }}
+                    style={{ backgroundColor: "#13B2A7" }}
                     style={{ backgroundColor: "#13B2A7", color: "white" }}
                   >
-                    <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
+                    <NavDropdown.Item href="#action3">Car</NavDropdown.Item>
                     <NavDropdown.Item href="#action4">
-                      Another action
+                      Home
                     </NavDropdown.Item>
                     <NavDropdown.Divider />
                     <NavDropdown.Item href="#action5">
@@ -89,10 +114,19 @@ export default function Home() {
                     onClick={() => {
                       dispatch(logout());
                       localStorage.clear();
-                      navigate("/login");
+                      navigate("/");
                     }}
                   >
                     Log Out
+                  </Nav.Link>
+                  {/* for test favoraite */}
+                  <Nav.Link
+                    style={{ color: "white" }}
+                    onClick={() => {
+                      navigate("/fav");
+                    }}
+                  >
+                   favoraite
                   </Nav.Link>
                 </Nav>
                 <Form className="d-flex">

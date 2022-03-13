@@ -11,7 +11,7 @@ import {login} from "../../reducer/login/index";
 
 
 
-function Login({ setUserInfo }) {
+function Login({ setUserInfo ,userInfo }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
@@ -55,11 +55,12 @@ function Login({ setUserInfo }) {
         password,
       });
     
-      if (res.data.success) {
+       if (res.data.success) {
         setMessage("");
         localStorage.setItem("token", res.data.token);
-        dispatch(login(res.data.token));
+       dispatch(login(res.data.token));
         setUserInfo(res.data.payload);
+        console.log(userInfo);
         console.log("token", res.data.token);
       } else throw Error;
     } catch (error) {

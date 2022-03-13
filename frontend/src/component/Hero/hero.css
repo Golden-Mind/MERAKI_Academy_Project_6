@@ -1,5 +1,8 @@
+.hero-title{
+  margin-left: 5%;
+}
 .about-p{
-  margin-top: 1%;
+  margin-top: 8%;
 }
 .about{
     margin-top: 5%;
@@ -25,4 +28,27 @@
 }
 .link-foot{
   margin-right:8% ;
+}
+.need{
+  transition: 0.5s all ease-in-out;
+}
+.div-need{
+  overflow: hidden;
+  margin: 0 auto;
+}
+.need{
+  width: 100%;
+}
+.div-need:hover .need{
+  transform: scale(1.5);
+  cursor: pointer;
+}
+.foot-p{
+  margin-top:1% ;
+}
+.backHero{
+  margin-right: 5%;
+}
+.hero-nav{
+  background-color:  rgb(19, 178, 167);
 }
