@@ -37,7 +37,8 @@ price INT,
 type VARCHAR(255),
 date DATE NOT NULL,
 for VARCHAR(255),
-adress VARCHAR(255),
+phoneNumber INT,
+address VARCHAR(255),
 is_deleted TINYINT DEFAULT 0,
 PRIMARY KEY (id)
 );

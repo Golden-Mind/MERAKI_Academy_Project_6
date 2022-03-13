@@ -43,26 +43,14 @@ console.log(typeof(page));
       isLoggedIn: state.loginReducer.isLoggedIn,
     };
   });
-  useEffect(() => {
+  // useEffect(() => {
 
-    if(typeof(page)==="number"){axios.get(`http://localhost:5000/products/search?page=${page}`).then((result)=>{
-      console.log(result);
-    }).catch((err)=>{console.log(err);})}
+  //   if(typeof(page)==="number"){axios.get(`http://localhost:5000/products/search?page=${page}`).then((result)=>{
+  //     console.log(result);
+  //   }).catch((err)=>{console.log(err);})}
     
-  }, [state.isLoggedIn,page]);
-
-  return (
-    <>
-      <Container >
-        <Container   style={{ marginTop: "2%"}}>
-          
-          <Navbar  fluid
-            bg="#13B2A7"
-            expand="lg"
-            style={{ backgroundColor: "#13B2A7"}}
-
-    axios.get("");
-  }, []);
+  // }, [state.isLoggedIn,page]);
+  
   // to add to fav 
   const addFav = (req,res) => {
     axios
@@ -72,6 +60,10 @@ console.log(typeof(page));
         })
         .catch((err) => {});
   }
+
+   
+
+   
   return (
     <>
           <Navbar
@@ -80,13 +72,12 @@ console.log(typeof(page));
             style={{ backgroundColor: "#13B2A7", width: "100%", fontFamily: "cursive", fontSize: "1.3rem" }}
 
           >
-            <Container  >
+           
               
-              <Navbar.Brand style={{ color: "white" }}>
-                Amore
             <Container fluid className="d-flex flex-row gap-5">
+              
               <Navbar.Brand style={{ color: "white", fontSize: "1.5rem", fontWeight: "bolder" }}>
-                Navbar scroll
+                Amore
               </Navbar.Brand>
               <Navbar.Toggle
                 aria-controls="navbarScroll"
@@ -120,7 +111,7 @@ console.log(typeof(page));
                     onChange={(e) => {
                       setCategory(`${e.target.value}`);
                     }}
-                    style={{ backgroundColor: "#13B2A7" }}
+                   
                     style={{ backgroundColor: "#13B2A7", color: "white" }}
                   >
                     <NavDropdown.Item href="#action3">Car</NavDropdown.Item>
