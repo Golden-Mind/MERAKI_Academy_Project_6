@@ -53,22 +53,22 @@ export default function Home() {
   }
   return (
     <>
-      <Container>
-        <Container style={{ marginTop: "2%" }}>
           <Navbar
             bg="#13B2A7"
             expand="lg"
-            style={{ backgroundColor: "#13B2A7", width: "100%" }}
+            style={{ backgroundColor: "#13B2A7", width: "100%", fontFamily: "cursive", fontSize: "1.3rem" }}
           >
             <Container fluid>
               <Navbar.Brand style={{ color: "white" }}>
                 Amore
+            <Container fluid className="d-flex flex-row gap-5">
+              <Navbar.Brand style={{ color: "white", fontSize: "1.5rem", fontWeight: "bolder" }}>
+                Navbar scroll
               </Navbar.Brand>
               <Navbar.Toggle
                 aria-controls="navbarScroll"
-                style={{ color: "white" }}
               />
-              <Navbar.Collapse id="navbarScroll" style={{ color: "white" }}>
+              <Navbar.Collapse id="navbarScroll">
                 <Nav
                   className="me-auto my-2 my-lg-0"
                   style={{ maxHeight: "100px" }}
@@ -98,6 +98,7 @@ export default function Home() {
                       setCategory(`${e.target.value}`);
                     }}
                     style={{ backgroundColor: "#13B2A7" }}
+                    style={{ backgroundColor: "#13B2A7", color: "white" }}
                   >
                     <NavDropdown.Item href="#action3">Car</NavDropdown.Item>
                     <NavDropdown.Item href="#action4">
@@ -140,14 +141,14 @@ export default function Home() {
               </Navbar.Collapse>
             </Container>
           </Navbar>
+
+          
           {home ? (
-            <Container className="row row-cols-4">
+            <Container className="d-flex flex-row flex-wrap justify-content-center gap-4 mt-4">
               <Card
                 style={{
                   width: "18rem",
                   height: "25rem",
-                  marginTop: "2%",
-                  marginLeft: "3%",
                 }}
                 class="col"
               >
@@ -162,15 +163,15 @@ export default function Home() {
                     Some quick example text to build on the card title and make
                     up the bulk of the card's content.
                   </Card.Text>
-                  <Button variant="primary">Go somewhere</Button>
+                  <button type="button" class="btn btn-outline-dark" onClick={() => {
+                    navigate("/product")
+                  }}>Go SomeWhere</button>
                 </Card.Body>
               </Card>
               <Card
                 style={{
                   width: "18rem",
                   height: "25rem",
-                  marginTop: "2%",
-                  marginLeft: "3%",
                 }}
                 class="col"
               >
@@ -184,15 +185,13 @@ export default function Home() {
                     Some quick example text to build on the card title and make
                     up the bulk of the card's content.
                   </Card.Text>
-                  <Button variant="primary">Go somewhere</Button>
+                  <button type="button" class="btn btn-outline-dark">Go SomeWhere</button>
                 </Card.Body>
               </Card>
               <Card
                 style={{
                   width: "18rem",
                   height: "25rem",
-                  marginTop: "2%",
-                  marginLeft: "3%",
                 }}
                 class="col"
               >
@@ -206,15 +205,13 @@ export default function Home() {
                     Some quick example text to build on the card title and make
                     up the bulk of the card's content.
                   </Card.Text>
-                  <Button variant="primary">Go somewhere</Button>
+                  <button type="button" class="btn btn-outline-dark">Go SomeWhere</button>
                 </Card.Body>
               </Card>
               <Card
                 style={{
                   width: "18rem",
                   height: "25rem",
-                  marginTop: "2%",
-                  marginLeft: "3%",
                 }}
                 class="col"
               >
@@ -228,7 +225,7 @@ export default function Home() {
                     Some quick example text to build on the card title and make
                     up the bulk of the card's content.
                   </Card.Text>
-                  <Button variant="primary">Go somewhere</Button>
+                  <button type="button" class="btn btn-outline-dark">Go SomeWhere</button>
                 </Card.Body>
               </Card>
             </Container>
@@ -237,9 +234,8 @@ export default function Home() {
               <Profile />
             </Container>
           )}
-        </Container>
         {home ? (
-          <Container className="d-flex flex-row justify-content-center">
+          <Container className="d-flex flex-row justify-content-center mt-3">
             <nav aria-label="Page navigation example">
               <ul class="pagination">
                 <li class="page-item">
@@ -273,7 +269,6 @@ export default function Home() {
         ) : (
           <></>
         )}
-      </Container>
     </>
   );
 }

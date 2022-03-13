@@ -7,6 +7,8 @@ import Home from "./component/home/home";
 import Profile from "./component/profile/Profile";
 import Register from "./component/Register/Register";
 import Favoraite from "./component/favoraite/Favoraite";
+import Product from "./component/Product/Product";
+import Navigation from "./component/Navigation/Navigation";
 import { useState } from "react";
 
 function App() {
@@ -14,6 +16,7 @@ function App() {
 
   return (
     <div className="App">
+      {/* <Navigation /> */}
       <Routes>
         <Route path="/login" element={<Login setUserInfo={setUserInfo} userInfo={userInfo} />} />
         <Route path="/register" element={<Register />} />
@@ -21,6 +24,7 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/fav" element={<Favoraite userInfo={userInfo} />} />
+        <Route path="/product" element={<Product />} />
       </Routes>
     </div>
   );
