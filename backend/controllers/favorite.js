@@ -1,4 +1,5 @@
 const connection = require("../database/db");
+// to add fav product
 const addFavorite = (req, res) => {
   const { productId, userId } = req.body;
   const query = `INSERT INTO favorite_list (product_id , user_id ) VALUES (?,?)`;
@@ -18,6 +19,7 @@ const addFavorite = (req, res) => {
     });
   });
 };
+//to get fav product
 const getFavorite = (req, res) => {
   const userId = req.params.id;
   const query = `SELECT * FROM products INNER JOIN favorite_list ON favorite_list.product_id=products.id AND favorite_list.user_id = ? AND favorite_list.is_deleted =?  `;
@@ -36,6 +38,7 @@ const getFavorite = (req, res) => {
       });
   })
 };
+// to delete fav product
 const deletFavorite = (req, res) => {
     const userId = req.params.id;
     const query = `UPDATE favorite_list SET is_deleted = ? WHERE  id =?  `

@@ -21,15 +21,30 @@ export default function Home() {
   const [profile, setProfile] = useState(false);
   const [page, setPage] = useState(1);
   const navigate = useNavigate();
-console.log(typeof(page));
-  const dispatch = useDispatch();
 
+console.log(typeof(page));
+
+  const [category, setCategory] = useState("Category");
+
+  const dispatch = useDispatch();
+  const [categoryOfProduct,setCategoryOfProduct] = useState();
+  // of category 
+  const getAllProductsCategory = () => {
+    axios
+      .get(`http://localhost:5000/products/search_2?type=${category}`)
+      .then((res) => {
+        setCategoryOfProduct(res.data.result);
+        console.log(res.data.result);
+      })
+      .catch((err) => {});
+  };
   const state = useSelector((state) => {
     return {
       isLoggedIn: state.loginReducer.isLoggedIn,
     };
   });
   useEffect(() => {
+
     if(typeof(page)==="number"){axios.get(`http://localhost:5000/products/search?page=${page}`).then((result)=>{
       console.log(result);
     }).catch((err)=>{console.log(err);})}
@@ -45,17 +60,38 @@ console.log(typeof(page));
             bg="#13B2A7"
             expand="lg"
             style={{ backgroundColor: "#13B2A7"}}
+
+    axios.get("");
+  }, []);
+  // to add to fav 
+  const addFav = (req,res) => {
+    axios
+        .post("http://localhost:5000/favorite/")
+        .then((res) => {
+          console.log(res.data);
+        })
+        .catch((err) => {});
+  }
+  return (
+    <>
+          <Navbar
+            bg="#13B2A7"
+            expand="lg"
+            style={{ backgroundColor: "#13B2A7", width: "100%", fontFamily: "cursive", fontSize: "1.3rem" }}
+
           >
             <Container  >
               
               <Navbar.Brand style={{ color: "white" }}>
+                Amore
+            <Container fluid className="d-flex flex-row gap-5">
+              <Navbar.Brand style={{ color: "white", fontSize: "1.5rem", fontWeight: "bolder" }}>
                 Navbar scroll
               </Navbar.Brand>
               <Navbar.Toggle
                 aria-controls="navbarScroll"
-                style={{ color: "white" }}
               />
-              <Navbar.Collapse id="navbarScroll" style={{ color: "white" }}>
+              <Navbar.Collapse id="navbarScroll">
                 <Nav
                   className="me-auto my-2 my-lg-0"
                   style={{ maxHeight: "100px" }}
@@ -81,11 +117,15 @@ console.log(typeof(page));
                   <NavDropdown
                     title="Category"
                     id="navbarScrollingDropdown"
+                    onChange={(e) => {
+                      setCategory(`${e.target.value}`);
+                    }}
                     style={{ backgroundColor: "#13B2A7" }}
+                    style={{ backgroundColor: "#13B2A7", color: "white" }}
                   >
-                    <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
+                    <NavDropdown.Item href="#action3">Car</NavDropdown.Item>
                     <NavDropdown.Item href="#action4">
-                      Another action
+                      Home
                     </NavDropdown.Item>
                     <NavDropdown.Divider />
                     <NavDropdown.Item href="#action5">
@@ -97,10 +137,19 @@ console.log(typeof(page));
                     onClick={() => {
                       dispatch(logout());
                       localStorage.clear();
-                      navigate("/login");
+                      navigate("/");
                     }}
                   >
                     Log Out
+                  </Nav.Link>
+                  {/* for test favoraite */}
+                  <Nav.Link
+                    style={{ color: "white" }}
+                    onClick={() => {
+                      navigate("/fav");
+                    }}
+                  >
+                   favoraite
                   </Nav.Link>
                 </Nav>
                 <Form className="d-flex">
@@ -115,14 +164,14 @@ console.log(typeof(page));
               </Navbar.Collapse>
             </Container>
           </Navbar>
+
+          
           {home ? (
-            <Container className="row row-cols-4">
+            <Container className="d-flex flex-row flex-wrap justify-content-center gap-4 mt-4">
               <Card
                 style={{
                   width: "18rem",
                   height: "25rem",
-                  marginTop: "2%",
-                  marginLeft: "3%",
                 }}
                 class="col"
               >
@@ -137,15 +186,15 @@ console.log(typeof(page));
                     Some quick example text to build on the card title and make
                     up the bulk of the card's content.
                   </Card.Text>
-                  <Button variant="primary">Go somewhere</Button>
+                  <button type="button" class="btn btn-outline-dark" onClick={() => {
+                    navigate("/product")
+                  }}>Go SomeWhere</button>
                 </Card.Body>
               </Card>
               <Card
                 style={{
                   width: "18rem",
                   height: "25rem",
-                  marginTop: "2%",
-                  marginLeft: "3%",
                 }}
                 class="col"
               >
@@ -159,15 +208,13 @@ console.log(typeof(page));
                     Some quick example text to build on the card title and make
                     up the bulk of the card's content.
                   </Card.Text>
-                  <Button variant="primary">Go somewhere</Button>
+                  <button type="button" class="btn btn-outline-dark">Go SomeWhere</button>
                 </Card.Body>
               </Card>
               <Card
                 style={{
                   width: "18rem",
                   height: "25rem",
-                  marginTop: "2%",
-                  marginLeft: "3%",
                 }}
                 class="col"
               >
@@ -181,15 +228,13 @@ console.log(typeof(page));
                     Some quick example text to build on the card title and make
                     up the bulk of the card's content.
                   </Card.Text>
-                  <Button variant="primary">Go somewhere</Button>
+                  <button type="button" class="btn btn-outline-dark">Go SomeWhere</button>
                 </Card.Body>
               </Card>
               <Card
                 style={{
                   width: "18rem",
                   height: "25rem",
-                  marginTop: "2%",
-                  marginLeft: "3%",
                 }}
                 class="col"
               >
@@ -203,7 +248,7 @@ console.log(typeof(page));
                     Some quick example text to build on the card title and make
                     up the bulk of the card's content.
                   </Card.Text>
-                  <Button variant="primary">Go somewhere</Button>
+                  <button type="button" class="btn btn-outline-dark">Go SomeWhere</button>
                 </Card.Body>
               </Card>
             </Container>
@@ -212,9 +257,8 @@ console.log(typeof(page));
               <Profile />
             </Container>
           )}
-        </Container>
         {home ? (
-          <Container className="d-flex flex-row justify-content-center">
+          <Container className="d-flex flex-row justify-content-center mt-3">
             <nav aria-label="Page navigation example">
               <ul class="pagination" >
                 <li class="page-item">
@@ -248,7 +292,6 @@ console.log(typeof(page));
         ) : (
           <></>
         )}
-      </Container>
     </>
   );
 }
