@@ -19,9 +19,9 @@ import axios from "axios";
 export default function Home() {
   const [home, setHome] = useState(true);
   const [profile, setProfile] = useState(false);
-  const [page, setPage] = useState();
+  const [page, setPage] = useState(1);
   const navigate = useNavigate();
-
+console.log(typeof(page));
   const dispatch = useDispatch();
 
   const state = useSelector((state) => {
@@ -30,19 +30,24 @@ export default function Home() {
     };
   });
   useEffect(() => {
-    axios.get("");
-  }, []);
+    if(typeof(page)==="number"){axios.get(`http://localhost:5000/products/search?page=${page}`).then((result)=>{
+      console.log(result);
+    }).catch((err)=>{console.log(err);})}
+    
+  }, [state.isLoggedIn,page]);
 
   return (
     <>
-      <Container>
-        <Container style={{ marginTop: "2%" }}>
-          <Navbar
+      <Container >
+        <Container   style={{ marginTop: "2%"}}>
+          
+          <Navbar  fluid
             bg="#13B2A7"
             expand="lg"
-            style={{ backgroundColor: "#13B2A7", width: "100%" }}
+            style={{ backgroundColor: "#13B2A7"}}
           >
-            <Container fluid>
+            <Container  >
+              
               <Navbar.Brand style={{ color: "white" }}>
                 Navbar scroll
               </Navbar.Brand>
@@ -211,26 +216,26 @@ export default function Home() {
         {home ? (
           <Container className="d-flex flex-row justify-content-center">
             <nav aria-label="Page navigation example">
-              <ul class="pagination">
+              <ul class="pagination" >
                 <li class="page-item">
-                  <a class="page-link" href="#" aria-label="Previous">
+                  <a class="page-link"  aria-label="Previous" >
                     <span aria-hidden="true">&laquo;</span>
                   </a>
                 </li>
-                <li class="page-item">
-                  <a class="page-link" href="#">
+                <li class="page-item page-link"  onClick={(e)=>{setPage(parseInt(e.target.innerText))}}>
+                   
                     1
-                  </a>
+                  
                 </li>
-                <li class="page-item">
-                  <a class="page-link" href="#">
+                <li class="page-item page-link"  onClick={(e)=>{setPage(parseInt(e.target.innerText))}}>
+                  
                     2
-                  </a>
+                  
                 </li>
-                <li class="page-item">
-                  <a class="page-link" href="#">
+                <li class="page-item page-link" onClick={(e)=>{setPage(parseInt(e.target.innerText))}} >
+                  
                     3
-                  </a>
+                  
                 </li>
                 <li class="page-item">
                   <a class="page-link" href="#" aria-label="Next">
