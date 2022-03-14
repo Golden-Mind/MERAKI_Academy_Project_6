@@ -227,9 +227,7 @@ const[id,setId]=useState()
       ) : details ? (
         <Product id={id} />
       ) : (
-        <Container>
           <Profile userInfo={userInfo}/>
-        </Container>
       )}
       {home ? (
         <Container className="d-flex flex-row justify-content-center mt-3">
