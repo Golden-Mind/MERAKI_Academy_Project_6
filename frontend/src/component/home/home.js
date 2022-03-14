@@ -17,18 +17,20 @@ import { useDispatch, useSelector } from "react-redux";
 import Product from "../Product/Product";
 import axios from "axios";
 
-export default function Home({setProductId , userInfo}) {
+export default function Home({ setProductId, userInfo }) {
   const [home, setHome] = useState(true);
   const [profile, setProfile] = useState(false);
   const [page, setPage] = useState(1);
   const [numperOfProducts, setNumperOfProducts] = useState();
   const [products, setProducts] = useState();
   const [details, setDetails] = useState(false);
-const[id,setId]=useState()
+  const [id, setId] = useState();
+  const [search, setSearch] = useState();
   console.log(numperOfProducts);
   const navigate = useNavigate();
 
   console.log(page);
+  console.log(search);
 
   const [category, setCategory] = useState();
   console.log(category);
@@ -116,7 +118,7 @@ const[id,setId]=useState()
               <Nav.Link
                 onClick={() => {
                   setHome(true);
-                  setDetails(false)
+                  setDetails(false);
                 }}
                 style={{ color: "white" }}
               >
@@ -136,14 +138,13 @@ const[id,setId]=useState()
                 title="Category"
                 id="navbarScrollingDropdown"
                 onClick={(e) => {
-                  
-                  console.log(e.target.innerText)
+                  console.log(e.target.innerText);
                   setCategory(e.target.value);
                 }}
                 style={{ backgroundColor: "#13B2A7", color: "white" }}
               >
                 <NavDropdown.Item>Car</NavDropdown.Item>
-                <NavDropdown.Item >Home</NavDropdown.Item>
+                <NavDropdown.Item>Home</NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item href="#action5">
                   Something else here
@@ -171,6 +172,13 @@ const[id,setId]=useState()
             </Nav>
             <Form className="d-flex">
               <FormControl
+                onChange={(e) => {
+                  axios.get(`http://localhost:5000/products/search_1?name=${e.target.value}`).then((res)=>{
+                    console.log(res.data.result);
+                    setSearch(res.data.result)
+                  }).catch((err)=>{console.log(err);})
+                  console.log(e.target.value);
+                }}
                 type="search"
                 placeholder="Search"
                 className="me-2"
@@ -211,11 +219,10 @@ const[id,setId]=useState()
                       class="btn btn-outline-dark"
                       onClick={() => {
                         setProductId(product.id);
-                       
-                        setId(product.id)
-                          setHome(false);
-                          setDetails(true);
-                       
+
+                        setId(product.id);
+                        setHome(false);
+                        setDetails(true);
                       }}
                     >
                       Details
@@ -229,7 +236,7 @@ const[id,setId]=useState()
         <Product id={id} />
       ) : (
         <Container>
-          <Profile userInfo={userInfo}/>
+          <Profile userInfo={userInfo} />
         </Container>
       )}
       {home ? (
