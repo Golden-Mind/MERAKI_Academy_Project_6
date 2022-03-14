@@ -14,22 +14,24 @@ import "../home/home.css";
 import Profile from "../profile/Profile";
 import { logout } from "../../reducer/login/index";
 import { useDispatch, useSelector } from "react-redux";
+import Product from "../Product/Product";
 import axios from "axios";
 
-export default function Home({setProductId}) {
+export default function Home({ setProductId }) {
   const [home, setHome] = useState(true);
   const [profile, setProfile] = useState(false);
   const [page, setPage] = useState(1);
   const [numperOfProducts, setNumperOfProducts] = useState();
   const [products, setProducts] = useState();
-
+  const [details, setDetails] = useState(false);
+const[id,setId]=useState()
   console.log(numperOfProducts);
   const navigate = useNavigate();
 
   console.log(page);
 
   const [category, setCategory] = useState();
-console.log(category);
+  console.log(category);
   const dispatch = useDispatch();
   const [categoryOfProduct, setCategoryOfProduct] = useState();
   // of category
@@ -65,17 +67,15 @@ console.log(category);
   }, []);
   //=====================================
   useEffect(() => {
-    
-      axios
-        .get(`http://localhost:5000/products/search?page=${page}`)
-        .then((res) => {
-          setProducts(res.data.result);
-          console.log(res.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    
+    axios
+      .get(`http://localhost:5000/products/search?page=${page}`)
+      .then((res) => {
+        setProducts(res.data.result);
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, [state.isLoggedIn, page]);
 
   // to add to fav
@@ -116,6 +116,7 @@ console.log(category);
               <Nav.Link
                 onClick={() => {
                   setHome(true);
+                  setDetails(false)
                 }}
                 style={{ color: "white" }}
               >
@@ -126,6 +127,7 @@ console.log(category);
                 onClick={() => {
                   setProfile(true);
                   setHome(false);
+                  setDetails(false);
                 }}
               >
                 Profile
@@ -182,71 +184,76 @@ console.log(category);
       {home ? (
         <Container className="d-flex flex-row flex-wrap justify-content-center gap-4 mt-4">
           {products &&
-                  products.map((product, i) => (<>
-          <Card
-            style={{
-              width: "18rem",
-              height: "25rem",
-            }}
-            class="col"
-          >
-            <Card.Img
-              variant="top"
-              src={product.image&&product.image}
-            />
+            products.map((product, i) => (
+              <>
+                <Card
+                  style={{
+                    width: "18rem",
+                    height: "25rem",
+                  }}
+                  class="col"
+                >
+                  <Card.Img
+                    variant="top"
+                    src={product.image && product.image}
+                  />
 
-            <Card.Body>
-              <Card.Title>{product.productName&&product.productName}</Card.Title>
-              <Card.Text>
-                {product.description&&product.description}
-              </Card.Text>
-              <button
-                type="button"
-                class="btn btn-outline-dark"
-                onClick={() => {
-                  setProductId(product.id)
-                  navigate("/product");
-                }}
-              >
-                Details
-              </button>
-            </Card.Body>
-          </Card></>))}
-          
+                  <Card.Body>
+                    <Card.Title>
+                      {product.productName && product.productName}
+                    </Card.Title>
+                    <Card.Text>
+                      {product.description && product.description}
+                    </Card.Text>
+                    <button
+                      type="button"
+                      class="btn btn-outline-dark"
+                      onClick={() => {
+                        setProductId(product.id);
+                       
+                        setId(product.id)
+                          setHome(false);
+                          setDetails(true);
+                       
+                      }}
+                    >
+                      Details
+                    </button>
+                  </Card.Body>
+                </Card>
+              </>
+            ))}
         </Container>
+      ) : details ? (
+        <Product id={id} />
       ) : (
-        <Container>
-          <Profile />
-        </Container>
+        <Profile />
       )}
       {home ? (
         <Container className="d-flex flex-row justify-content-center mt-3">
           <nav aria-label="Page navigation example">
             <ul class="pagination">
-              <li class="page-item page-link" onClick={() => {
-                page > 1
-                  ? setPage((page) => page - 1)
-                  : setPage((page) => Math.ceil(numperOfProducts / 8));
-              }}>
-                
-                  <span aria-hidden="true">&laquo;</span>
-                
-              </li>
               <li
                 class="page-item page-link"
-                
+                onClick={() => {
+                  page > 1
+                    ? setPage((page) => page - 1)
+                    : setPage((page) => Math.ceil(numperOfProducts / 8));
+                }}
               >
-                {page}
+                <span aria-hidden="true">&laquo;</span>
               </li>
-              
-              <li class="page-item page-link" onClick={() => {
-                page * 8 < numperOfProducts
-                  ? setPage((page) => page + 1)
-                  : setPage(1);
-              }}>
-                
-                  <span aria-hidden="true">&raquo;</span>
-                
+              <li class="page-item page-link">{page}</li>
+
+              <li
+                class="page-item page-link"
+                onClick={() => {
+                  page * 8 < numperOfProducts
+                    ? setPage((page) => page + 1)
+                    : setPage(1);
+                }}
+              >
+                <span aria-hidden="true">&raquo;</span>
               </li>
             </ul>
           </nav>
