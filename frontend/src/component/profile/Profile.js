@@ -13,7 +13,7 @@ import "./profile.css";
 
 export default function Profile({ userInfo }) {
   const [ads, setAds] = useState(false);
-  const [add, setAdd] = useState(false);
+  const [add, setAdd] = useState(true);
 console.log(userInfo);
   return (
   <>

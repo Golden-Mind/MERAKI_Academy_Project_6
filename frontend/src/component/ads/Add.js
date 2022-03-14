@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { Button, Form, Container } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import Cloudinary from "../Cloudinary/Cloudinary"
+import { MdOutlineAddAPhoto } from "react-icons/md";
 
 export default function Add() {
   const [productName, setProductName] = useState("");
@@ -13,6 +13,10 @@ export default function Add() {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [image, setImage] = useState("");
   const [address, setAddress] = useState("");
+  const [url, setUrl] = useState("");
+  const [show, setShow] = useState(false);
+  const [message, setMessage] = useState("");
+
 
   const state = useSelector((state) => {
     return {
@@ -20,13 +24,29 @@ export default function Add() {
     };
   });
 
+  const uploadImage = () => {
+    const data = new FormData();
+    data.append("file", image);
+    data.append("upload_preset", "images");
+    data.append("cloud_name", "ds20iwzcn");
+    fetch("  https://api.cloudinary.com/v1_1/ds20iwzcn/image/upload", {
+      method: "post",
+      body: data,
+    })
+      .then((resp) => resp.json())
+      .then((data) => {
+        setUrl(data.url);
+      })
+      .catch((err) => console.log(err));
+  };
+
   const addProduct = (e) => {
     e.preventDefault();
     axios
       .post(
         "http://localhost:5000/products/",
         {
-          image,
+          image: url,
           productName,
           description,
           price,
@@ -49,6 +69,7 @@ export default function Add() {
         setForr("");
         setPhoneNumber("");
         setAddress("");
+        setMessage("")
         console.log(result);
       })
       .catch((err) => {
@@ -58,8 +79,11 @@ export default function Add() {
 
   return (
     <>
-      <Container>
-        <Form className="w-50 mt-5" style={{ marginBottom: "8vh" }}>
+      <Container className="d-flex flex-row">
+        <Form
+          className="w-50 mt-5"
+          style={{ marginBottom: "8vh" }}
+        >
           <fieldset>
             <Form.Group className="mb-3">
               <Form.Label
@@ -95,7 +119,7 @@ export default function Add() {
                 id="disabledTextInput"
                 placeholder="Category"
                 onChange={(e) => {
-                  setForr(e.target.value);
+                  setType(e.target.value);
                 }}
               />
             </Form.Group>
@@ -104,7 +128,7 @@ export default function Add() {
               <Form.Select
                 id="disabledSelect"
                 onChange={(e) => {
-                  setType(e.target.value);
+                  setForr(e.target.value);
                 }}
               >
                 <option>Sell</option>
@@ -131,15 +155,54 @@ export default function Add() {
                 }}
               />
             </Form.Group>
-            <button
+            <Button
               // type="submit"
               onClick={addProduct}
             >
               Submit
-            </button>
+            </Button>
           </fieldset>
         </Form>
-        <Cloudinary/>
+        <div>
+          <div className="AddContainer">
+            <img
+            style={{width: "18vw", height: "30vh", marginTop: "20vh", marginLeft: "10vw"}}
+              className="addImg"
+              onClick={() => {
+                setShow(true);
+              }}
+              src={
+                url
+                  ? url
+                  : "https://cdn-icons-png.flaticon.com/128/1466/1466342.png"
+              }
+            ></img>
+          </div>
+          <div style={{disply: "flex", justifyContent: "center", width: "18vw", height: "30vh", marginTop: "10vh", marginLeft: "10vw"}}>
+            {show ? (
+              <div className="divChoose">
+                <input
+                  className="typeFile"
+                  type="file"
+                  onChange={(e) => setImage(e.target.files[0])}
+                ></input>
+                <button
+                  onClick={uploadImage}
+                  style={{
+                    marginTop: "5vh",
+                    backgroundColor: "white",
+                    border: "solid 1px",
+                    width: "10vw"
+                  }}
+                >
+                  Upload
+                </button>
+              </div>
+            ) : (
+              <></>
+            )}
+          </div>
+        </div>
       </Container>
     </>
   );

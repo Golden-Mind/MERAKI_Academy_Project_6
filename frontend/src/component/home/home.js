@@ -289,9 +289,7 @@ export default function Home({ setProductId, userInfo }) {
             ))}
         </Container>
       ) : (
-        <Container>
-          <Profile userInfo={userInfo} />
-        </Container>
+          <Profile userInfo={userInfo}/>
       )}
       {home ? (
         <Container className="d-flex flex-row  mt-3">
