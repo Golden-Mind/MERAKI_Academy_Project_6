@@ -246,11 +246,12 @@ export default function Home({ setProductId, userInfo }) {
         </Container>
       ) : details ? (
         <Product id={id} />
-      ) : searchStatus ? <Container className="d-flex flex-row flex-wrap justify-content-center gap-4 mt-4">{
-        search &&
-        search.map((product) => (
-          <>
-        <Card
+      ) : searchStatus ? (
+        <Container className="d-flex flex-row flex-wrap justify-content-center gap-4 mt-4">
+          {search &&
+            search.map((product) => (
+              <>
+                <Card
                   style={{
                     width: "18rem",
                     height: "25rem",
@@ -284,10 +285,11 @@ export default function Home({ setProductId, userInfo }) {
                     </button>
                   </Card.Body>
                 </Card>
-          </>))}</Container>
-          
-      : (
-         <Container>
+              </>
+            ))}
+        </Container>
+      ) : (
+        <Container>
           <Profile userInfo={userInfo} />
         </Container>
       )}
