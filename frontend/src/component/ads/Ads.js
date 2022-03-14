@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react'
 import { useNavigate } from 'react-router-dom';
 import { Button, Col, Row,Card,Nav, Container,Image,Form,Navbar,NavDropdown,FormControl } from "react-bootstrap";
-import { Demo } from './Demo';
+// import { Demo } from './Demo';
 
 
 export default function Ads() {
@@ -39,7 +39,7 @@ export default function Ads() {
                   <Button variant="primary">Go somewhere</Button>
                 </Card.Body>
               </Card>
-              <Demo/>
+             
               </Container>
     </>
   )
