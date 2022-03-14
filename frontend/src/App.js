@@ -21,7 +21,7 @@ const [productId, setProductId] = useState();
         <Route path="/login" element={<Login setUserInfo={setUserInfo} userInfo={userInfo} />} />
         <Route path="/register" element={<Register />} />
         <Route path="/" element={<Hero />} />
-        <Route path="/home" element={<Home setProductId={setProductId}/>} />
+        <Route path="/home" element={<Home setProductId={setProductId} userInfo={userInfo}/>} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/fav" element={<Favoraite userInfo={userInfo} />} />
         <Route path="/product" element={<Product productId={productId}/>} />

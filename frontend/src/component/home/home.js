@@ -17,7 +17,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Product from "../Product/Product";
 import axios from "axios";
 
-export default function Home({ setProductId }) {
+export default function Home({setProductId , userInfo}) {
   const [home, setHome] = useState(true);
   const [profile, setProfile] = useState(false);
   const [page, setPage] = useState(1);
@@ -227,7 +227,9 @@ const[id,setId]=useState()
       ) : details ? (
         <Product id={id} />
       ) : (
-        <Profile />
+        <Container>
+          <Profile userInfo={userInfo}/>
+        </Container>
       )}
       {home ? (
         <Container className="d-flex flex-row justify-content-center mt-3">

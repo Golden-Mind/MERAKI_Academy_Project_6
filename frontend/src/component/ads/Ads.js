@@ -2,10 +2,11 @@ import React,{useState,useEffect} from 'react'
 import { useNavigate } from 'react-router-dom';
 import { Button, Col, Row,Card,Nav, Container,Image,Form,Navbar,NavDropdown,FormControl } from "react-bootstrap";
 // import { Demo } from './Demo';
+import axios from "axios";
 
-
-export default function Ads() {
+export default function Ads({ userInfo }) {
   const [position, setPosition] = useState(0);
+  const [yourAdd , setYourAdd] = useState();
   console.log(position);
   useEffect(()=>{
     navigator.geolocation.getCurrentPosition(function(position) {
@@ -14,8 +15,23 @@ export default function Ads() {
     });
     
   },[])
+  useEffect(()=>{
+    axios
+        .post(`http://localhost:5000/products/your-add/${userInfo.userId}`)
+        .then((res) => {
+          setYourAdd(res.data.result);
+          console.log(yourAdd);
+        })
+        .catch((err) => {});
+  },[])
+
   return (
-    <><Container className='m-l-5'>
+    <>
+    {yourAdd &&
+    yourAdd.map((add) => {
+      return(
+      <>
+    <Container className='m-l-5'>
      <Card
                 style={{
                   width: "18rem",
@@ -27,20 +43,25 @@ export default function Ads() {
               >
                 <Card.Img
                   variant="top"
-                  src="https://images.autodaily.com.au/2022/02/bmw_3_series_facelift_m_performance_5.jpg"
+                  src={add.image && add.image}
                 />
 
                 <Card.Body>
-                  <Card.Title>Card Title</Card.Title>
+                  <Card.Title>{add.productName && add.productName}</Card.Title>
                   <Card.Text>
-                    Some quick example text to build on the card title and make
-                    up the bulk of the card's content.
+                  {add.description && add.description}
                   </Card.Text>
                   <Button variant="primary">Go somewhere</Button>
                 </Card.Body>
               </Card>
              
               </Container>
+      </>
+
+      )
+
+    })
+    }
     </>
   )
 }
