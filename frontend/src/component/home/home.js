@@ -26,6 +26,7 @@ export default function Home({ setProductId, userInfo }) {
   const [details, setDetails] = useState(false);
   const [id, setId] = useState();
   const [search, setSearch] = useState();
+  const [searchStatus, setSearchStatus] = useState(false);
   console.log(numperOfProducts);
   const navigate = useNavigate();
 
@@ -173,10 +174,21 @@ export default function Home({ setProductId, userInfo }) {
             <Form className="d-flex">
               <FormControl
                 onChange={(e) => {
-                  axios.get(`http://localhost:5000/products/search_1?name=${e.target.value}`).then((res)=>{
-                    console.log(res.data.result);
-                    setSearch(res.data.result)
-                  }).catch((err)=>{console.log(err);})
+                  axios
+                    .get(
+                      `http://localhost:5000/products/search_1?name=${e.target.value}`
+                    )
+                    .then((res) => {
+                      console.log(res.data.result);
+                      setSearch(res.data.result);
+                      setSearchStatus(true);
+                      setHome(false);
+                      setProfile(false);
+                      setDetails(false);
+                    })
+                    .catch((err) => {
+                      console.log(err);
+                    });
                   console.log(e.target.value);
                 }}
                 type="search"
@@ -234,13 +246,53 @@ export default function Home({ setProductId, userInfo }) {
         </Container>
       ) : details ? (
         <Product id={id} />
-      ) : (
-        <Container>
+      ) : searchStatus ? <Container className="d-flex flex-row flex-wrap justify-content-center gap-4 mt-4">{
+        search &&
+        search.map((product) => (
+          <>
+        <Card
+                  style={{
+                    width: "18rem",
+                    height: "25rem",
+                  }}
+                  class="col"
+                >
+                  <Card.Img
+                    variant="top"
+                    src={product.image && product.image}
+                  />
+
+                  <Card.Body>
+                    <Card.Title>
+                      {product.productName && product.productName}
+                    </Card.Title>
+                    <Card.Text>
+                      {product.description && product.description}
+                    </Card.Text>
+                    <button
+                      type="button"
+                      class="btn btn-outline-dark"
+                      onClick={() => {
+                        setProductId(product.id);
+
+                        setId(product.id);
+                        setHome(false);
+                        setDetails(true);
+                      }}
+                    >
+                      Details
+                    </button>
+                  </Card.Body>
+                </Card>
+          </>))}</Container>
+          
+      : (
+         <Container>
           <Profile userInfo={userInfo} />
         </Container>
       )}
       {home ? (
-        <Container className="d-flex flex-row justify-content-center mt-3">
+        <Container className="d-flex flex-row  mt-3">
           <nav aria-label="Page navigation example">
             <ul class="pagination">
               <li
