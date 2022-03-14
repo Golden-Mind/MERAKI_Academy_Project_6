@@ -1,33 +1,47 @@
-import React from "react";
+import axios from "axios";
+import React, { useState, useEffect } from "react";
 import { Card, Container, ListGroup, ListGroupItem } from "react-bootstrap";
 
-function Product() {
+function Product({ productId }) {
+  const [product, setProduct] = useState();
+  console.log(productId);
+  useEffect(() => {
+    axios
+      .get(
+        `http://localhost:5000/products/product-by/${productId}`
+      )
+      .then((res) => {
+        setProduct(res.data.result[0]);
+        console.log(res.data.result[0]);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [productId]);
   return (
-    <>
+    <>{product?(
       <Container className="d-flex flex-row mt-5">
         <Card style={{ width: "30rem" }}>
-          <Card.Img
-            variant="top"
-            src="https://images.autodaily.com.au/2022/02/bmw_3_series_facelift_m_performance_5.jpg"
-          />
+          <Card.Img variant="top" src={product.image && product.image} />
         </Card>
         <Card>
-          <Card.Title style={{marginLeft: "1vw"}}>Card Title</Card.Title>
-          <Card.Text style={{marginLeft: "1vw"}}>
-            Some quick example text to build on the card title and make up the
-            bulk of the card's content.
+          <Card.Title style={{ marginLeft: "1vw" }}>
+            {product.productName && product.productName}
+          </Card.Title>
+          <Card.Text style={{ marginLeft: "1vw" }}>
+           {product.description&&product.description}
           </Card.Text>
           <ListGroup className="list-group-flush">
-            <ListGroupItem>Cras justo odio</ListGroupItem>
-            <ListGroupItem>Dapibus ac facilisis in</ListGroupItem>
-            <ListGroupItem>Vestibulum at eros</ListGroupItem>
+            <ListGroupItem>{product.price&&product.price}</ListGroupItem>
+            <ListGroupItem>{product.forr&&product.forr}</ListGroupItem>
+            <ListGroupItem>{product.type&&product.type}</ListGroupItem>
           </ListGroup>
           <Card.Body>
             <Card.Link href="#">Card Link</Card.Link>
             <Card.Link href="#">Another Link</Card.Link>
           </Card.Body>
         </Card>
-      </Container>
+      </Container>):<></>}
     </>
   );
 }
