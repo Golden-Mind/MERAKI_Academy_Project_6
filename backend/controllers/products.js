@@ -192,7 +192,7 @@ const addAdds = (req,res) => {
 // get id by product 
 const getProductById = (req,res) => {
   const productId = req.params.id;
-  const query = `SELECT * FROM products WHERE id=? AND AND is_deleted=?`;
+  const query = `SELECT * FROM products WHERE id=?  AND is_deleted=?`;
   const data = [productId,0];
   connection.query(query,data,(err,results) => {
     if(err){
