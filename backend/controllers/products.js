@@ -3,13 +3,14 @@ const connection = require("../database/db");
 //create new products
 
 const createNewProduct = (req, res) => {
-  const { image, productName, description, price, type } = req.body;
+  const { image, productName, description, price, type ,forr, phoneNumber ,address} = req.body;
 // const date=CURRENT_DATE();
-  const query = `INSERT INTO products (image,productName,description,price,type,date) VALUES (?,?,?,?,?,CURRENT_DATE())`;
-  const data = [image, productName, description, price, type];
-
+const userId = req.token.userId;
+console.log(userId);
+  const query = `INSERT INTO products (image,productName,description,price,type,forr,phoneNumber,address,user_id,date) VALUES (?,?,?,?,?,?,?,?,?,CURRENT_DATE())`;
+  const data = [image, productName, description, price, type, forr, phoneNumber , address,userId];
   connection.query(query, data, (err, results) => {
-    if (err) {
+    if (err) {throw err
       res.status(500).json({
         success: false,
         message: "Server error",
@@ -173,6 +174,37 @@ const getProductGroubedBy = (req,res) => {
     res.status(200).json({ success: true, message: ` all type`, result: results });
   });
 };
+// add adds
+const addAdds = (req,res) => {
+  const userId = req.params.id;
+  const query = `SELECT * FROM products WHERE id = ? AND is_deleted=?`;
+  const data = [userId,0];
+  connection.query(query,data,(err,results) => {  
+    if(err){
+      res.status(500).json({
+        success: false,
+        message: "server error",
+      });
+    }
+    res.status(200).json({ success: true, message: ` your add `, result: results });
+  })
+}
+// get id by product 
+const getProductById = (req,res) => {
+  const productId = req.params.id;
+  const query = `SELECT * FROM products WHERE id=? AND AND is_deleted=?`;
+  const data = [productId,0];
+  connection.query(query,data,(err,results) => {
+    if(err){
+      res.status(500).json({
+        success: false,
+        message: "server error",
+      });
+    }
+    res.status(200).json({ success: true, message: `get product by id `, result: results });
+  })
+}
+
 module.exports = {
     createNewProduct,
     getAllProducts,
@@ -182,6 +214,8 @@ module.exports = {
     getProductByName,
     getProductsByType,
     getAllCategory,
-    getProductGroubedBy
+    getProductGroubedBy,
+    addAdds,
+    getProductById
   };
   
