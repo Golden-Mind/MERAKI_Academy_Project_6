@@ -17,18 +17,21 @@ import { useDispatch, useSelector } from "react-redux";
 import Product from "../Product/Product";
 import axios from "axios";
 
-export default function Home({setProductId , userInfo}) {
+export default function Home({ setProductId, userInfo }) {
   const [home, setHome] = useState(true);
   const [profile, setProfile] = useState(false);
   const [page, setPage] = useState(1);
   const [numperOfProducts, setNumperOfProducts] = useState();
   const [products, setProducts] = useState();
   const [details, setDetails] = useState(false);
-const[id,setId]=useState()
+  const [id, setId] = useState();
+  const [search, setSearch] = useState();
+  const [searchStatus, setSearchStatus] = useState(false);
   console.log(numperOfProducts);
   const navigate = useNavigate();
 
   console.log(page);
+  console.log(search);
 
   const [category, setCategory] = useState();
   console.log(category);
@@ -116,7 +119,7 @@ const[id,setId]=useState()
               <Nav.Link
                 onClick={() => {
                   setHome(true);
-                  setDetails(false)
+                  setDetails(false);
                 }}
                 style={{ color: "white" }}
               >
@@ -136,14 +139,13 @@ const[id,setId]=useState()
                 title="Category"
                 id="navbarScrollingDropdown"
                 onClick={(e) => {
-                  
-                  console.log(e.target.innerText)
+                  console.log(e.target.innerText);
                   setCategory(e.target.value);
                 }}
                 style={{ backgroundColor: "#13B2A7", color: "white" }}
               >
                 <NavDropdown.Item>Car</NavDropdown.Item>
-                <NavDropdown.Item >Home</NavDropdown.Item>
+                <NavDropdown.Item>Home</NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item href="#action5">
                   Something else here
@@ -171,6 +173,24 @@ const[id,setId]=useState()
             </Nav>
             <Form className="d-flex">
               <FormControl
+                onChange={(e) => {
+                  axios
+                    .get(
+                      `http://localhost:5000/products/search_1?name=${e.target.value}`
+                    )
+                    .then((res) => {
+                      console.log(res.data.result);
+                      setSearch(res.data.result);
+                      setSearchStatus(true);
+                      setHome(false);
+                      setProfile(false);
+                      setDetails(false);
+                    })
+                    .catch((err) => {
+                      console.log(err);
+                    });
+                  console.log(e.target.value);
+                }}
                 type="search"
                 placeholder="Search"
                 className="me-2"
@@ -211,11 +231,10 @@ const[id,setId]=useState()
                       class="btn btn-outline-dark"
                       onClick={() => {
                         setProductId(product.id);
-                       
-                        setId(product.id)
-                          setHome(false);
-                          setDetails(true);
-                       
+
+                        setId(product.id);
+                        setHome(false);
+                        setDetails(true);
                       }}
                     >
                       Details
@@ -227,13 +246,55 @@ const[id,setId]=useState()
         </Container>
       ) : details ? (
         <Product id={id} />
+      ) : searchStatus ? (
+        <Container className="d-flex flex-row flex-wrap justify-content-center gap-4 mt-4">
+          {search &&
+            search.map((product) => (
+              <>
+                <Card
+                  style={{
+                    width: "18rem",
+                    height: "25rem",
+                  }}
+                  class="col"
+                >
+                  <Card.Img
+                    variant="top"
+                    src={product.image && product.image}
+                  />
+
+                  <Card.Body>
+                    <Card.Title>
+                      {product.productName && product.productName}
+                    </Card.Title>
+                    <Card.Text>
+                      {product.description && product.description}
+                    </Card.Text>
+                    <button
+                      type="button"
+                      class="btn btn-outline-dark"
+                      onClick={() => {
+                        setProductId(product.id);
+
+                        setId(product.id);
+                        setHome(false);
+                        setDetails(true);
+                      }}
+                    >
+                      Details
+                    </button>
+                  </Card.Body>
+                </Card>
+              </>
+            ))}
+        </Container>
       ) : (
         <Container>
-          <Profile userInfo={userInfo}/>
+          <Profile userInfo={userInfo} />
         </Container>
       )}
       {home ? (
-        <Container className="d-flex flex-row justify-content-center mt-3">
+        <Container className="d-flex flex-row  mt-3">
           <nav aria-label="Page navigation example">
             <ul class="pagination">
               <li
