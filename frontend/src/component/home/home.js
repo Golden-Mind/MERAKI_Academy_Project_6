@@ -16,7 +16,7 @@ import { logout } from "../../reducer/login/index";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 
-export default function Home({setProductId}) {
+export default function Home({setProductId , userInfo}) {
   const [home, setHome] = useState(true);
   const [profile, setProfile] = useState(false);
   const [page, setPage] = useState(1);
@@ -216,7 +216,7 @@ console.log(category);
         </Container>
       ) : (
         <Container>
-          <Profile />
+          <Profile userInfo={userInfo}/>
         </Container>
       )}
       {home ? (
