@@ -135,14 +135,15 @@ const[id,setId]=useState()
               <NavDropdown
                 title="Category"
                 id="navbarScrollingDropdown"
-                onChange={(e) => {
-                  console.log(e);
+                onClick={(e) => {
+                  
+                  console.log(e.target.innerText)
                   setCategory(e.target.value);
                 }}
                 style={{ backgroundColor: "#13B2A7", color: "white" }}
               >
-                <NavDropdown.Item href="#action3">Car</NavDropdown.Item>
-                <NavDropdown.Item href="#action4">Home</NavDropdown.Item>
+                <NavDropdown.Item>Car</NavDropdown.Item>
+                <NavDropdown.Item >Home</NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item href="#action5">
                   Something else here
