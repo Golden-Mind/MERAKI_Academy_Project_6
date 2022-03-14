@@ -11,10 +11,10 @@ import Add from "../ads/Add";
 import "./profile.css";
 
 
-export default function Profile() {
+export default function Profile({ userInfo }) {
   const [ads, setAds] = useState(false);
   const [add, setAdd] = useState(false);
-
+console.log(userInfo);
   return (
   <>
   <div style={{display: "flex", flexDirection: "row", gap: "5vw"}}>
@@ -41,7 +41,7 @@ export default function Profile() {
         <Nav.Link className="NavLink"><MdOutlineFavoriteBorder style={{marginRight: "0.5vw", marginTop:"-1vh"}}/>Favorite</Nav.Link>
         {/* <Nav.Link className="NavLink">Disabled</Nav.Link> */}
       </Nav>
-      {ads ? <Ads /> : add ? <Add /> : <></>}
+      {ads ? <Ads userInfo={userInfo}/> : add ? <Add /> : <></>}
     {/* </Container> */}
     </div>
     </>
