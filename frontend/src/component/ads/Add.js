@@ -1,28 +1,59 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { Button, Form, Container } from "react-bootstrap";
+import { useSelector } from "react-redux";
+import Cloudinary from "../Cloudinary/Cloudinary"
 
 export default function Add() {
-  const [nameProduct, setNameProduct] = useState("");
+  const [productName, setProductName] = useState("");
   const [description, setDescription] = useState("");
-  const [category, setCategory] = useState("");
+  const [forr, setForr] = useState("");
   const [type, setType] = useState("");
   const [price, setPrice] = useState(0);
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [image, setImage] = useState("");
+  const [address, setAddress] = useState("");
 
-  const addProduct = () => {
+  const state = useSelector((state) => {
+    return {
+      token: state.loginReducer.token,
+    };
+  });
+
+  const addProduct = (e) => {
+    e.preventDefault();
     axios
-      .post("/products/", {
-        
-        nameProduct,
-        description,
-        type,
-        price,
-      })
+      .post(
+        "http://localhost:5000/products/",
+        {
+          image,
+          productName,
+          description,
+          price,
+          type,
+          forr,
+          phoneNumber,
+          address,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${state.token}`,
+          },
+        }
+      )
       .then((result) => {
+        setProductName("");
+        setDescription("");
+        setPrice();
+        setType("");
+        setForr("");
+        setPhoneNumber("");
+        setAddress("");
         console.log(result);
       })
-      .catch((err) => {});
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -44,7 +75,7 @@ export default function Add() {
                 id="disabledTextInput"
                 placeholder="Product Name"
                 onChange={(e) => {
-                  setNameProduct(e.target.value);
+                  setProductName(e.target.value);
                 }}
               />
             </Form.Group>
@@ -64,7 +95,7 @@ export default function Add() {
                 id="disabledTextInput"
                 placeholder="Category"
                 onChange={(e) => {
-                  setCategory(e.target.value);
+                  setForr(e.target.value);
                 }}
               />
             </Form.Group>
@@ -102,14 +133,13 @@ export default function Add() {
             </Form.Group>
             <button
               // type="submit"
-              onClick={() => {
-                addProduct();
-              }}
+              onClick={addProduct}
             >
               Submit
             </button>
           </fieldset>
         </Form>
+        <Cloudinary/>
       </Container>
     </>
   );

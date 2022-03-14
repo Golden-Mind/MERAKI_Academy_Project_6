@@ -2,13 +2,13 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { Card, Container, ListGroup, ListGroupItem } from "react-bootstrap";
 
-function Product({ productId }) {
+function Product({ productId,id }) {
   const [product, setProduct] = useState();
   console.log(productId);
   useEffect(() => {
     axios
       .get(
-        `http://localhost:5000/products/product-by/${productId}`
+        `http://localhost:5000/products/product-by/${id}`
       )
       .then((res) => {
         setProduct(res.data.result[0]);

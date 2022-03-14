@@ -3,12 +3,12 @@
   flex-direction: column;
   gap: 3vh;
   /* margin-top: 8vh; */
-  padding-top: 8vh;
+  padding-top: 20vh;
   background-color: #13b2a7;
   /* border-right: solid 1px #0e5a55; */
   /* border-top: solid 1px #0e5a55; */
   box-shadow: 0 0 10px #0e5a55;
-  width: 15vw;
+  width: 18vw;
   font-size: 1.3rem;
   /* padding-left: 1vw; */
   padding-bottom: 10vh;
@@ -29,7 +29,7 @@
 
 @media (max-width: 800px) {
   .Nav {
-    font-size: 0.6rem;
-    padding-left: 0.1vw;
+    font-size: 0.8rem;
+    /* padding-left: 0.1vw; */
   }
 }
