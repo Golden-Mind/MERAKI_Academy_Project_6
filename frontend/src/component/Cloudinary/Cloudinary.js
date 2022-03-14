@@ -83,6 +83,7 @@ const Cloudinary = ({ setCloudinary }) => {
             <></>
           )}
         </div>
+        {/* //======================================= */}
         <div className="divInput">
           <div className="addName">
             <label>Name :</label>
