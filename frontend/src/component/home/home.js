@@ -30,8 +30,6 @@ export default function Home({ setProductId, userInfo }) {
   console.log(numperOfProducts);
   const navigate = useNavigate();
 
-  console.log(page);
-  console.log(search);
 
   const [category, setCategory] = useState();
   console.log(category);
@@ -52,7 +50,9 @@ export default function Home({ setProductId, userInfo }) {
       isLoggedIn: state.loginReducer.isLoggedIn,
     };
   });
-
+useEffect(()=>{
+getAllProductsCategory()
+},[category])
   //=====================================
   useEffect(() => {
     const getAllProducts = () => {
@@ -140,7 +140,7 @@ export default function Home({ setProductId, userInfo }) {
                 id="navbarScrollingDropdown"
                 onClick={(e) => {
                   console.log(e.target.innerText);
-                  setCategory(e.target.value);
+                  setCategory(e.target.innerText);
                 }}
                 style={{ backgroundColor: "#13B2A7", color: "white" }}
               >
