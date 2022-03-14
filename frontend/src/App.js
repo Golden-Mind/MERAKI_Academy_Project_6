@@ -13,7 +13,7 @@ import { useState } from "react";
 
 function App() {
   const [userInfo, setUserInfo] = useState({});
-
+const [productId, setProductId] = useState();
   return (
     <div className="App">
       {/* <Navigation /> */}
@@ -21,10 +21,10 @@ function App() {
         <Route path="/login" element={<Login setUserInfo={setUserInfo} userInfo={userInfo} />} />
         <Route path="/register" element={<Register />} />
         <Route path="/" element={<Hero />} />
-        <Route path="/home" element={<Home />} />
+        <Route path="/home" element={<Home setProductId={setProductId}/>} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/fav" element={<Favoraite userInfo={userInfo} />} />
-        <Route path="/product" element={<Product />} />
+        <Route path="/product" element={<Product productId={productId}/>} />
       </Routes>
     </div>
   );
