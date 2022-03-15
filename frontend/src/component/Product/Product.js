@@ -1,8 +1,9 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { Card, Container, ListGroup, ListGroupItem } from "react-bootstrap";
+import WhatsUp from "./Whatsup";
 
-function Product({ productId, id }) {
+function Product({ productId, id ,userInfo}) {
   const [product, setProduct] = useState();
   console.log(productId);
   useEffect(() => {
@@ -36,7 +37,7 @@ function Product({ productId, id }) {
               <ListGroupItem>{product.type && product.type}</ListGroupItem>
             </ListGroup>
             <Card.Body>
-              <Card.Link href="#">Card Link</Card.Link>
+              <Card.Link ><WhatsUp product={product} userInfo={userInfo}/></Card.Link>
               <Card.Link href="#">Another Link</Card.Link>
             </Card.Body>
           </Card>
