@@ -11,7 +11,7 @@ const {
   getProductsByType,
   getAllCategory,
   getProductGroubedBy,
-  addAdds,
+  getAdds,
   getProductById
 } = require("../controllers/products");
 const authentication = require("../middleware/authentication");
@@ -24,6 +24,6 @@ productsRouter.get("/search_1", getProductByName);
 productsRouter.get("/search_2", getProductsByType);
 productsRouter.get("/search_3", getAllCategory);
 productsRouter.get("/group",getProductGroubedBy);
-productsRouter.get("/your-add/:id",addAdds);
+productsRouter.get("/your-add/:id",getAdds);
 productsRouter.get("/product-by/:id",getProductById);
 module.exports = productsRouter;

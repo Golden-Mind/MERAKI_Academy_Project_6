@@ -180,7 +180,7 @@ const getProductGroubedBy = (req,res) => {
   });
 };
 // add adds // get adds
-const addAdds = (req,res) => {
+const getAdds = (req,res) => {
   const userId = req.params.id;
   const query = `SELECT * FROM products WHERE user_id= ? AND is_deleted=?`;
   const data = [userId,0];
@@ -194,6 +194,7 @@ const addAdds = (req,res) => {
     res.status(200).json({ success: true, message: ` your add `, result: results });
   })
 }
+
 // get id by product 
 const getProductById = (req,res) => {
   const productId = req.params.id;
@@ -220,7 +221,7 @@ module.exports = {
     getProductsByType,
     getAllCategory,
     getProductGroubedBy,
-    addAdds,
+    getAdds,
     getProductById
   };
   

@@ -38,7 +38,7 @@ export default function Ads({ userInfo }) {
       setPosition(position);
     });
   }, []);
-  const addAds = () => {
+  const getAds = () => {
     axios
       .get(`http://localhost:5000/products/your-add/${userInfo.userId}`)
       .then((res) => {
@@ -47,7 +47,7 @@ export default function Ads({ userInfo }) {
       .catch((err) => {});
   };
   useEffect(() => {
-    addAds();
+    getAds();
   }, []);
   // update
   const updateAdd = (id, img) => {
@@ -60,7 +60,7 @@ export default function Ads({ userInfo }) {
         type,
       })
       .then((res) => {
-        addAdds();
+      getAds();
         console.log(res);
       })
       .catch((err) => {});
@@ -70,7 +70,7 @@ export default function Ads({ userInfo }) {
     axios
       .delete(`http://localhost:5000/products/${id}`)
       .then((res) => {
-        addAdds();
+        getAds();
         console.log(res);
       })
       .catch((err) => {});
@@ -95,7 +95,9 @@ export default function Ads({ userInfo }) {
                   <Card.Body>
                     <FiDelete
                       className="edit-add"
-                      onClick={deleteAdd(add.id)}
+                      onClick={() => {
+                        deleteAdd(add.id)
+                      }}
                     />
                     <BiEditAlt onClick={handleShow} className="edit-add" />
                     <Card.Title>
@@ -182,7 +184,7 @@ export default function Ads({ userInfo }) {
                       onClick={() => {
                         updateAdd(add.id, add.image);
                         handleClose();
-                        addAds();
+                        getAds();
                       }}
                     >
                       Update
