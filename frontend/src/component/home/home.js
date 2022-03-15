@@ -18,10 +18,10 @@ import Product from "../Product/Product";
 import axios from "axios";
 
 export default function Home({ setProductId, userInfo }) {
-  const [home, setHome] = useState(true);
   const [profile, setProfile] = useState(false);
   const [page, setPage] = useState(1);
   const [numperOfProducts, setNumperOfProducts] = useState();
+  const [home, setHome] = useState(true);
   const [products, setProducts] = useState();
   const [details, setDetails] = useState(false);
   const [id, setId] = useState();
@@ -29,26 +29,27 @@ export default function Home({ setProductId, userInfo }) {
   const [searchStatus, setSearchStatus] = useState(false);
   console.log(numperOfProducts);
   const navigate = useNavigate();
-
-  const [category, setCategory] = useState();
+  console.log(home);
+  const [category, setCategory] = useState("");
   const [categoryStatus, setCategoryStatus] = useState(false);
   console.log(category);
   const dispatch = useDispatch();
   const [categoryOfProduct, setCategoryOfProduct] = useState();
   // of category
   const getAllProductsCategory = () => {
-    if (category !== "Category")
+    if (category !== "Category" && category !== "undefined") {
       axios
         .get(`http://localhost:5000/products/search_2?type=${category}`)
         .then((res) => {
           setCategoryOfProduct(res.data.result);
-          setHome(false);
+
           setProfile(false);
           setDetails(false);
           setCategoryStatus(true);
           console.log(res.data.result);
         })
         .catch((err) => {});
+    }
   };
   const state = useSelector((state) => {
     return {
@@ -126,6 +127,7 @@ export default function Home({ setProductId, userInfo }) {
                   setHome(true);
                   setDetails(false);
                   setCategoryStatus(false);
+                  setProfile(false);
                 }}
                 style={{ color: "white" }}
               >
@@ -148,6 +150,7 @@ export default function Home({ setProductId, userInfo }) {
                 onClick={(e) => {
                   console.log(e.target.innerText);
                   setCategory(e.target.innerText);
+                  setHome(false);
                 }}
                 style={{ backgroundColor: "#13B2A7", color: "white" }}
               >
@@ -181,6 +184,7 @@ export default function Home({ setProductId, userInfo }) {
             <Form className="d-flex">
               <FormControl
                 onChange={(e) => {
+                  e.preventDefault();
                   axios
                     .get(
                       `http://localhost:5000/products/search_1?name=${e.target.value}`
@@ -337,8 +341,10 @@ export default function Home({ setProductId, userInfo }) {
               </>
             ))}
         </Container>
-      ) : (
+      ) : profile ? (
         <Profile userInfo={userInfo} />
+      ) : (
+        <Home />
       )}
       {home ? (
         <Container className="d-flex flex-row  mt-3">
