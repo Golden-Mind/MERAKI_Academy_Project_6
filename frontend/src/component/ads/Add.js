@@ -1,13 +1,13 @@
 import axios from "axios";
-import React, { useState } from "react";
-import { Button, Form, Container } from "react-bootstrap";
+import React, { useState, useEffect } from "react";
+import { Button, Form, Container, Alert } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { MdOutlineAddAPhoto } from "react-icons/md";
 
 export default function Add() {
   const [productName, setProductName] = useState("");
   const [description, setDescription] = useState("");
-  const [forr, setForr] = useState("");
+  const [forr, setForr] = useState("Sell");
   const [type, setType] = useState("");
   const [price, setPrice] = useState(0);
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -16,7 +16,7 @@ export default function Add() {
   const [url, setUrl] = useState("");
   const [show, setShow] = useState(false);
   const [message, setMessage] = useState("");
-
+  const [status, setStatus] = useState(false);
 
   const state = useSelector((state) => {
     return {
@@ -69,21 +69,24 @@ export default function Add() {
         setForr("");
         setPhoneNumber("");
         setAddress("");
-        setMessage("")
+        setStatus(true);
+        setMessage("Successfly Add Ads");
         console.log(result);
       })
       .catch((err) => {
         console.log(err);
       });
   };
+  useEffect(() => {
+    setTimeout(() => {
+      setStatus(false);
+    }, 5000);
+  }, [status]);
 
   return (
     <>
       <Container className="d-flex flex-row">
-        <Form
-          className="w-50 mt-5"
-          style={{ marginBottom: "8vh" }}
-        >
+        <Form className="w-50 mt-5" style={{ marginBottom: "8vh" }}>
           <fieldset>
             <Form.Group className="mb-3">
               <Form.Label
@@ -156,17 +159,31 @@ export default function Add() {
               />
             </Form.Group>
             <Button
+              className="w-100"
               // type="submit"
               onClick={addProduct}
             >
               Submit
             </Button>
+            {status ? (
+              <Alert variant="success" className="errorMessageLogin mb-2 mt-2">
+                {message}
+              </Alert>
+            ) : (
+              <></>
+            )}
           </fieldset>
         </Form>
         <div>
           <div className="AddContainer">
             <img
-            style={{width: "18vw", height: "30vh", marginTop: "20vh", marginLeft: "10vw"}}
+              style={{
+                width: "18vw",
+                height: "30vh",
+                marginTop: "20vh",
+                marginLeft: "10vw",
+                cursor: "pointer",
+              }}
               className="addImg"
               onClick={() => {
                 setShow(true);
@@ -178,7 +195,16 @@ export default function Add() {
               }
             ></img>
           </div>
-          <div style={{disply: "flex", justifyContent: "center", width: "18vw", height: "30vh", marginTop: "10vh", marginLeft: "10vw"}}>
+          <div
+            style={{
+              disply: "flex",
+              justifyContent: "center",
+              width: "18vw",
+              height: "30vh",
+              marginTop: "10vh",
+              marginLeft: "10vw",
+            }}
+          >
             {show ? (
               <div className="divChoose">
                 <input
@@ -192,7 +218,7 @@ export default function Add() {
                     marginTop: "5vh",
                     backgroundColor: "white",
                     border: "solid 1px",
-                    width: "10vw"
+                    width: "10vw",
                   }}
                 >
                   Upload
