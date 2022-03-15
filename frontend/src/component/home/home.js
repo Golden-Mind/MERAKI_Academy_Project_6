@@ -30,19 +30,23 @@ export default function Home({ setProductId, userInfo }) {
   console.log(numperOfProducts);
   const navigate = useNavigate();
 
-  console.log(page);
-  console.log(search);
 
   const [category, setCategory] = useState();
+  const [categoryStatus, setCategoryStatus] = useState(false);
   console.log(category);
   const dispatch = useDispatch();
   const [categoryOfProduct, setCategoryOfProduct] = useState();
   // of category
   const getAllProductsCategory = () => {
+    if(category!=="Category")
     axios
       .get(`http://localhost:5000/products/search_2?type=${category}`)
       .then((res) => {
         setCategoryOfProduct(res.data.result);
+        setHome(false);
+                      setProfile(false);
+                      setDetails(false);
+                      setCategoryStatus(true)
         console.log(res.data.result);
       })
       .catch((err) => {});
@@ -52,7 +56,9 @@ export default function Home({ setProductId, userInfo }) {
       isLoggedIn: state.loginReducer.isLoggedIn,
     };
   });
-
+useEffect(()=>{
+getAllProductsCategory()
+},[category])
   //=====================================
   useEffect(() => {
     const getAllProducts = () => {
@@ -120,6 +126,7 @@ export default function Home({ setProductId, userInfo }) {
                 onClick={() => {
                   setHome(true);
                   setDetails(false);
+                  setCategoryStatus(false)
                 }}
                 style={{ color: "white" }}
               >
@@ -131,6 +138,7 @@ export default function Home({ setProductId, userInfo }) {
                   setProfile(true);
                   setHome(false);
                   setDetails(false);
+                  setCategoryStatus(false)
                 }}
               >
                 Profile
@@ -140,7 +148,7 @@ export default function Home({ setProductId, userInfo }) {
                 id="navbarScrollingDropdown"
                 onClick={(e) => {
                   console.log(e.target.innerText);
-                  setCategory(e.target.value);
+                  setCategory(e.target.innerText);
                 }}
                 style={{ backgroundColor: "#13B2A7", color: "white" }}
               >
@@ -288,7 +296,49 @@ export default function Home({ setProductId, userInfo }) {
               </>
             ))}
         </Container>
-      ) : (
+      ) :categoryStatus?<Container className="d-flex flex-row flex-wrap justify-content-center gap-4 mt-4">
+        {categoryOfProduct&&categoryOfProduct.map((product)=>
+        (
+          <>
+            <Card
+              style={{
+                width: "18rem",
+                height: "25rem",
+              }}
+              class="col"
+            >
+              <Card.Img
+                variant="top"
+                src={product.image && product.image}
+              />
+
+              <Card.Body>
+                <Card.Title>
+                  {product.productName && product.productName}
+                </Card.Title>
+                <Card.Text>
+                  {product.description && product.description}
+                </Card.Text>
+                <button
+                  type="button"
+                  class="btn btn-outline-dark"
+                  onClick={() => {
+                    setProductId(product.id);
+
+                    setId(product.id);
+                    setHome(false);
+                    setDetails(true);
+                  }}
+                >
+                  Details
+                </button>
+              </Card.Body>
+            </Card>
+          </>
+        )
+        )}
+
+      </Container> :(
           <Profile userInfo={userInfo}/>
       )}
       {home ? (
