@@ -30,7 +30,6 @@ export default function Home({ setProductId, userInfo }) {
   console.log(numperOfProducts);
   const navigate = useNavigate();
 
-
   const [category, setCategory] = useState();
   const [categoryStatus, setCategoryStatus] = useState(false);
   console.log(category);
@@ -38,27 +37,27 @@ export default function Home({ setProductId, userInfo }) {
   const [categoryOfProduct, setCategoryOfProduct] = useState();
   // of category
   const getAllProductsCategory = () => {
-    if(category!=="Category")
-    axios
-      .get(`http://localhost:5000/products/search_2?type=${category}`)
-      .then((res) => {
-        setCategoryOfProduct(res.data.result);
-        setHome(false);
-                      setProfile(false);
-                      setDetails(false);
-                      setCategoryStatus(true)
-        console.log(res.data.result);
-      })
-      .catch((err) => {});
+    if (category !== "Category")
+      axios
+        .get(`http://localhost:5000/products/search_2?type=${category}`)
+        .then((res) => {
+          setCategoryOfProduct(res.data.result);
+          setHome(false);
+          setProfile(false);
+          setDetails(false);
+          setCategoryStatus(true);
+          console.log(res.data.result);
+        })
+        .catch((err) => {});
   };
   const state = useSelector((state) => {
     return {
       isLoggedIn: state.loginReducer.isLoggedIn,
     };
   });
-useEffect(()=>{
-getAllProductsCategory()
-},[category])
+  useEffect(() => {
+    getAllProductsCategory();
+  }, [category]);
   //=====================================
   useEffect(() => {
     const getAllProducts = () => {
@@ -126,7 +125,7 @@ getAllProductsCategory()
                 onClick={() => {
                   setHome(true);
                   setDetails(false);
-                  setCategoryStatus(false)
+                  setCategoryStatus(false);
                 }}
                 style={{ color: "white" }}
               >
@@ -138,7 +137,7 @@ getAllProductsCategory()
                   setProfile(true);
                   setHome(false);
                   setDetails(false);
-                  setCategoryStatus(false)
+                  setCategoryStatus(false);
                 }}
               >
                 Profile
@@ -296,50 +295,50 @@ getAllProductsCategory()
               </>
             ))}
         </Container>
-      ) :categoryStatus?<Container className="d-flex flex-row flex-wrap justify-content-center gap-4 mt-4">
-        {categoryOfProduct&&categoryOfProduct.map((product)=>
-        (
-          <>
-            <Card
-              style={{
-                width: "18rem",
-                height: "25rem",
-              }}
-              class="col"
-            >
-              <Card.Img
-                variant="top"
-                src={product.image && product.image}
-              />
-
-              <Card.Body>
-                <Card.Title>
-                  {product.productName && product.productName}
-                </Card.Title>
-                <Card.Text>
-                  {product.description && product.description}
-                </Card.Text>
-                <button
-                  type="button"
-                  class="btn btn-outline-dark"
-                  onClick={() => {
-                    setProductId(product.id);
-
-                    setId(product.id);
-                    setHome(false);
-                    setDetails(true);
+      ) : categoryStatus ? (
+        <Container className="d-flex flex-row flex-wrap justify-content-center gap-4 mt-4">
+          {categoryOfProduct &&
+            categoryOfProduct.map((product) => (
+              <>
+                <Card
+                  style={{
+                    width: "18rem",
+                    height: "25rem",
                   }}
+                  class="col"
                 >
-                  Details
-                </button>
-              </Card.Body>
-            </Card>
-          </>
-        )
-        )}
+                  <Card.Img
+                    variant="top"
+                    src={product.image && product.image}
+                  />
 
-      </Container> :(
-          <Profile userInfo={userInfo}/>
+                  <Card.Body>
+                    <Card.Title>
+                      {product.productName && product.productName}
+                    </Card.Title>
+                    <Card.Text>
+                      {product.description && product.description}
+                    </Card.Text>
+                    <button
+                      type="button"
+                      class="btn btn-outline-dark"
+                      onClick={() => {
+                        setProductId(product.id);
+
+                        setId(product.id);
+                        setHome(false);
+                        setDetails(true);
+                      }}
+                    >
+                      Details
+                    </button>
+                  </Card.Body>
+                </Card>
+              </>
+            ))}
+        </Container>
+      ) : (
+        <Profile userInfo={userInfo} />
       )}
       {home ? (
         <Container className="d-flex flex-row  mt-3">
