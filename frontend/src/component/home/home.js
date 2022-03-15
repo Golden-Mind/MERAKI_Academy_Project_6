@@ -256,7 +256,7 @@ export default function Home({ setProductId, userInfo }) {
             ))}
         </Container>
       ) : details ? (
-        <Product id={id} />
+        <Product id={id} userInfo={userInfo} />
       ) : searchStatus ? (
         <Container className="d-flex flex-row flex-wrap justify-content-center gap-4 mt-4">
           {search &&
