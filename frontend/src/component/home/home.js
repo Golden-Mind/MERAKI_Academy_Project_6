@@ -18,10 +18,10 @@ import Product from "../Product/Product";
 import axios from "axios";
 
 export default function Home({ setProductId, userInfo }) {
-  const [home, setHome] = useState(true);
   const [profile, setProfile] = useState(false);
   const [page, setPage] = useState(1);
   const [numperOfProducts, setNumperOfProducts] = useState();
+  const [home, setHome] = useState(true);
   const [products, setProducts] = useState();
   const [details, setDetails] = useState(false);
   const [id, setId] = useState();
@@ -29,36 +29,36 @@ export default function Home({ setProductId, userInfo }) {
   const [searchStatus, setSearchStatus] = useState(false);
   console.log(numperOfProducts);
   const navigate = useNavigate();
-
-
-  const [category, setCategory] = useState();
+  console.log(home);
+  const [category, setCategory] = useState("");
   const [categoryStatus, setCategoryStatus] = useState(false);
   console.log(category);
   const dispatch = useDispatch();
   const [categoryOfProduct, setCategoryOfProduct] = useState();
   // of category
   const getAllProductsCategory = () => {
-    if(category!=="Category")
-    axios
-      .get(`http://localhost:5000/products/search_2?type=${category}`)
-      .then((res) => {
-        setCategoryOfProduct(res.data.result);
-        setHome(false);
-                      setProfile(false);
-                      setDetails(false);
-                      setCategoryStatus(true)
-        console.log(res.data.result);
-      })
-      .catch((err) => {});
+    if (category !== "Category" && category !== "undefined") {
+      axios
+        .get(`http://localhost:5000/products/search_2?type=${category}`)
+        .then((res) => {
+          setCategoryOfProduct(res.data.result);
+
+          setProfile(false);
+          setDetails(false);
+          setCategoryStatus(true);
+          console.log(res.data.result);
+        })
+        .catch((err) => {});
+    }
   };
   const state = useSelector((state) => {
     return {
       isLoggedIn: state.loginReducer.isLoggedIn,
     };
   });
-useEffect(()=>{
-getAllProductsCategory()
-},[category])
+  useEffect(() => {
+    getAllProductsCategory();
+  }, [category]);
   //=====================================
   useEffect(() => {
     const getAllProducts = () => {
@@ -126,7 +126,8 @@ getAllProductsCategory()
                 onClick={() => {
                   setHome(true);
                   setDetails(false);
-                  setCategoryStatus(false)
+                  setCategoryStatus(false);
+                  setProfile(false);
                 }}
                 style={{ color: "white" }}
               >
@@ -138,7 +139,7 @@ getAllProductsCategory()
                   setProfile(true);
                   setHome(false);
                   setDetails(false);
-                  setCategoryStatus(false)
+                  setCategoryStatus(false);
                 }}
               >
                 Profile
@@ -149,6 +150,7 @@ getAllProductsCategory()
                 onClick={(e) => {
                   console.log(e.target.innerText);
                   setCategory(e.target.innerText);
+                  setHome(false);
                 }}
                 style={{ backgroundColor: "#13B2A7", color: "white" }}
               >
@@ -182,6 +184,7 @@ getAllProductsCategory()
             <Form className="d-flex">
               <FormControl
                 onChange={(e) => {
+                  e.preventDefault();
                   axios
                     .get(
                       `http://localhost:5000/products/search_1?name=${e.target.value}`
@@ -296,50 +299,52 @@ getAllProductsCategory()
               </>
             ))}
         </Container>
-      ) :categoryStatus?<Container className="d-flex flex-row flex-wrap justify-content-center gap-4 mt-4">
-        {categoryOfProduct&&categoryOfProduct.map((product)=>
-        (
-          <>
-            <Card
-              style={{
-                width: "18rem",
-                height: "25rem",
-              }}
-              class="col"
-            >
-              <Card.Img
-                variant="top"
-                src={product.image && product.image}
-              />
-
-              <Card.Body>
-                <Card.Title>
-                  {product.productName && product.productName}
-                </Card.Title>
-                <Card.Text>
-                  {product.description && product.description}
-                </Card.Text>
-                <button
-                  type="button"
-                  class="btn btn-outline-dark"
-                  onClick={() => {
-                    setProductId(product.id);
-
-                    setId(product.id);
-                    setHome(false);
-                    setDetails(true);
+      ) : categoryStatus ? (
+        <Container className="d-flex flex-row flex-wrap justify-content-center gap-4 mt-4">
+          {categoryOfProduct &&
+            categoryOfProduct.map((product) => (
+              <>
+                <Card
+                  style={{
+                    width: "18rem",
+                    height: "25rem",
                   }}
+                  class="col"
                 >
-                  Details
-                </button>
-              </Card.Body>
-            </Card>
-          </>
-        )
-        )}
+                  <Card.Img
+                    variant="top"
+                    src={product.image && product.image}
+                  />
 
-      </Container> :(
-          <Profile userInfo={userInfo}/>
+                  <Card.Body>
+                    <Card.Title>
+                      {product.productName && product.productName}
+                    </Card.Title>
+                    <Card.Text>
+                      {product.description && product.description}
+                    </Card.Text>
+                    <button
+                      type="button"
+                      class="btn btn-outline-dark"
+                      onClick={() => {
+                        setProductId(product.id);
+
+                        setId(product.id);
+                        setHome(false);
+                        setDetails(true);
+                      }}
+                    >
+                      Details
+                    </button>
+                  </Card.Body>
+                </Card>
+              </>
+            ))}
+        </Container>
+      ) : profile ? (
+        <Profile userInfo={userInfo} />
+      ) : (
+        <Home />
       )}
       {home ? (
         <Container className="d-flex flex-row  mt-3">
