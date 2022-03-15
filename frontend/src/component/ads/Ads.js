@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import "./ads.css";
 import { useNavigate } from "react-router-dom";
 import {
   Button,
@@ -29,40 +30,51 @@ export default function Ads({ userInfo }) {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const [url, setUrl] = useState("");
   console.log(position);
-  console.log(productName);
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(function (position) {
       console.log(position);
       setPosition(position);
     });
   }, []);
-  console.log(yourAdd);
-  useEffect(() => {
+  const addAds = () => {
     axios
-      .post(`http://localhost:5000/products/your-add/${userInfo.userId}`)
+      .get(`http://localhost:5000/products/your-add/${userInfo.userId}`)
       .then((res) => {
         setYourAdd(res.data.result);
       })
       .catch((err) => {});
+  };
+  useEffect(() => {
+    addAds();
   }, []);
   // update
-  const updateAdd = (id) => {
+  const updateAdd = (id, img) => {
     axios
       .patch(`http://localhost:5000/products/${id}`, {
-        image,
+        image: img,
         productName,
         description,
         price,
         type,
       })
       .then((res) => {
+        addAdds();
         console.log(res);
       })
       .catch((err) => {});
   };
   // delete
-  const deleteAdd = () => {};
+  const deleteAdd = (id) => {
+    axios
+      .delete(`http://localhost:5000/products/${id}`)
+      .then((res) => {
+        addAdds();
+        console.log(res);
+      })
+      .catch((err) => {});
+  };
   return (
     <>
       {yourAdd &&
@@ -80,10 +92,12 @@ export default function Ads({ userInfo }) {
                   class="col"
                 >
                   <Card.Img variant="top" src={add.image && add.image} />
-
                   <Card.Body>
-                    <FiDelete />
-                    <BiEditAlt onClick={handleShow} />
+                    <FiDelete
+                      className="edit-add"
+                      onClick={deleteAdd(add.id)}
+                    />
+                    <BiEditAlt onClick={handleShow} className="edit-add" />
                     <Card.Title>
                       {add.productName && add.productName}
                     </Card.Title>
@@ -107,7 +121,6 @@ export default function Ads({ userInfo }) {
                           }}
                         />
                       </Form.Group>
-
                       <Form.Group className="mb-3">
                         <Form.Label htmlFor="disabledTextInput">
                           Description
@@ -134,6 +147,18 @@ export default function Ads({ userInfo }) {
                       </Form.Group>
                       <Form.Group className="mb-3">
                         <Form.Label htmlFor="disabledTextInput">
+                          Category
+                        </Form.Label>
+                        <Form.Control
+                          id="disabledTextInput"
+                          placeholder="Category"
+                          onChange={(e) => {
+                            setType(e.target.value);
+                          }}
+                        />
+                      </Form.Group>
+                      <Form.Group className="mb-3">
+                        <Form.Label htmlFor="disabledTextInput">
                           Type
                         </Form.Label>
                         <Form.Select
@@ -146,9 +171,6 @@ export default function Ads({ userInfo }) {
                           <option>Rent</option>
                         </Form.Select>
                       </Form.Group>
-                      {/* <Button variant="primary" type="submit">
-                        Submit
-                      </Button> */}
                     </Form>
                   </Modal.Body>
                   <Modal.Footer>
@@ -158,8 +180,9 @@ export default function Ads({ userInfo }) {
                     <Button
                       variant="primary"
                       onClick={() => {
-                        updateAdd(add.id);
+                        updateAdd(add.id, add.image);
                         handleClose();
+                        addAds();
                       }}
                     >
                       Update

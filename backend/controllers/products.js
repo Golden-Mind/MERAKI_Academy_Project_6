@@ -1,7 +1,6 @@
 const connection = require("../database/db");
 
 //create new products
-
 const createNewProduct = (req, res) => {
   const { image, productName, description, price, type ,forr, phoneNumber ,address} = req.body;
 // const date=CURRENT_DATE();
@@ -26,6 +25,7 @@ console.log(userId);
 };
 
 //get all products
+
 const getAllProducts = (req, res) => {
     const query = `SELECT * FROM products WHERE is_deleted=0`;
     connection.query(query, (err, results) => {
@@ -40,7 +40,9 @@ const getAllProducts = (req, res) => {
         .json({ success: true, message: "all productss", result: results });
     });
   };
+
 //update product by id
+
 const updateProductById = (req, res) => {
     const { image, productName, description, price, type } = req.body;
     const id = req.params.id;
@@ -66,6 +68,7 @@ const updateProductById = (req, res) => {
   };
 
   //delete product by id
+  
 const deleteProductById = (req, res) => {
     const id = req.params.id;
     const query = `UPDATE products SET is_deleted=?  WHERE id=?`;
@@ -87,6 +90,7 @@ const deleteProductById = (req, res) => {
       }
     });
   };
+
   const getPageProducts = (req, res) => {
     // limit as 8
     const limit = 8;
@@ -109,11 +113,11 @@ const deleteProductById = (req, res) => {
       });
     });
   };
+
   // get product by name //search //products
 const getProductByName = async (req, res) => {
   const name = req.query.name;
   const query = `SELECT * FROM products WHERE productName REGEXP '^${name}'`;
-
   const data = [name];
   connection.query(query, (err, results) => {
     if (err) {
@@ -145,6 +149,7 @@ const getProductsByType = (req, res) => {
       .json({ success: true, message: ` product by type`, result: results });
   });
 };
+
 //getAllCategory
 const getAllCategory = (req, res) => {
   const query = `SELECT type FROM products WHERE is_deleted=0 `;
@@ -174,10 +179,10 @@ const getProductGroubedBy = (req,res) => {
     res.status(200).json({ success: true, message: ` all type`, result: results });
   });
 };
-// add adds
+// add adds // get adds
 const addAdds = (req,res) => {
   const userId = req.params.id;
-  const query = `SELECT * FROM products WHERE id = ? AND is_deleted=?`;
+  const query = `SELECT * FROM products WHERE user_id= ? AND is_deleted=?`;
   const data = [userId,0];
   connection.query(query,data,(err,results) => {  
     if(err){
@@ -192,7 +197,7 @@ const addAdds = (req,res) => {
 // get id by product 
 const getProductById = (req,res) => {
   const productId = req.params.id;
-  const query = `SELECT * FROM products WHERE id=?  AND is_deleted=?`;
+  const query = `SELECT * FROM products WHERE id=? AND is_deleted=?`;
   const data = [productId,0];
   connection.query(query,data,(err,results) => {
     if(err){
