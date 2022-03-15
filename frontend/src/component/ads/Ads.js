@@ -60,7 +60,7 @@ export default function Ads({ userInfo }) {
         type,
       })
       .then((res) => {
-        addAdds();
+        addAds();
         console.log(res);
       })
       .catch((err) => {});
@@ -70,7 +70,7 @@ export default function Ads({ userInfo }) {
     axios
       .delete(`http://localhost:5000/products/${id}`)
       .then((res) => {
-        addAdds();
+        addAds();
         console.log(res);
       })
       .catch((err) => {});
