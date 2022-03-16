@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Card, Container, ListGroup, ListGroupItem } from "react-bootstrap";
 import WhatsUp from "./Whatsup";
 
-function Product({ productId, id ,userInfo}) {
+function Product({ productId, id, userInfo }) {
   const [product, setProduct] = useState();
   console.log(productId);
   useEffect(() => {
@@ -32,12 +32,14 @@ function Product({ productId, id ,userInfo}) {
               {product.description && product.description}
             </Card.Text>
             <ListGroup className="list-group-flush">
-              <ListGroupItem>{product.price && product.price}</ListGroupItem>
+              <ListGroupItem>{product.price && product.price} JD</ListGroupItem>
               <ListGroupItem>{product.forr && product.forr}</ListGroupItem>
               <ListGroupItem>{product.type && product.type}</ListGroupItem>
             </ListGroup>
             <Card.Body>
-              <Card.Link ><WhatsUp product={product} userInfo={userInfo}/></Card.Link>
+              <Card.Link>
+                <WhatsUp product={product} userInfo={userInfo} />
+              </Card.Link>
               <Card.Link href="#">Another Link</Card.Link>
             </Card.Body>
           </Card>
