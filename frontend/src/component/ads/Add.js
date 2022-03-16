@@ -101,6 +101,7 @@ export default function Add() {
               <Form.Control
                 id="disabledTextInput"
                 placeholder="Product Name"
+                defaultValue={productName}
                 onChange={(e) => {
                   setProductName(e.target.value);
                 }}
@@ -143,6 +144,7 @@ export default function Add() {
               <Form.Control
                 id="disabledTextInput"
                 placeholder="Price"
+                defaultValue={price}
                 onChange={(e) => {
                   setPrice(e.target.value);
                 }}

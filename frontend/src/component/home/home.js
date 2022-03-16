@@ -16,7 +16,8 @@ import { logout } from "../../reducer/login/index";
 import { useDispatch, useSelector } from "react-redux";
 import Product from "../Product/Product";
 import axios from "axios";
-
+import {GrFavorite} from "react-icons/gr"
+import {MdFavoriteBorder} from "react-icons/md"
 export default function Home({ setProductId, userInfo }) {
   const [profile, setProfile] = useState(false);
   const [page, setPage] = useState(1);
@@ -88,15 +89,19 @@ export default function Home({ setProductId, userInfo }) {
   }, [state.isLoggedIn, page]);
 
   // to add to fav
-  const addFav = (req, res) => {
+  const addToFavorite = (id) => {
     axios
-      .post("http://localhost:5000/favorite/")
+      .post("http://localhost:5000/favorite/",{productId:id, userId:userInfo.userId})
       .then((res) => {
         console.log(res.data);
       })
       .catch((err) => {});
   };
-
+useEffect(()=>{
+  axios.get(`http://localhost:5000/favorite/get-fav/${userInfo.userId}`).then((res)=>{
+    console.log(res.data);
+  }).catch((err)=>{console.log(err);})
+},[])
   return (
     <>
       <Navbar
@@ -155,13 +160,39 @@ export default function Home({ setProductId, userInfo }) {
                 style={{ backgroundColor: "#13B2A7", color: "white" }}
               >
                 <NavDropdown.Item>Car</NavDropdown.Item>
-                <NavDropdown.Item>Home</NavDropdown.Item>
+                <NavDropdown.Item>phone</NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item href="#action5">
-                  Something else here
-                </NavDropdown.Item>
+                <NavDropdown.Item disabled>Something else</NavDropdown.Item>
               </NavDropdown>
-              <Nav.Link
+              <Form className="d-flex">
+                <FormControl
+                  onChange={(e) => {
+                    e.preventDefault();
+                    axios
+                      .get(
+                        `http://localhost:5000/products/search_1?name=${e.target.value}`
+                      )
+                      .then((res) => {
+                        console.log(res.data.result);
+                        setSearch(res.data.result);
+                        setSearchStatus(true);
+                        setHome(false);
+                        setProfile(false);
+                        setDetails(false);
+                      })
+                      .catch((err) => {
+                        console.log(err);
+                      });
+                    console.log(e.target.value);
+                  }}
+                  type="search"
+                  placeholder="Search"
+                  className="me-2 col"
+                  aria-label="Search"
+                />
+                <Button variant="outline-success">Search</Button>
+              </Form>
+              <Nav.Link 
                 style={{ color: "white" }}
                 onClick={() => {
                   dispatch(logout());
@@ -171,44 +202,7 @@ export default function Home({ setProductId, userInfo }) {
               >
                 Log Out
               </Nav.Link>
-              {/* for test favoraite */}
-              <Nav.Link
-                style={{ color: "white" }}
-                onClick={() => {
-                  navigate("/fav");
-                }}
-              >
-                favoraite
-              </Nav.Link>
             </Nav>
-            <Form className="d-flex">
-              <FormControl
-                onChange={(e) => {
-                  e.preventDefault();
-                  axios
-                    .get(
-                      `http://localhost:5000/products/search_1?name=${e.target.value}`
-                    )
-                    .then((res) => {
-                      console.log(res.data.result);
-                      setSearch(res.data.result);
-                      setSearchStatus(true);
-                      setHome(false);
-                      setProfile(false);
-                      setDetails(false);
-                    })
-                    .catch((err) => {
-                      console.log(err);
-                    });
-                  console.log(e.target.value);
-                }}
-                type="search"
-                placeholder="Search"
-                className="me-2"
-                aria-label="Search"
-              />
-              <Button variant="outline-success">Search</Button>
-            </Form>
           </Navbar.Collapse>
         </Container>
       </Navbar>
@@ -225,17 +219,18 @@ export default function Home({ setProductId, userInfo }) {
                   }}
                   class="col"
                 >
+                  
                   <Card.Img
-                    variant="top"
+                    variant="top w-100 h-75"
                     src={product.image && product.image}
                   />
 
                   <Card.Body>
                     <Card.Title>
-                      {product.productName && product.productName}
+                      {product.productName && product.productName}<MdFavoriteBorder style={{height:"4vh",width:"4vw",fontWight:"100",marginLeft:"22%",cursor:"pointer"}} onClick={()=>{addToFavorite(product.id)}}/>
                     </Card.Title>
                     <Card.Text>
-                      {product.description && product.description}
+                      {product.description && product.description}  
                     </Card.Text>
                     <button
                       type="button"
@@ -249,7 +244,7 @@ export default function Home({ setProductId, userInfo }) {
                       }}
                     >
                       Details
-                    </button>
+                    </button> 
                   </Card.Body>
                 </Card>
               </>
@@ -342,7 +337,12 @@ export default function Home({ setProductId, userInfo }) {
             ))}
         </Container>
       ) : profile ? (
-        <Profile userInfo={userInfo} />
+        <Profile
+          userInfo={userInfo}
+          setId={setId}
+          setHome={setHome}
+          setDetails={setDetails}
+        />
       ) : (
         <Home />
       )}
