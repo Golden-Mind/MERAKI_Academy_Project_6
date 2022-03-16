@@ -2,8 +2,10 @@ const connection = require("../database/db");
 
 const addNewComment = (req, res) => {
   const productId = req.params.id;
+  const comment = req.body.comment;
+  const commenterId = req.body.commenter_id
   const query = `INSERT INTO comments ( comment,commenter_id , productId) VALUES(?,?,?)`;
-  const data = [req.body.comment, req.body.commenter_id, productId];
+  const data = [comment, commenterId, productId];
   connection.query(query, data, (err, result) => {
     if (err) {
       res.status(404).json({
