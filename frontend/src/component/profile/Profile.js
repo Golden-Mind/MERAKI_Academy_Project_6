@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { AiOutlineCloudUpload } from "react-icons/ai";
+import { CgPlayListAdd } from "react-icons/cg";
 import { RiFileList3Line } from "react-icons/ri";
-import { MdOutlineFavoriteBorder } from "react-icons/md";
+import { CgPlayListCheck } from "react-icons/cg";
+import { BsFillSuitHeartFill } from "react-icons/bs";
 import { Nav, Container } from "react-bootstrap";
 import Ads from "../ads/Ads";
 import Add from "../ads/Add";
@@ -14,7 +15,6 @@ export default function Profile({ userInfo, setId, setHome, setDetails }) {
   return (
     <>
       <div style={{ display: "flex", flexDirection: "row", gap: "5vw" }}>
-        {/* <Container className="d-flex flex-row mt-5 "> */}
         <Nav className="Nav">
           <Nav.Link
             className="NavLink"
@@ -23,8 +23,8 @@ export default function Profile({ userInfo, setId, setHome, setDetails }) {
               setAds(false);
             }}
           >
-            <AiOutlineCloudUpload
-              style={{ marginRight: "0.5vw", fontSize: "2ch" }}
+            <CgPlayListAdd
+              style={{ marginRight: "0.5vw", fontSize: "3ch" }}
             />
             Add Ads
           </Nav.Link>
@@ -35,16 +35,15 @@ export default function Profile({ userInfo, setId, setHome, setDetails }) {
               setAdd(false);
             }}
           >
-            <RiFileList3Line style={{ marginRight: "0.5vw" }} />
+            <CgPlayListCheck style={{ marginRight: "0.5vw", fontSize: "3ch" }} />
             Your Ads
           </Nav.Link>
           <Nav.Link className="NavLink">
-            <MdOutlineFavoriteBorder
-              style={{ marginRight: "0.5vw", marginTop: "-1vh" }}
+            <BsFillSuitHeartFill
+              style={{ marginRight: "1vw", marginTop: "-1.2vh", fontSize: "2ch" }}
             />
             Favorite
           </Nav.Link>
-          {/* <Nav.Link className="NavLink">Disabled</Nav.Link> */}
         </Nav>
         {ads ? (
           <Ads
