@@ -117,7 +117,7 @@ const deleteProductById = (req, res) => {
   // get product by name //search //products
 const getProductByName = async (req, res) => {
   const name = req.query.name;
-  const query = `SELECT * FROM products WHERE productName REGEXP '^${name}'`;
+  const query = `SELECT * FROM products WHERE productName REGEXP '^${name}' AND is_deleted=0`;
   const data = [name];
   connection.query(query, (err, results) => {
     if (err) {
