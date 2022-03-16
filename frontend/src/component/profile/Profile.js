@@ -5,11 +5,13 @@ import { MdOutlineFavoriteBorder } from "react-icons/md";
 import { Nav, Container } from "react-bootstrap";
 import Ads from "../ads/Ads";
 import Add from "../ads/Add";
+import Favoraite from "../favoraite/Favoraite";
 import "./profile.css";
 
 export default function Profile({ userInfo, setId, setHome, setDetails }) {
   const [ads, setAds] = useState(false);
   const [add, setAdd] = useState(true);
+  const [getFav , setGetFav] = useState(false)
   console.log(userInfo);
   return (
     <>
@@ -21,6 +23,7 @@ export default function Profile({ userInfo, setId, setHome, setDetails }) {
             onClick={() => {
               setAdd(true);
               setAds(false);
+              setGetFav(false)
             }}
           >
             <AiOutlineCloudUpload
@@ -33,12 +36,18 @@ export default function Profile({ userInfo, setId, setHome, setDetails }) {
             onClick={() => {
               setAds(true);
               setAdd(false);
+              setGetFav(false)
             }}
           >
             <RiFileList3Line style={{ marginRight: "0.5vw" }} />
             Your Ads
           </Nav.Link>
-          <Nav.Link className="NavLink">
+          <Nav.Link className="NavLink" onClick = {() => {
+                setGetFav(true)
+                setAds(false);
+                setAdd(false);
+          }}
+                >
             <MdOutlineFavoriteBorder
               style={{ marginRight: "0.5vw", marginTop: "-1vh" }}
             />
@@ -55,10 +64,10 @@ export default function Profile({ userInfo, setId, setHome, setDetails }) {
           />
         ) : add ? (
           <Add />
-        ) : (
-          <></>
-        )}
-        {/* </Container> */}
+        ) : getFav ? (
+          <Favoraite userInfo={userInfo}/>
+        ): <></>}
+        
       </div>
     </>
   );
