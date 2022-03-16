@@ -9,18 +9,18 @@ const WhatsUp = ({product,userInfo}) => {
 		<WhatsAppWidget
 			phoneNo={product.phoneNumber&&product.phoneNumber}
 			position="right"
-			widgetWidth="300px"
+			widgetWidth="400px"
 			widgetWidthMobile="260px"
-			autoOpen={true}
+			autoOpen={false}
 			autoOpenTimer={5000}
 			messageBox={true}
 			messageBoxTxt="Hi Team, is there any related service available ?"
-			iconSize="40"
+			iconSize="80"
 			iconColor="white"
 			iconBgColor="#42b4ad"
 			headerIcon="https://proficientdesigners.in/wp-content/themes/pd/img/logo-new.png"
-			headerIconColor="pink"
-			headerTxtColor="black"
+			headerIconColor="silver"
+			headerTxtColor="white"
 			headerBgColor="#42b4ad"
 			headerTitle={userInfo.firstName&&userInfo.firstName+" "+userInfo.lastName&&userInfo.lastName}
 			headerCaption="Online"
@@ -29,7 +29,7 @@ const WhatsUp = ({product,userInfo}) => {
 			chatMessage={<>Hi there 👋 <br /><br /> How can I help you?</>}
 			footerBgColor="#999"
 			btnBgColor="#42b4ad"
-			btnTxtColor="black"
+			btnTxtColor="white"
 		/>
 	);
 };
