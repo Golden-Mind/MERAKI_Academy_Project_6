@@ -36,18 +36,18 @@ export default function Ads({ userInfo, setHome, setDetails, setId }) {
     lat: 0,
     lng: 0,
   });
-  console.log(center);
-  console.log(position);
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition(function (position) {
-      console.log(position.coords.altitude);
-      setCenter({
-        lat: position.coords.latitude,
-        lng: position.coords.longitude,
-      });
-      setPosition(position);
-    });
-  }, []);
+  // console.log(center);
+  // console.log(position);
+  // useEffect(() => {
+  //   navigator.geolocation.getCurrentPosition(function (position) {
+  //     console.log(position.coords.altitude);
+  //     setCenter({
+  //       lat: position.coords.latitude,
+  //       lng: position.coords.longitude,
+  //     });
+  //     setPosition(position);
+  //   });
+  // }, []);
   const getAds = () => {
     axios
       .get(`http://localhost:5000/products/your-add/${userInfo.userId}`)
