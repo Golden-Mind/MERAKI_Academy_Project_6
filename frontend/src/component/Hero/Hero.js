@@ -50,6 +50,7 @@ const Hero = () => {
               fontWeight: "bolder",
               fontSize: "2rem",
               marginLeft: "4vw",
+              textShadow: "0 0 5px"
             }}
           >
             AMUR
@@ -122,7 +123,7 @@ const Hero = () => {
 
       <div className="divBackground d-flex justify-content-between">
         <div className="d-flex justify-content-center align-items-center hero-title">
-          <p className="Amore">AMUR</p>
+          <p className="Amur">AMUR</p>
         </div>
         <div className="d-flex justify-content-end backHero ">
           <img
