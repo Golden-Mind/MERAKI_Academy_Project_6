@@ -97,7 +97,7 @@ const deleteProductById = (req, res) => {
     // page number
     const page = req.query.page;
     const offset = (page - 1) * limit;
-    const query = "select * from products limit " + limit + " OFFSET " + offset;
+    const query = "select * from products WHERE is_deleted=0 limit " + limit + " OFFSET " + offset;
   
     connection.query(query, (err, results) => {
       if (err) {
