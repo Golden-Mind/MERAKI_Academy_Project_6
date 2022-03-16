@@ -46,7 +46,18 @@ export default function Profile({ userInfo, setId, setHome, setDetails }) {
           </Nav.Link>
           {/* <Nav.Link className="NavLink">Disabled</Nav.Link> */}
         </Nav>
-        {ads ? <Ads userInfo={userInfo} setDetails={setDetails} setHome={setHome} setId={setId} /> : add ? <Add /> : <></>}
+        {ads ? (
+          <Ads
+            userInfo={userInfo}
+            setDetails={setDetails}
+            setHome={setHome}
+            setId={setId}
+          />
+        ) : add ? (
+          <Add />
+        ) : (
+          <></>
+        )}
         {/* </Container> */}
       </div>
     </>
