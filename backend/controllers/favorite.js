@@ -40,10 +40,10 @@ const getFavorite = (req, res) => {
 };
 // to delete fav product
 const deletFavorite = (req, res) => {
-  const userId = req.params.id;
+  const favId = req.params.id;
   const query = `UPDATE favorite_list SET is_deleted = ? WHERE  id =?  `;
-  const data = [1, userId];
-  connection.query(query, data, (ree, result) => {
+  const data = [1,favId];
+  connection.query(query, data, (err, result) => {
     if (err) {
       res.status(500).json({
         success: false,
