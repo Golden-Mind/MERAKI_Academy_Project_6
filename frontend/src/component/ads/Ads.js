@@ -20,7 +20,7 @@ import axios from "axios";
 import { FiDelete } from "react-icons/fi";
 import { BiEditAlt } from "react-icons/bi";
 import Location from "./Location";
-export default function Ads({ userInfo }) {
+export default function Ads({ userInfo, setHome, setDetails, setId }) {
   const [position, setPosition] = useState(0);
   const [yourAdd, setYourAdd] = useState();
   const [image, setImage] = useState();
@@ -34,14 +34,17 @@ export default function Ads({ userInfo }) {
   const [url, setUrl] = useState("");
   const [center, setCenter] = useState({
     lat: 0,
-    lng: 0
+    lng: 0,
   });
   console.log(center);
   console.log(position);
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(function (position) {
       console.log(position.coords.altitude);
-      setCenter({lat:position.coords.latitude,lng: position.coords.longitude})
+      setCenter({
+        lat: position.coords.latitude,
+        lng: position.coords.longitude,
+      });
       setPosition(position);
     });
   }, []);
@@ -67,7 +70,7 @@ export default function Ads({ userInfo }) {
         type,
       })
       .then((res) => {
-      getAds();
+        getAds();
         console.log(res);
       })
       .catch((err) => {});
@@ -103,7 +106,7 @@ export default function Ads({ userInfo }) {
                     <FiDelete
                       className="edit-add"
                       onClick={() => {
-                        deleteAdd(add.id)
+                        deleteAdd(add.id);
                       }}
                     />
                     <BiEditAlt onClick={handleShow} className="edit-add" />
@@ -111,7 +114,17 @@ export default function Ads({ userInfo }) {
                       {add.productName && add.productName}
                     </Card.Title>
                     <Card.Text>{add.description && add.description}</Card.Text>
-                    <Button variant="primary">Go somewhere</Button>
+                    <button
+                      type="button"
+                      class="btn btn-outline-dark"
+                      onClick={() => {
+                        setId(add.id);
+                        setDetails(true);
+                        setHome(false);
+                      }}
+                    >
+                      Details
+                    </button>
                   </Card.Body>
                 </Card>
                 <Modal show={show} onHide={handleClose}>
@@ -198,7 +211,6 @@ export default function Ads({ userInfo }) {
                     </Button>
                   </Modal.Footer>
                 </Modal>
-               
               </Container>
             </>
           );
