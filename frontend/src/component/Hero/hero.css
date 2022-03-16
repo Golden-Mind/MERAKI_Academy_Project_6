@@ -3,6 +3,7 @@
   top: 0;
   z-index: 1;
   background-color: rgb(19, 178, 167);
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
 
 .divBackground {
@@ -103,12 +104,13 @@
   margin-right: 5%;
 }
 
-.Amore {
+.Amur {
   font-size: 7em;
   color: #42b4ad;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   border-bottom: #42b4ad 1px solid;
   border-top: #42b4ad 1px solid;
+  text-shadow: 0 0 20px #42b4ad;
 }
 
 .login {
@@ -117,6 +119,7 @@
   margin-top: 0.5vw;
   margin-right: 3vw;
   font-weight: bolder;
+  text-shadow: 0 0 5px;
 }
 
 .login:hover {
@@ -124,7 +127,7 @@
 }
 
 @media (max-width: 800px) {
-  .Amore {
+  .Amur {
     font-size: 3em;
   }
 }
