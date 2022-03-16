@@ -32,22 +32,27 @@ export default function Ads({ userInfo, setHome, setDetails, setId }) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [url, setUrl] = useState("");
+  const [checkDelete, setCheckDelete] = useState(false);
+  // of delete add
+  const [showDelete, setShowDelete] = useState(false);
+  const handleCloseDelete = () => setShowDelete(false);
+  const handleShowDelete = () => setShowDelete(true);
   const [center, setCenter] = useState({
     lat: 0,
     lng: 0,
   });
-  // console.log(center);
-  // console.log(position);
-  // useEffect(() => {
-  //   navigator.geolocation.getCurrentPosition(function (position) {
-  //     console.log(position.coords.altitude);
-  //     setCenter({
-  //       lat: position.coords.latitude,
-  //       lng: position.coords.longitude,
-  //     });
-  //     setPosition(position);
-  //   });
-  // }, []);
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(function (position) {
+      console.log(position.coords.altitude);
+      setCenter({
+        lat: position.coords.latitude,
+        lng: position.coords.longitude,
+      });
+      setPosition(position);
+    });
+  }, []);
+
   const getAds = () => {
     axios
       .get(`http://localhost:5000/products/your-add/${userInfo.userId}`)
@@ -104,11 +109,28 @@ export default function Ads({ userInfo, setHome, setDetails, setId }) {
                   <Card.Img variant="top" src={add.image && add.image} />
                   <Card.Body>
                     <FiDelete
+                      onClick={handleShowDelete}
                       className="edit-add"
-                      onClick={() => {
-                        deleteAdd(add.id);
-                      }}
                     />
+                    <Modal show={showDelete} onHide={handleCloseDelete}>
+                      <Modal.Header closeButton>
+                      </Modal.Header>
+                      <Modal.Body>Are You Sure To Delete Prpduct!!</Modal.Body>
+                      <Modal.Footer>
+                        <Button variant="secondary" onClick={handleCloseDelete}>
+                          Close
+                        </Button>
+                        <Button
+                          variant="primary"
+                          onClick={() => {
+                            handleCloseDelete();
+                            deleteAdd(add.id);
+                          }}
+                        >
+                          delete
+                        </Button>
+                      </Modal.Footer>
+                    </Modal>
                     <BiEditAlt onClick={handleShow} className="edit-add" />
                     <Card.Title>
                       {add.productName && add.productName}

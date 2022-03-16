@@ -5,11 +5,13 @@ import { BsFillSuitHeartFill } from "react-icons/bs";
 import { Nav } from "react-bootstrap";
 import Ads from "../ads/Ads";
 import Add from "../ads/Add";
+import Favoraite from "../favoraite/Favoraite";
 import "./profile.css";
 
 export default function Profile({ userInfo, setId, setHome, setDetails }) {
   const [ads, setAds] = useState(false);
   const [add, setAdd] = useState(true);
+  const [getFav , setGetFav] = useState(false)
   console.log(userInfo);
   return (
     <>
@@ -20,6 +22,7 @@ export default function Profile({ userInfo, setId, setHome, setDetails }) {
             onClick={() => {
               setAdd(true);
               setAds(false);
+              setGetFav(false)
             }}
           >
             <CgPlayListAdd style={{ marginRight: "0.5vw", fontSize: "3ch" }} />
@@ -30,6 +33,7 @@ export default function Profile({ userInfo, setId, setHome, setDetails }) {
             onClick={() => {
               setAds(true);
               setAdd(false);
+              setGetFav(false)
             }}
           >
             <CgPlayListCheck
@@ -44,6 +48,14 @@ export default function Profile({ userInfo, setId, setHome, setDetails }) {
                 marginTop: "-1.2vh",
                 fontSize: "2ch",
               }}
+          <Nav.Link className="NavLink" onClick = {() => {
+                setGetFav(true)
+                setAds(false);
+                setAdd(false);
+          }}
+                >
+            <MdOutlineFavoriteBorder
+              style={{ marginRight: "0.5vw", marginTop: "-1vh" }}
             />
             Favorite
           </Nav.Link>
@@ -60,6 +72,9 @@ export default function Profile({ userInfo, setId, setHome, setDetails }) {
         ) : (
           <></>
         )}
+        ) : getFav ? (
+          <Favoraite userInfo={userInfo}/>
+        ): <></>}
       </div>
     </>
   );
