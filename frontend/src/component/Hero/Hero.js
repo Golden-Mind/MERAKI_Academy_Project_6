@@ -10,6 +10,8 @@ import about from "./Business Plan.gif";
 import home from "./home.jpg";
 import Modal from "react-bootstrap/Modal";
 import emailjs from "@emailjs/browser";
+import {FiActivity} from "react-icons/fi";
+import {BiLogInCircle} from "react-icons/bi"
 
 const Hero = () => {
   const form = useRef();
@@ -69,7 +71,8 @@ const Hero = () => {
                     marginLeft: "4vw",
                     marginTop: "0.5vw",
                   }}
-                >
+                  >
+                  <FiActivity style={{marginRight: "0.5vw"}}/>
                   Active
                 </Nav.Link>
               </Nav.Item>
@@ -83,6 +86,7 @@ const Hero = () => {
                     marginTop: "0.5vw",
                   }}
                 >
+                  <FiActivity style={{marginRight: "0.5vw"}}/>
                   About
                 </Nav.Link>
               </Nav.Item>
@@ -96,6 +100,7 @@ const Hero = () => {
                     marginTop: "0.5vw",
                   }}
                 >
+                  <FiActivity style={{marginRight: "0.5vw"}}/>
                   Need
                 </Nav.Link>
               </Nav.Item>
@@ -107,6 +112,7 @@ const Hero = () => {
                   navigate("/login");
                 }}
               >
+                <BiLogInCircle style={{marginRight: "0.5vw", marginTop: "-0.5vw"}} />
                 Log In
               </Nav.Link>
             </Form>
@@ -211,37 +217,45 @@ const Hero = () => {
           </div>
         </div>
       </div>
-      <div className="fotter foot-name ">
-        <h2 className="hed2">Amore</h2>
-        <div className=" d-flex flex-row justify-content-between hed2">
-          <p
-            className="foot-p col-10 col-sm-6 col-md-4 col-lg-4 col-xl-4 
-"
-          >
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500s, when an unknown printer took a galley of type
-          </p>
-          <div className="link-foot">
-            <a href="#home">
-              {" "}
-              <p> Active </p>
-            </a>
-            <a href="#about">
-              {" "}
-              <p> About </p>
-            </a>
-            <a href="#need">
-              {" "}
-              <p> Need </p>
-            </a>
+
+      <div className="divFotter">
+        <div className="hed2">
+          <h2>AMUR</h2>
+          <div>
+            <p className="foot-p">
+              website that helps people, whether they are sellers or buyers, to
+              search for various goods, products and services..
+              <p className="foot-p">
+                Building by Beesan Ghaith, Ruba Alnadi and Abdallah almomani
+                under the supervision of Meraki Academy..
+              </p>
+            </p>
           </div>
         </div>
+        <div className="linkFoot">
+          <a href="#home">
+            {" "}
+            <p> Active </p>
+          </a>
+          <a href="#about">
+            {" "}
+            <p> About </p>
+          </a>
+          <a href="#need">
+            {" "}
+            <p> Need </p>
+          </a>
+        </div>
       </div>
-      <div className="d-flex justify-content-end feed">
-        <Button variant="primary" onClick={handleShow}>
-          Contact Us
-        </Button>
+      <div className="d-flex flex-row footEnd">
+        <div className="hed2" key={"foot-end"}>
+          <p>Copyright &copy; 2022 spacingtech rights reserved</p>
+        </div>
+        <div className="feed">
+          <Button variant="primary" onClick={handleShow}>
+            Contact Us
+          </Button>
+        </div>
       </div>
       <Modal
         ref={form}
