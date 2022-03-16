@@ -17,7 +17,12 @@ import { useDispatch, useSelector } from "react-redux";
 import Product from "../Product/Product";
 import axios from "axios";
 import { GrFavorite } from "react-icons/gr";
-import { MdFavoriteBorder } from "react-icons/md";
+import {BiLogOutCircle} from "react-icons/bi"
+import { BsFillSuitHeartFill } from "react-icons/bs";
+import {FiActivity} from "react-icons/fi"
+
+
+
 export default function Home({ setProductId, userInfo }) {
   const [profile, setProfile] = useState(false);
   const [page, setPage] = useState(1);
@@ -118,15 +123,11 @@ export default function Home({ setProductId, userInfo }) {
         style={{
           backgroundColor: "#13B2A7",
           width: "100%",
-          fontFamily: "cursive",
-          fontSize: "1.3rem",
         }}
       >
         <Container fluid className="d-flex flex-row gap-5">
-          <Navbar.Brand
-            style={{ color: "white", fontSize: "1.5rem", fontWeight: "bolder" }}
-          >
-            Amore
+          <Navbar.Brand className="navBrand" style={{ color: "white" }}>
+            AMUR
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
@@ -142,23 +143,44 @@ export default function Home({ setProductId, userInfo }) {
                   setCategoryStatus(false);
                   setProfile(false);
                 }}
-                style={{ color: "white" }}
+                style={{
+                  color: "white",
+                  fontSize: "1.3rem",
+                  marginLeft: "2vw",
+                  fontWeight: "700",
+                  marginTop: "1vh"
+                }}
               >
+                <FiActivity style={{marginRight: "0.5vw"}}/>
                 Home
               </Nav.Link>
               <Nav.Link
-                style={{ color: "white" }}
+                style={{
+                  color: "white",
+                  fontSize: "1.3rem",
+                  marginLeft: "2vw",
+                  fontWeight: "700",
+                  marginTop: "1vh"
+                }}
                 onClick={() => {
                   setProfile(true);
                   setHome(false);
                   setDetails(false);
                   setCategoryStatus(false);
-                  setSearchStatus(false)
+                  setSearchStatus(false);
                 }}
               >
+                <FiActivity style={{marginRight: "0.5vw"}}/>
                 Profile
               </Nav.Link>
               <NavDropdown
+                style={{
+                  color: "white",
+                  fontSize: "1.3rem",
+                  marginLeft: "2vw",
+                  fontWeight: "700",
+                  marginTop: "1vh"
+                }}
                 title="Category"
                 id="navbarScrollingDropdown"
                 onClick={(e) => {
@@ -166,14 +188,14 @@ export default function Home({ setProductId, userInfo }) {
                   setCategory(e.target.innerText);
                   setHome(false);
                 }}
-                style={{ backgroundColor: "#13B2A7", color: "white" }}
               >
+                <FiActivity style={{marginRight: "0.5vw"}}/>
                 <NavDropdown.Item>Car</NavDropdown.Item>
                 <NavDropdown.Item>phone</NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item disabled>Something else</NavDropdown.Item>
               </NavDropdown>
-              <Form className="d-flex">
+              <Form className="d-flex" style={{marginLeft: "10vw", height: "7vh", marginTop: "1vh", marginRight: "6vw" }}>
                 <FormControl
                   onChange={(e) => {
                     e.preventDefault();
@@ -201,14 +223,20 @@ export default function Home({ setProductId, userInfo }) {
                 />
                 <Button variant="outline-success">Search</Button>
               </Form>
-              <Nav.Link
-                style={{ color: "white" }}
+              <Nav.Link style={{
+                  color: "white",
+                  fontSize: "1.3rem",
+                  // marginLeft: "18vw",
+                  fontWeight: "700",
+                  marginTop: "1vh"
+                }}
                 onClick={() => {
                   dispatch(logout());
                   localStorage.clear();
                   navigate("/");
                 }}
               >
+                <BiLogOutCircle style={{marginTop: "-0.5vh", marginRight: "0.5vw"}}/>
                 Log Out
               </Nav.Link>
             </Nav>
@@ -223,8 +251,8 @@ export default function Home({ setProductId, userInfo }) {
               <>
                 <Card
                   style={{
-                    width: "18rem",
-                    height: "25rem",
+                    width: "20rem",
+                    height: "26rem",
                   }}
                   class="col"
                 >
@@ -233,17 +261,11 @@ export default function Home({ setProductId, userInfo }) {
                     src={product.image && product.image}
                   />
 
-                  <Card.Body>
-                    <Card.Title>
+                  <Card.Body className="cardBody">
+                    <Card.Title className="cardTitle">
                       {product.productName && product.productName}
-                      <MdFavoriteBorder
-                        style={{
-                          height: "4vh",
-                          width: "4vw",
-                          fontWight: "100",
-                          marginLeft: "22%",
-                          cursor: "pointer",
-                        }}
+                      <BsFillSuitHeartFill
+                        className="love"
                         onClick={() => {
                           addToFavorite(product.id);
                         }}
@@ -257,7 +279,6 @@ export default function Home({ setProductId, userInfo }) {
                       class="btn btn-outline-dark"
                       onClick={() => {
                         setProductId(product.id);
-
                         setId(product.id);
                         setHome(false);
                         setDetails(true);
@@ -367,7 +388,7 @@ export default function Home({ setProductId, userInfo }) {
         <Home />
       )}
       {home ? (
-        <Container className="d-flex flex-row  mt-3">
+        <Container className="d-flex flex-row mt-5 justify-content-center">
           <nav aria-label="Page navigation example">
             <ul class="pagination">
               <li
