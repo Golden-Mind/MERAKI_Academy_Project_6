@@ -14,8 +14,8 @@ const roles = (req, res) => {
       res.status(201).json({
         success: true,
         message: `Success role created`,
-        role : result,
-        data : data
+        role: result,
+        data: data,
       });
     }
   });

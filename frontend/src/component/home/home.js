@@ -153,6 +153,7 @@ export default function Home({ setProductId, userInfo }) {
                   setHome(false);
                   setDetails(false);
                   setCategoryStatus(false);
+                  setSearchStatus(false)
                 }}
               >
                 Profile

@@ -23,38 +23,38 @@ const addFavorite = (req, res) => {
 const getFavorite = (req, res) => {
   const userId = req.params.id;
   const query = `SELECT * FROM products INNER JOIN favorite_list ON favorite_list.product_id=products.id AND favorite_list.user_id = ? AND favorite_list.is_deleted =?  `;
-  const data = [userId,0];
-  connection.query(query,data , (err,result) => {
+  const data = [userId, 0];
+  connection.query(query, data, (err, result) => {
     if (err) {
-        res.status(500).json({
-          success: false,
-          message: "Server error",
-        });
-      }
-      res.status(201).json({
-        success: true,
-        message: "get favorite_list success ",
-        result: result,
+      res.status(500).json({
+        success: false,
+        message: "Server error",
       });
-  })
+    }
+    res.status(201).json({
+      success: true,
+      message: "get favorite_list success ",
+      result: result,
+    });
+  });
 };
 // to delete fav product
 const deletFavorite = (req, res) => {
-    const userId = req.params.id;
-    const query = `UPDATE favorite_list SET is_deleted = ? WHERE  id =?  `
-    const data = [1,userId];
-    connection.query(query,data, (ree,result) => {
-        if (err) {
-            res.status(500).json({
-              success: false,
-              message: "Server error",
-            });
-          }
-          res.status(201).json({
-            success: true,
-            message: "favorite_list deleted success ",
-            result: result,
-          });
-      })
+  const userId = req.params.id;
+  const query = `UPDATE favorite_list SET is_deleted = ? WHERE  id =?  `;
+  const data = [1, userId];
+  connection.query(query, data, (ree, result) => {
+    if (err) {
+      res.status(500).json({
+        success: false,
+        message: "Server error",
+      });
+    }
+    res.status(201).json({
+      success: true,
+      message: "favorite_list deleted success ",
+      result: result,
+    });
+  });
 };
 module.exports = { addFavorite, getFavorite, deletFavorite };
