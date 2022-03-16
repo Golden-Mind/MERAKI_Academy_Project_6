@@ -26,11 +26,9 @@
 }
 
 .aboutAmur {
-  /* margin-top: 5%; */
   border-bottom: 1px solid black;
   width: 60%;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-
 }
 
 .about {
@@ -108,9 +106,7 @@
 .Amore {
   font-size: 7em;
   color: #42b4ad;
-  /* margin-top: 2ch; */
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-  /* text-decoration: underline; */
   border-bottom: #42b4ad 1px solid;
   border-top: #42b4ad 1px solid;
 }
