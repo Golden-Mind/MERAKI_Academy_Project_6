@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { CgPlayListAdd } from "react-icons/cg";
-import { RiFileList3Line } from "react-icons/ri";
 import { CgPlayListCheck } from "react-icons/cg";
 import { BsFillSuitHeartFill } from "react-icons/bs";
-import { Nav, Container } from "react-bootstrap";
+import { Nav } from "react-bootstrap";
 import Ads from "../ads/Ads";
 import Add from "../ads/Add";
 import "./profile.css";
@@ -23,9 +22,7 @@ export default function Profile({ userInfo, setId, setHome, setDetails }) {
               setAds(false);
             }}
           >
-            <CgPlayListAdd
-              style={{ marginRight: "0.5vw", fontSize: "3ch" }}
-            />
+            <CgPlayListAdd style={{ marginRight: "0.5vw", fontSize: "3ch" }} />
             Add Ads
           </Nav.Link>
           <Nav.Link
@@ -35,12 +32,18 @@ export default function Profile({ userInfo, setId, setHome, setDetails }) {
               setAdd(false);
             }}
           >
-            <CgPlayListCheck style={{ marginRight: "0.5vw", fontSize: "3ch" }} />
+            <CgPlayListCheck
+              style={{ marginRight: "0.5vw", fontSize: "3ch" }}
+            />
             Your Ads
           </Nav.Link>
           <Nav.Link className="NavLink">
             <BsFillSuitHeartFill
-              style={{ marginRight: "1vw", marginTop: "-1.2vh", fontSize: "2ch" }}
+              style={{
+                marginRight: "1vw",
+                marginTop: "-1.2vh",
+                fontSize: "2ch",
+              }}
             />
             Favorite
           </Nav.Link>
@@ -57,7 +60,6 @@ export default function Profile({ userInfo, setId, setHome, setDetails }) {
         ) : (
           <></>
         )}
-        {/* </Container> */}
       </div>
     </>
   );
