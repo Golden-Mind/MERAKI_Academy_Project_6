@@ -113,7 +113,7 @@ const Hero = () => {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      
+
       <div className="divBackground d-flex justify-content-between">
         <div className="d-flex justify-content-center align-items-center hero-title">
           <p className="Amore">AMUR</p>
@@ -128,8 +128,10 @@ const Hero = () => {
         </div>
       </div>
 
-
-      <div id="about" className="divAbout d-flex flex-wrap justify-content-center gap-5">
+      <div
+        id="about"
+        className="divAbout d-flex flex-wrap justify-content-center gap-5"
+      >
         <img
           src={about}
           alt="about"
@@ -149,14 +151,11 @@ const Hero = () => {
         </p>
       </div>
 
-      
       <h1 className="text-center about" id="need">
         {" "}
         IF YOU NEED ..!{" "}
       </h1>
-      <div
-        className="container-fluid d-flex flex-row flex-wrap gap-3 justify-content-center divNeed"
-      >
+      <div className="container-fluid d-flex flex-row flex-wrap gap-3 justify-content-center divNeed">
         <div className="card c col-10 col-sm-6 col-md-4 col-lg-4 col-xl-4">
           <div className=" div-need">
             <img

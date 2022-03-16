@@ -16,8 +16,8 @@ import { logout } from "../../reducer/login/index";
 import { useDispatch, useSelector } from "react-redux";
 import Product from "../Product/Product";
 import axios from "axios";
-import {GrFavorite} from "react-icons/gr"
-import {MdFavoriteBorder} from "react-icons/md"
+import { GrFavorite } from "react-icons/gr";
+import { MdFavoriteBorder } from "react-icons/md";
 export default function Home({ setProductId, userInfo }) {
   const [profile, setProfile] = useState(false);
   const [page, setPage] = useState(1);
@@ -91,17 +91,25 @@ export default function Home({ setProductId, userInfo }) {
   // to add to fav
   const addToFavorite = (id) => {
     axios
-      .post("http://localhost:5000/favorite/",{productId:id, userId:userInfo.userId})
+      .post("http://localhost:5000/favorite/", {
+        productId: id,
+        userId: userInfo.userId,
+      })
       .then((res) => {
         console.log(res.data);
       })
       .catch((err) => {});
   };
-useEffect(()=>{
-  axios.get(`http://localhost:5000/favorite/get-fav/${userInfo.userId}`).then((res)=>{
-    console.log(res.data);
-  }).catch((err)=>{console.log(err);})
-},[])
+  useEffect(() => {
+    axios
+      .get(`http://localhost:5000/favorite/get-fav/${userInfo.userId}`)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
   return (
     <>
       <Navbar
@@ -192,7 +200,7 @@ useEffect(()=>{
                 />
                 <Button variant="outline-success">Search</Button>
               </Form>
-              <Nav.Link 
+              <Nav.Link
                 style={{ color: "white" }}
                 onClick={() => {
                   dispatch(logout());
@@ -219,7 +227,6 @@ useEffect(()=>{
                   }}
                   class="col"
                 >
-                  
                   <Card.Img
                     variant="top w-100 h-75"
                     src={product.image && product.image}
@@ -227,10 +234,22 @@ useEffect(()=>{
 
                   <Card.Body>
                     <Card.Title>
-                      {product.productName && product.productName}<MdFavoriteBorder style={{height:"4vh",width:"4vw",fontWight:"100",marginLeft:"22%",cursor:"pointer"}} onClick={()=>{addToFavorite(product.id)}}/>
+                      {product.productName && product.productName}
+                      <MdFavoriteBorder
+                        style={{
+                          height: "4vh",
+                          width: "4vw",
+                          fontWight: "100",
+                          marginLeft: "22%",
+                          cursor: "pointer",
+                        }}
+                        onClick={() => {
+                          addToFavorite(product.id);
+                        }}
+                      />
                     </Card.Title>
                     <Card.Text>
-                      {product.description && product.description}  
+                      {product.description && product.description}
                     </Card.Text>
                     <button
                       type="button"
@@ -244,7 +263,7 @@ useEffect(()=>{
                       }}
                     >
                       Details
-                    </button> 
+                    </button>
                   </Card.Body>
                 </Card>
               </>

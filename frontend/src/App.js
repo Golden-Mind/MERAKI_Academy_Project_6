@@ -13,18 +13,24 @@ import { useState } from "react";
 
 function App() {
   const [userInfo, setUserInfo] = useState({});
-const [productId, setProductId] = useState();
+  const [productId, setProductId] = useState();
   return (
     <div className="App">
       {/* <Navigation /> */}
       <Routes>
-        <Route path="/login" element={<Login setUserInfo={setUserInfo} userInfo={userInfo} />} />
+        <Route
+          path="/login"
+          element={<Login setUserInfo={setUserInfo} userInfo={userInfo} />}
+        />
         <Route path="/register" element={<Register />} />
         <Route path="/" element={<Hero />} />
-        <Route path="/home" element={<Home setProductId={setProductId} userInfo={userInfo}/>} />
+        <Route
+          path="/home"
+          element={<Home setProductId={setProductId} userInfo={userInfo} />}
+        />
         <Route path="/profile" element={<Profile />} />
         <Route path="/fav" element={<Favoraite userInfo={userInfo} />} />
-        <Route path="/product" element={<Product productId={productId}/>} />
+        <Route path="/product" element={<Product productId={productId} />} />
       </Routes>
     </div>
   );

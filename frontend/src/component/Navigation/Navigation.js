@@ -12,7 +12,7 @@ import {
 } from "react-bootstrap";
 import "../home/home.css";
 import Profile from "../profile/Profile";
-import Home from "../home/home"
+import Home from "../home/home";
 import { logout } from "../../reducer/login/index";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
