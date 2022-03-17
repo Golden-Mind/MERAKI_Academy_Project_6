@@ -11,7 +11,7 @@ import "./profile.css";
 export default function Profile({ userInfo, setId, setHome, setDetails }) {
   const [ads, setAds] = useState(false);
   const [add, setAdd] = useState(true);
-  const [getFav , setGetFav] = useState(false)
+  const [getFav, setGetFav] = useState(false);
   console.log(userInfo);
   return (
     <>
@@ -22,7 +22,7 @@ export default function Profile({ userInfo, setId, setHome, setDetails }) {
             onClick={() => {
               setAdd(true);
               setAds(false);
-              setGetFav(false)
+              setGetFav(false);
             }}
           >
             <CgPlayListAdd style={{ marginRight: "0.5vw", fontSize: "3ch" }} />
@@ -33,7 +33,7 @@ export default function Profile({ userInfo, setId, setHome, setDetails }) {
             onClick={() => {
               setAds(true);
               setAdd(false);
-              setGetFav(false)
+              setGetFav(false);
             }}
           >
             <CgPlayListCheck
@@ -41,18 +41,21 @@ export default function Profile({ userInfo, setId, setHome, setDetails }) {
             />
             Your Ads
           </Nav.Link>
-          <Nav.Link className="NavLink" onClick = {() => {
-            setGetFav(true)
-            setAds(false);
-            setAdd(false);
-          }}
-                >
-          <BsFillSuitHeartFill
-            style={{
-              marginRight: "1vw",
-              marginTop: "-1.2vh",
-              fontSize: "2ch",
-            }}/>
+          <Nav.Link
+            className="NavLink"
+            onClick={() => {
+              setGetFav(true);
+              setAds(false);
+              setAdd(false);
+            }}
+          >
+            <BsFillSuitHeartFill
+              style={{
+                marginRight: "1vw",
+                marginTop: "-1.2vh",
+                fontSize: "2ch",
+              }}
+            />
             Favorite
           </Nav.Link>
         </Nav>
@@ -65,10 +68,16 @@ export default function Profile({ userInfo, setId, setHome, setDetails }) {
           />
         ) : add ? (
           <Add />
-        )
-         :  getFav ? (
-          <Favoraite userInfo={userInfo}/>
-        ): (<></>)}
+        ) : getFav ? (
+          <Favoraite
+            userInfo={userInfo}
+            setDetails={setDetails}
+            setHome={setHome}
+            setId={setId}
+          />
+        ) : (
+          <></>
+        )}
       </div>
     </>
   );
