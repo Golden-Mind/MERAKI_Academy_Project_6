@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { Button, Form, Container, Alert } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import { MdOutlineAddAPhoto } from "react-icons/md";
+import { AiOutlineArrowDown } from "react-icons/ai";
 
 export default function Add() {
   const [productName, setProductName] = useState("");
@@ -18,11 +18,14 @@ export default function Add() {
   const [message, setMessage] = useState("");
   const [status, setStatus] = useState(false);
 
+  // ----------------------------------------------
   const state = useSelector((state) => {
     return {
       token: state.loginReducer.token,
     };
   });
+
+  // ----------------------------------------------
 
   const uploadImage = () => {
     const data = new FormData();
@@ -39,6 +42,8 @@ export default function Add() {
       })
       .catch((err) => console.log(err));
   };
+
+  // ----------------------------------------------
 
   const addProduct = (e) => {
     e.preventDefault();
@@ -77,20 +82,28 @@ export default function Add() {
         console.log(err);
       });
   };
+
+  // ----------------------------------------------
+
   useEffect(() => {
     setTimeout(() => {
       setStatus(false);
     }, 5000);
   }, [status]);
 
+  // ----------------------------------------------
+
   return (
     <>
       <Container className="d-flex flex-row">
-        <Form className="w-50 mt-5" style={{ marginBottom: "8vh" }}>
+        <Form
+          className="w-50 mt-5"
+          style={{ marginBottom: "8vh", fontWeight: "500" }}
+        >
           <fieldset>
             <Form.Group className="mb-3">
               <Form.Label
-                style={{ borderBottom: "solid 1px" }}
+                style={{ borderBottom: "solid 1px", fontWeight: "bolder" }}
                 htmlFor="disabledTextInput"
               >
                 What do you want to sell or advertise?
@@ -160,11 +173,7 @@ export default function Add() {
                 }}
               />
             </Form.Group>
-            <Button
-              className="w-100"
-              // type="submit"
-              onClick={addProduct}
-            >
+            <Button className="w-100" onClick={addProduct}>
               Submit
             </Button>
             {status ? (
@@ -178,11 +187,24 @@ export default function Add() {
         </Form>
         <div>
           <div className="AddContainer">
+            <p
+              style={{
+                marginTop: "20vh",
+                marginLeft: "10vw",
+                fontWeight: "bolder",
+                width: "18vw",
+                paddingBottom: "1.5vh",
+              }}
+            >
+              Click here to add an image to your ad ..!
+              <AiOutlineArrowDown
+                style={{ marginLeft: "1vw", fontWeight: "bolder" }}
+              />{" "}
+            </p>
             <img
               style={{
                 width: "18vw",
-                height: "30vh",
-                marginTop: "20vh",
+                height: "33vh",
                 marginLeft: "10vw",
                 cursor: "pointer",
               }}

@@ -41,7 +41,7 @@ export default function Ads({ userInfo, setHome, setDetails, setId }) {
     lat: 0,
     lng: 0,
   });
-  // console.log({ showDelete });
+
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(function (position) {
       console.log(position.coords.altitude);
@@ -52,6 +52,7 @@ export default function Ads({ userInfo, setHome, setDetails, setId }) {
       setPosition(position);
     });
   }, []);
+
   const getAds = () => {
     axios
       .get(`http://localhost:5000/products/your-add/${userInfo.userId}`)

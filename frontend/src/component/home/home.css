@@ -1,7 +1,33 @@
-/* .imageCard{
-    width: 30%;
-    height: 30%;
+.cardBody {
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
-.cardBody{
-    width: 70%;
-} */
+
+.love {
+  height: 3.5vh;
+  width: 3.5vh;
+  margin-left: 10%;
+  cursor: pointer;
+  margin-top: -1vh;
+}
+
+.love:hover {
+  color: red;
+}
+
+.cardTitle {
+  font-weight: bolder;
+}
+
+.navBrand {
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-size: 2rem;
+  color: white;
+  font-weight: bolder;
+  margin-left: 2vw;
+}
+
+.navlink {
+  color: white;
+  /* font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif; */
+  font-size: larger;
+}
