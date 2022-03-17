@@ -2,23 +2,22 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { Card, Container, ListGroup, ListGroupItem } from "react-bootstrap";
 import WhatsUp from "./Whatsup";
-import { addComments, getComments } from "../../reducer/comments";
 import { useDispatch, useSelector } from "react-redux";
-import Form from 'react-bootstrap/Form';
+import Form from "react-bootstrap/Form";
+import ButtonGroup from "react-bootstrap/ButtonGroup";
+import { Button } from "react-bootstrap";
 import FloatingLabel from 'react-bootstrap/FloatingLabel'
 function Product({ productId, id, userInfo }) {
   const [product, setProduct] = useState();
   const [comment, setComment] = useState("");
-  const dispatch = useDispatch();
-  // console.log(productId);
-  console.log(comment);
+  const [getComments, setGetComments] = useState();
   const state = useSelector((state) => {
     return {
-      product: state.commentesReducer.product,
-      comment: state.commentesReducer.comment,
+      token: state.loginReducer.token,
+      isLoggedIn: state.loginReducer.isLoggedIn,
     };
   });
-  //===============================================================
+  // //===============================================================
 
   const addComment = async () => {
     try {
@@ -26,8 +25,7 @@ function Product({ productId, id, userInfo }) {
         `http://localhost:5000/comment/${id}`,
         {
           comment: comment,
-          commenterId: userInfo.id,
-          productId: id,
+          commenter_id: userInfo.userId,
         },
         {
           headers: {
@@ -36,39 +34,33 @@ function Product({ productId, id, userInfo }) {
         }
       );
       console.log(comment);
-      console.log(state.product);
-      console.log(addComments(comment));
-      dispatch(addComments(res.data.results));
-      getComment();
+      // getComment();
     } catch (error) {
       console.log(error);
     }
   };
   //=============================================================
-  const getComment = async () => {
-    try {
-      const res = await axios.get(`http://localhost:5000/comment`, {
+  useEffect(() => {
+    axios
+      .get(`http://localhost:5000/comment/${id}`, {
         headers: {
           Authorization: `Bearer ${state.token}`,
         },
+      })
+      .then((res) => {
+        setGetComments(res.data.result);
+        // console.log(res.data.result);
+      })
+      .catch((err) => {
+        console.log(err);
       });
-      dispatch(getComments(res.data.results));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  //===============================================================
-
-  useEffect(() => {
-    // getAllArticles();
-    getComment();
-  }, []);
+  }, [getComments]);
   useEffect(() => {
     axios
       .get(`http://localhost:5000/products/product-by/${id}`)
       .then((res) => {
         setProduct(res.data.result[0]);
-        console.log(res.data.result[0]);
+        // console.log(res.data.result[0]);
       })
       .catch((err) => {
         console.log(err);
@@ -104,16 +96,59 @@ function Product({ productId, id, userInfo }) {
       ) : (
         <></>
       )}
-    
+      {getComments ? (
+        <>
+          <Card style={{ marginLeft: "8vw",marginTop:"5vw", marginBottom:"2vw" , width: "63rem"}}>
+            <Card.Title style={{ marginLeft: "1vw"}}>Comments</Card.Title>
+          </Card>
+        </>
+      ) : (
+        <>
+        <p> There is no comment yet </p>
+        </>
+      )}
+
+      {getComments &&
+        getComments.map((com) => {
+          return (
+            <>
+              {/* <Container className="d-flex flex-row mt-5"> */}
+              <Card style={{ marginLeft: "8vw",width: "63rem"}}>
+                <Card.Text style={{ marginLeft: "1vw" }}>
+                  <Card.Text className="fw-bold">
+                    {com.firstName && com.firstName}
+                  </Card.Text>
+                  {com.comment && com.comment}
+                </Card.Text>
+              </Card>
+              {/* </Container> */}
+            </>
+          );
+        })}
       <>
+        <FloatingLabel controlId="floatingTextarea2" label="Comments" style={{ marginLeft: "8vw",width: "63rem" }}>
           <Form.Control
             as="textarea"
             placeholder="Leave a comment here"
-            style={{ height: "100px" ,width:"50%","margin-left":"8.5%","margin-top":"3%"}}
+            style={{ height: "100px" , marginTop:"2vw"}}
             onChange={(e) => {
-              setComment(e.target.value)
+              setComment(e.target.value);
             }}
           />
+        </FloatingLabel>
+        <Container  className = "d-flex justify-content-center">
+        <Button
+          variant="secondary"
+          onClick={() => {
+            addComment();
+          }}
+         style={{marginLeft:"58%" , marginTop:"2vw" , width:"20%" , marginBottom:"2vw" }}
+        >
+          Add
+        </Button>
+
+
+        </Container>
       </>
     </>
   );
