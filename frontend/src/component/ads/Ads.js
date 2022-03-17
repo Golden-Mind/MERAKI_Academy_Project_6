@@ -1,25 +1,17 @@
 import React, { useState, useEffect } from "react";
 import "./ads.css";
-import { useNavigate } from "react-router-dom";
 import {
   Button,
-  Col,
-  Row,
   Card,
-  Nav,
   Container,
-  Image,
   Form,
-  Navbar,
-  NavDropdown,
-  FormControl,
 } from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
 // import { Demo } from './Demo';
 import axios from "axios";
 import { FiDelete } from "react-icons/fi";
 import { BiEditAlt } from "react-icons/bi";
-import Location from "./Location";
+// import Location from "./Location";
 export default function Ads({ userInfo, setHome, setDetails, setId }) {
   const [position, setPosition] = useState(0);
   const [yourAdd, setYourAdd] = useState();
@@ -31,8 +23,8 @@ export default function Ads({ userInfo, setHome, setDetails, setId }) {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const [url, setUrl] = useState("");
-  const [checkDelete, setCheckDelete] = useState(false);
+  // const [url, setUrl] = useState("");
+  // const [checkDelete, setCheckDelete] = useState(false);
   // of delete add
   const [showDelete, setShowDelete] = useState(false);
   const handleCloseDelete = () => setShowDelete(false);
