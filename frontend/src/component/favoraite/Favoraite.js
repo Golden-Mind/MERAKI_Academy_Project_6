@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Button, Card, Container } from "react-bootstrap";
 import { ImHeartBroken } from "react-icons/im";
-import "./fav.css";
+
 const Favoraite = ({ userInfo , setHome, setDetails, setId }) => {
 
   const [fav, setFav] = useState();
