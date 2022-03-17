@@ -41,22 +41,18 @@ export default function Profile({ userInfo, setId, setHome, setDetails }) {
             />
             Your Ads
           </Nav.Link>
-          <Nav.Link className="NavLink">
-            <BsFillSuitHeartFill
-              style={{
-                marginRight: "1vw",
-                marginTop: "-1.2vh",
-                fontSize: "2ch",
-              }}
           <Nav.Link className="NavLink" onClick = {() => {
-                setGetFav(true)
-                setAds(false);
-                setAdd(false);
+            setGetFav(true)
+            setAds(false);
+            setAdd(false);
           }}
                 >
-            <MdOutlineFavoriteBorder
-              style={{ marginRight: "0.5vw", marginTop: "-1vh" }}
-            />
+          <BsFillSuitHeartFill
+            style={{
+              marginRight: "1vw",
+              marginTop: "-1.2vh",
+              fontSize: "2ch",
+            }}/>
             Favorite
           </Nav.Link>
         </Nav>
@@ -69,12 +65,10 @@ export default function Profile({ userInfo, setId, setHome, setDetails }) {
           />
         ) : add ? (
           <Add />
-        ) : (
-          <></>
-        )}
-        ) : getFav ? (
+        )
+         :  getFav ? (
           <Favoraite userInfo={userInfo}/>
-        ): <></>}
+        ): (<></>)}
       </div>
     </>
   );
