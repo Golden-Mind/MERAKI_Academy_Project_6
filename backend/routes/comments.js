@@ -3,5 +3,5 @@ const commentRouter = express.Router();
 const { addNewComment, getAllComment } = require("../controllers/comments");
 
 commentRouter.post("/:id", addNewComment);
-commentRouter.get("/", getAllComment);
+commentRouter.get("/:productId", getAllComment);
 module.exports = commentRouter;
