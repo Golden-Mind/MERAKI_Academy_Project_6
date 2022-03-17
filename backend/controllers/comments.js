@@ -17,15 +17,18 @@ const addNewComment = (req, res) => {
         success: true,
         message: `The comment has been created success`,
         results: result,
+        data : data
       });
     }
   });
 };
 
 const getAllComment = (req, res) => {
-  const query = `SELECT * FROM comments INNER JOIN users ON  commenter_id=users.id INNER JOIN products ON comments.productId=products.id`;
-
-  connection.query(query, (err, results) => {
+  // const query = `SELECT * FROM comments INNER JOIN users ON  commenter_id=users.id INNER JOIN products ON comments.productId=products.id`;
+  const productId = req.params.productId
+  const query = `SELECT * FROM comments INNER JOIN users WHERE comments.productId = ? `;
+  const data = [productId];
+  connection.query(query,data,(err, results) => {
     if (err) {
       res.status(500).json({
         success: false,

@@ -1,4 +1,5 @@
 import "./App.css";
+import React  from 'react';
 import { Routes, Route } from "react-router-dom";
 import Login from "./component/Login/Login";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -8,7 +9,7 @@ import Profile from "./component/profile/Profile";
 import Register from "./component/Register/Register";
 import Favoraite from "./component/favoraite/Favoraite";
 import Product from "./component/Product/Product";
-import Navigation from "./component/Navigation/Navigation";
+// import Navigation from "./component/Navigation/Navigation";
 import { useState } from "react";
 
 function App() {

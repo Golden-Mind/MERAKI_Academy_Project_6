@@ -4,7 +4,7 @@ import WhatsAppWidget from "react-whatsapp-chat-widget";
 import "react-whatsapp-chat-widget/index.css";
 
 const WhatsUp = ({product,userInfo}) => {
-    console.log(userInfo);
+    // console.log(userInfo);
 	return (
 		<WhatsAppWidget
 			phoneNo={product.phoneNumber&&product.phoneNumber}
