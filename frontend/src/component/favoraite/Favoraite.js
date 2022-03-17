@@ -12,7 +12,7 @@ import {
 } from "react-bootstrap";
 import { ImHeartBroken } from "react-icons/im";
 import "./fav.css";
-const Favoraite = ({ userInfo }) => {
+const Favoraite = ({ userInfo , setHome, setDetails, setId }) => {
   const [fav, setFav] = useState();
   const getFav = () => {
     axios
@@ -60,7 +60,18 @@ const Favoraite = ({ userInfo }) => {
                   </Card.Title>
                   <Card.Text>{wish.description && wish.description}</Card.Text>
                   <Card.Text>{wish.price && wish.price}$</Card.Text>
-                  <Button variant="primary">Communication</Button>
+                  <button
+                      type="button"
+                      class="btn btn-outline-dark"
+                      onClick={() => {
+                        setId(wish.product_id);
+                        console.log(wish.id);
+                        setDetails(true);
+                        setHome(false);
+                      }}
+                    >
+                      Details
+                    </button>
                 </Card.Body>
               </Card>
             </>
