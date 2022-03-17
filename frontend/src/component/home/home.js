@@ -16,7 +16,6 @@ import { logout } from "../../reducer/login/index";
 import { useDispatch, useSelector } from "react-redux";
 import Product from "../Product/Product";
 import axios from "axios";
-import { GrFavorite } from "react-icons/gr";
 import { BiLogOutCircle } from "react-icons/bi";
 import { BsFillSuitHeartFill } from "react-icons/bs";
 import { FiActivity } from "react-icons/fi";
@@ -323,19 +322,26 @@ export default function Home({ setProductId, userInfo }) {
               <>
                 <Card
                   style={{
-                    width: "18rem",
-                    height: "25rem",
+                    width: "20rem",
+                    height: "26rem",
+                    marginBottom: "2vh"
                   }}
                   class="col"
                 >
                   <Card.Img
-                    variant="top"
+                    variant="top w-100 h-75"
                     src={product.image && product.image}
                   />
 
-                  <Card.Body>
-                    <Card.Title>
+                  <Card.Body className="cardBody">
+                    <Card.Title className="cardTitle">
                       {product.productName && product.productName}
+                      <BsFillSuitHeartFill
+                        className="love"
+                        onClick={() => {
+                          addToFavorite(product.id);
+                        }}
+                      />
                     </Card.Title>
                     <Card.Text>
                       {product.description && product.description}
@@ -345,7 +351,6 @@ export default function Home({ setProductId, userInfo }) {
                       class="btn btn-outline-dark"
                       onClick={() => {
                         setProductId(product.id);
-
                         setId(product.id);
                         setHome(false);
                         setDetails(true);
@@ -365,19 +370,26 @@ export default function Home({ setProductId, userInfo }) {
               <>
                 <Card
                   style={{
-                    width: "18rem",
-                    height: "25rem",
+                    width: "20rem",
+                    height: "26rem",
+                    marginBottom: "2vh"
                   }}
                   class="col"
                 >
                   <Card.Img
-                    variant="top"
+                    variant="top w-100 h-75"
                     src={product.image && product.image}
                   />
 
-                  <Card.Body>
-                    <Card.Title>
+                  <Card.Body className="cardBody">
+                    <Card.Title className="cardTitle">
                       {product.productName && product.productName}
+                      <BsFillSuitHeartFill
+                        className="love"
+                        onClick={() => {
+                          addToFavorite(product.id);
+                        }}
+                      />
                     </Card.Title>
                     <Card.Text>
                       {product.description && product.description}
@@ -387,7 +399,6 @@ export default function Home({ setProductId, userInfo }) {
                       class="btn btn-outline-dark"
                       onClick={() => {
                         setProductId(product.id);
-
                         setId(product.id);
                         setHome(false);
                         setDetails(true);
