@@ -1,3 +1,4 @@
+import "./Product.css";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { Card, Container, ListGroup, ListGroupItem } from "react-bootstrap";
@@ -6,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Form from "react-bootstrap/Form";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import { Button } from "react-bootstrap";
-import FloatingLabel from 'react-bootstrap/FloatingLabel'
+import FloatingLabel from "react-bootstrap/FloatingLabel";
 function Product({ productId, id, userInfo }) {
   const [product, setProduct] = useState();
   const [comment, setComment] = useState("");
@@ -69,12 +70,16 @@ function Product({ productId, id, userInfo }) {
   return (
     <>
       {product ? (
-        <Container className="d-flex flex-row mt-5">
+        <Container className="d-flex flex-row mt-5 justify-content-center">
           <Card style={{ width: "30rem" }}>
-            <Card.Img variant="top" src={product.image && product.image} />
+            <Card.Img
+              variant="top"
+              src={product.image && product.image}
+              style={{ height: "100%" }}
+            />
           </Card>
-          <Card>
-            <Card.Title style={{ marginLeft: "1vw" }}>
+          <Card className="cardPro">
+            <Card.Title className="cardTPro" style={{color: "#0e5a55"}}>
               {product.productName && product.productName}
             </Card.Title>
             <Card.Text style={{ marginLeft: "1vw" }}>
@@ -84,13 +89,14 @@ function Product({ productId, id, userInfo }) {
               <ListGroupItem>{product.price && product.price} JD</ListGroupItem>
               <ListGroupItem>{product.forr && product.forr}</ListGroupItem>
               <ListGroupItem>{product.type && product.type}</ListGroupItem>
+              <ListGroupItem>
+                {product.phoneNumber && product.phoneNumber}
+              </ListGroupItem>
+              <ListGroupItem>
+                {product.date.split("").slice(0, 10).join("") &&
+                  product.date.split("").slice(0, 10).join("")}
+              </ListGroupItem>
             </ListGroup>
-            <Card.Body>
-              <Card.Link>
-                <WhatsUp product={product} userInfo={userInfo} />
-              </Card.Link>
-              <Card.Link href="#">Another Link</Card.Link>
-            </Card.Body>
           </Card>
         </Container>
       ) : (
@@ -98,13 +104,19 @@ function Product({ productId, id, userInfo }) {
       )}
       {getComments ? (
         <>
-          <Card style={{ marginLeft: "8vw",marginTop:"5vw", marginBottom:"2vw" , width: "63rem"}}>
-            <Card.Title style={{ marginLeft: "1vw"}}>Comments</Card.Title>
-          </Card>
+          <Container className="d-flex flex-row mt-5 justify-content-center">
+            <Card
+              style={{
+                width: "94%",
+              }}
+            >
+              <Card.Title style={{ marginLeft: "3vw", marginTop: "1vw", color: "#0e5a55", textDecoration: "underline" }}>COMMENTS :</Card.Title>
+            </Card>
+          </Container>
         </>
       ) : (
         <>
-        <p> There is no comment yet </p>
+          <p> There is no comment yet </p>
         </>
       )}
 
@@ -112,44 +124,62 @@ function Product({ productId, id, userInfo }) {
         getComments.map((com) => {
           return (
             <>
-              {/* <Container className="d-flex flex-row mt-5"> */}
-              <Card style={{ marginLeft: "8vw",width: "63rem"}}>
-                <Card.Text style={{ marginLeft: "1vw" }}>
-                  <Card.Text className="fw-bold">
-                    {com.firstName && com.firstName}
+              <Container className="d-flex flex-row justify-content-center">
+              {/* <div style={{display: "flex", justifyContent: "center" }}> */}
+              <Card style={{width: "94%" }}>
+                <Card.Text style={{ marginLeft: "3vw" }}>
+                  <Card.Text className="fw-bold" style={{color: "#0e5a55"}}>
+                    {com.firstName + " " + com.lastName && com.firstName + " " + com.lastName}
                   </Card.Text>
                   {com.comment && com.comment}
                 </Card.Text>
               </Card>
-              {/* </Container> */}
+              {/* </div> */}
+              </Container>
+              {/* <div style={{marginLeft: "12%", borderBottom: "1px solid #13b2a7"}}>
+                <div>
+                {com.firstName && com.firstName}
+                </div>
+                {com.comment && com.comment}
+              </div> */}
             </>
           );
         })}
-      <>
-        <FloatingLabel controlId="floatingTextarea2" label="Comments" style={{ marginLeft: "8vw",width: "63rem" }}>
+      
+      <Container className="mt-1" style={{width: "78.5%"}}>
+        <FloatingLabel
+          controlId="floatingTextarea2"
+          label="Comments ..."
+          className="floating"
+        >
           <Form.Control
             as="textarea"
             placeholder="Leave a comment here"
-            style={{ height: "100px" , marginTop:"2vw"}}
+            style={{ height: "100px" }}
             onChange={(e) => {
               setComment(e.target.value);
             }}
           />
         </FloatingLabel>
-        <Container  className = "d-flex justify-content-center">
-        <Button
-          variant="secondary"
-          onClick={() => {
-            addComment();
-          }}
-         style={{marginLeft:"58%" , marginTop:"2vw" , width:"20%" , marginBottom:"2vw" }}
-        >
-          Add
-        </Button>
-
-
-        </Container>
-      </>
+          </Container>
+        <Container className="d-flex justify-content-center">
+          <Button
+            variant="secondary"
+            onClick={() => {
+              addComment();
+            }}
+            style={{
+              // marginLeft: "58%",
+              marginTop: "2vw",
+              marginBottom: "2vw",
+              width: "30%",
+              // marginBottom: "2vw",
+            }}
+          >
+            Add
+          </Button>
+          </Container>
+      {/* </> */}
     </>
   );
 }
