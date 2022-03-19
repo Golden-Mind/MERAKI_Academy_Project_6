@@ -15,7 +15,7 @@ export default function Profile({ userInfo, setId, setHome, setDetails }) {
   console.log(userInfo);
   return (
     <>
-      <div style={{ display: "flex", flexDirection: "row", gap: "5vw" }}>
+      <div className="divProfile">
         <Nav className="Nav">
           <Nav.Link
             className="NavLink"
