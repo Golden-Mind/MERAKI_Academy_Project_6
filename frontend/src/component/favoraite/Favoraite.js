@@ -3,8 +3,7 @@ import axios from "axios";
 import { Button, Card, Container } from "react-bootstrap";
 import { ImHeartBroken } from "react-icons/im";
 
-const Favoraite = ({ userInfo , setHome, setDetails, setId }) => {
-
+const Favoraite = ({ userInfo, setHome, setDetails, setId }) => {
   const [fav, setFav] = useState();
 
   // ------------------------------------------------
@@ -13,7 +12,6 @@ const Favoraite = ({ userInfo , setHome, setDetails, setId }) => {
     axios
       .get(`http://localhost:5000/favorite/get-fav/${userInfo.userId}`)
       .then((res) => {
-        console.log(res.data.result);
         setFav(res.data.result);
       })
       .catch((err) => {});
@@ -31,7 +29,6 @@ const Favoraite = ({ userInfo , setHome, setDetails, setId }) => {
     axios
       .delete(`http://localhost:5000/favorite/delete-fav/${id}`)
       .then((res) => {
-        console.log(res);
         getFav();
       })
       .catch((err) => {});
@@ -55,30 +52,33 @@ const Favoraite = ({ userInfo , setHome, setDetails, setId }) => {
                 }}
                 class="col"
               >
-                <Card.Img variant="top w-100 h-75" src={wish.image && wish.image} />
+                <Card.Img
+                  variant="top w-100 h-75"
+                  src={wish.image && wish.image}
+                />
                 <Card.Body className="cardBody">
                   <Card.Title className="cardTitle">
                     {wish.productName && wish.productName}
-                    <ImHeartBroken className="love"
-                    onClick={() => {
-                      deleteFav(wish.id);
-                    }}
-                  />
+                    <ImHeartBroken
+                      className="love"
+                      onClick={() => {
+                        deleteFav(wish.id);
+                      }}
+                    />
                   </Card.Title>
                   <Card.Text>{wish.description && wish.description}</Card.Text>
                   <Card.Text>{wish.price && wish.price}$</Card.Text>
                   <button
-                      type="button"
-                      class="btn btn-outline-dark"
-                      onClick={() => {
-                        setId(wish.product_id);
-                        console.log(wish.id);
-                        setDetails(true);
-                        setHome(false);
-                      }}
-                    >
-                      Details
-                    </button>
+                    type="button"
+                    class="btn btn-outline-dark"
+                    onClick={() => {
+                      setId(wish.product_id);
+                      setDetails(true);
+                      setHome(false);
+                    }}
+                  >
+                    Details
+                  </button>
                 </Card.Body>
               </Card>
             </>
