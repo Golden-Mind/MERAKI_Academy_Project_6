@@ -12,7 +12,9 @@ export default function Profile({ userInfo, setId, setHome, setDetails }) {
   const [ads, setAds] = useState(false);
   const [add, setAdd] = useState(true);
   const [getFav, setGetFav] = useState(false);
-  console.log(userInfo);
+
+  //===============================================================
+
   return (
     <>
       <div className="divProfile">
