@@ -29,7 +29,7 @@ function App() {
           element={<Home setProductId={setProductId} userInfo={userInfo} />}
         />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/fav" element={<Favoraite userInfo={userInfo} />} />
+        <Route path="/fav" element={<Favoraite userInfo={userInfo}  />} />
         <Route path="/product" element={<Product productId={productId} />} />
       </Routes>
     </div>

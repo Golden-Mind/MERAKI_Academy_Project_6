@@ -14,7 +14,10 @@ function Product({ productId, id, userInfo }) {
   const [comment, setComment] = useState("");
   const [getComments, setGetComments] = useState();
 
+
   //===============================================================
+
+  const [addcomments, setAddComments] = useState("");
 
   const state = useSelector((state) => {
     return {
@@ -25,10 +28,11 @@ function Product({ productId, id, userInfo }) {
 
   //===============================================================
 
-  const addComment = async () => {
-    try {
-      const res = await axios.post(
-        `http://localhost:5000/comment/${id}`,
+  const addComment = () => {
+    // e.preventDefault();
+    axios
+      .post(
+        `http://localhost:5000/comment/add/${id}`,
         {
           comment: comment,
           commenter_id: userInfo.userId,
@@ -38,10 +42,14 @@ function Product({ productId, id, userInfo }) {
             Authorization: `Bearer ${state.token}`,
           },
         }
-      );
-    } catch (error) {
-      console.log(error);
-    }
+      )
+      .then((result) => {
+        
+        console.log(result);
+      })
+      .catch((err) => { 
+        console.log(err);
+      });
   };
 
   //=============================================================
@@ -166,7 +174,7 @@ function Product({ productId, id, userInfo }) {
           <Form.Control
             as="textarea"
             placeholder="Leave a comment here"
-            style={{ height: "100px" }}
+            style={{ height: "100px", marginTop: "2vw" }}
             onChange={(e) => {
               setComment(e.target.value);
             }}

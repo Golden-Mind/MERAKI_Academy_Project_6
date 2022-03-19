@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Container, Form, Row, Col, Alert } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import SignUp from "./signup.gif";
+import SignUp from "./img/signup.gif";
 import axios from "axios";
 
 function Register() {
