@@ -20,7 +20,7 @@ import { BiLogOutCircle } from "react-icons/bi";
 import { BsFillSuitHeartFill } from "react-icons/bs";
 import { FiActivity } from "react-icons/fi";
 
-export default function Home({ setProductId, userInfo }) {
+export default function Home({ setProductId, userInfo, fav }) {
   const [profile, setProfile] = useState(false);
   const [page, setPage] = useState(1);
   const [numperOfProducts, setNumperOfProducts] = useState();
@@ -33,9 +33,10 @@ export default function Home({ setProductId, userInfo }) {
   const [category, setCategory] = useState("");
   const [categoryOfProduct, setCategoryOfProduct] = useState();
   const [categoryStatus, setCategoryStatus] = useState(false);
+  const [checkFav, setCheckFav] = useState();
 
   // ----------------------------------------------
-
+  // console.log(checkFav);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const state = useSelector((state) => {
@@ -52,7 +53,6 @@ export default function Home({ setProductId, userInfo }) {
         .get(`http://localhost:5000/products/search_2?type=${category}`)
         .then((res) => {
           setCategoryOfProduct(res.data.result);
-
           setProfile(false);
           setDetails(false);
           setCategoryStatus(true);
@@ -68,8 +68,9 @@ export default function Home({ setProductId, userInfo }) {
     getAllProductsCategory();
   }, [category]);
 
-  // ----------------------------------------------
+  // -----------------------------------------------
 
+  // -----------------------------------------------
   useEffect(() => {
     const getAllProducts = () => {
       axios
@@ -120,7 +121,7 @@ export default function Home({ setProductId, userInfo }) {
     axios
       .get(`http://localhost:5000/favorite/get-fav/${userInfo.userId}`)
       .then((res) => {
-        console.log(res.data);
+        setCheckFav(res.data.result);
       })
       .catch((err) => {
         console.log(err);
@@ -141,7 +142,10 @@ export default function Home({ setProductId, userInfo }) {
         }}
       >
         <Container fluid className="d-flex flex-row gap-5">
-          <Navbar.Brand className="navBrand" style={{ color: "white", textShadow: "0 0 5px" }}>
+          <Navbar.Brand
+            className="navBrand"
+            style={{ color: "white", textShadow: "0 0 5px" }}
+          >
             AMUR
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarScroll" />
@@ -205,6 +209,7 @@ export default function Home({ setProductId, userInfo }) {
                 }}
               >
                 <NavDropdown.Item>Car</NavDropdown.Item>
+                <NavDropdown.Item>Home</NavDropdown.Item>
                 <NavDropdown.Item>phone</NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item disabled>Something else</NavDropdown.Item>
@@ -274,20 +279,21 @@ export default function Home({ setProductId, userInfo }) {
                 <Card
                   style={{
                     width: "20rem",
-                    height: "26rem",
+                    height: "29rem",
                   }}
                   class="col"
                 >
                   <Card.Img
                     variant="top w-100 h-75"
                     src={product.image && product.image}
+                    // className = "img-thumbnail"
                   />
 
                   <Card.Body className="cardBody">
                     <Card.Title className="cardTitle">
                       {product.productName && product.productName}
                       <BsFillSuitHeartFill
-                        className="love"
+                        className={`love `}
                         onClick={() => {
                           addToFavorite(product.id);
                         }}
@@ -324,7 +330,7 @@ export default function Home({ setProductId, userInfo }) {
                   style={{
                     width: "20rem",
                     height: "26rem",
-                    marginBottom: "2vh"
+                    marginBottom: "2vh",
                   }}
                   class="col"
                 >
@@ -372,7 +378,7 @@ export default function Home({ setProductId, userInfo }) {
                   style={{
                     width: "20rem",
                     height: "26rem",
-                    marginBottom: "2vh"
+                    marginBottom: "2vh",
                   }}
                   class="col"
                 >
