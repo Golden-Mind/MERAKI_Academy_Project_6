@@ -213,7 +213,7 @@ export default function Home({ setProductId, userInfo, fav }) {
                 style={{
                   marginLeft: "10vw",
                   height: "7vh",
-                  width: "60vh",
+                  width: "50vh",
                   marginTop: "1vh",
                   marginRight: "5vw",
                 }}
