@@ -10,3 +10,13 @@
 .edit-add:hover {
   cursor: pointer;
 }
+
+.edit-addE {
+    font-size: 3ch;
+    
+}
+
+.edit-addD {
+    font-size: 3ch;
+    margin-right: 1vw;
+}

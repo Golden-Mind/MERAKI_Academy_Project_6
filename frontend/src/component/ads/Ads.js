@@ -102,7 +102,7 @@ export default function Ads({ userInfo, setHome, setDetails, setId }) {
                 >
                   <Card.Img variant="top" src={add.image && add.image} />
                   <Card.Body>
-                    <FiDelete onClick={handleShowDelete} className="edit-add" />
+                    <FiDelete onClick={handleShowDelete} className="edit-addD" />
                     <Modal show={showDelete} onHide={handleCloseDelete}>
                       <Modal.Header closeButton></Modal.Header>
                       <Modal.Body>
@@ -123,7 +123,7 @@ export default function Ads({ userInfo, setHome, setDetails, setId }) {
                         </Button>
                       </Modal.Footer>
                     </Modal>
-                    <BiEditAlt onClick={handleShow} className="edit-add" />
+                    <BiEditAlt onClick={handleShow} className="edit-addE" />
                     <Card.Title style={{ fontWeight: "bolder" }}>
                       {add.productName && add.productName}
                     </Card.Title>
