@@ -40,7 +40,7 @@ const Favoraite = ({ userInfo , setHome, setDetails, setId }) => {
   // ------------------------------------------------
 
   return (
-    <Container className="d-flex flex-row flex-wrap  gap-4 mt-4">
+    <Container className="d-flex flex-row flex-wrap gap-4 mt-4">
       {fav &&
         fav.map((wish) => {
           return (
