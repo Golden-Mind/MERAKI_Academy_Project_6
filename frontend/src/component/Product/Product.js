@@ -6,11 +6,12 @@ import { useDispatch, useSelector } from "react-redux";
 import Form from "react-bootstrap/Form";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import { Button } from "react-bootstrap";
-import FloatingLabel from 'react-bootstrap/FloatingLabel'
+import FloatingLabel from "react-bootstrap/FloatingLabel";
 function Product({ productId, id, userInfo }) {
   const [product, setProduct] = useState();
   const [comment, setComment] = useState("");
   const [getComments, setGetComments] = useState();
+  const [addcomments, setAddComments] = useState("");
   const state = useSelector((state) => {
     return {
       token: state.loginReducer.token,
@@ -19,10 +20,11 @@ function Product({ productId, id, userInfo }) {
   });
   // //===============================================================
 
-  const addComment = async () => {
-    try {
-      const res = await axios.post(
-        `http://localhost:5000/comment/${id}`,
+  const addComment = () => {
+    // e.preventDefault();
+    axios
+      .post(
+        `http://localhost:5000/comment/add/${id}`,
         {
           comment: comment,
           commenter_id: userInfo.userId,
@@ -32,12 +34,14 @@ function Product({ productId, id, userInfo }) {
             Authorization: `Bearer ${state.token}`,
           },
         }
-      );
-      console.log(comment);
-      // getComment();
-    } catch (error) {
-      console.log(error);
-    }
+      )
+      .then((result) => {
+        
+        console.log(result);
+      })
+      .catch((err) => { 
+        console.log(err);
+      });
   };
   //=============================================================
   useEffect(() => {
@@ -49,7 +53,7 @@ function Product({ productId, id, userInfo }) {
       })
       .then((res) => {
         setGetComments(res.data.result);
-        // console.log(res.data.result);
+
       })
       .catch((err) => {
         console.log(err);
@@ -60,7 +64,7 @@ function Product({ productId, id, userInfo }) {
       .get(`http://localhost:5000/products/product-by/${id}`)
       .then((res) => {
         setProduct(res.data.result[0]);
-        // console.log(res.data.result[0]);
+
       })
       .catch((err) => {
         console.log(err);
@@ -98,13 +102,20 @@ function Product({ productId, id, userInfo }) {
       )}
       {getComments ? (
         <>
-          <Card style={{ marginLeft: "8vw",marginTop:"5vw", marginBottom:"2vw" , width: "63rem"}}>
-            <Card.Title style={{ marginLeft: "1vw"}}>Comments</Card.Title>
+          <Card
+            style={{
+              marginLeft: "8vw",
+              marginTop: "5vw",
+              marginBottom: "2vw",
+              width: "63rem",
+            }}
+          >
+            <Card.Title style={{ marginLeft: "1vw" }}>Comments</Card.Title>
           </Card>
         </>
       ) : (
         <>
-        <p> There is no comment yet </p>
+          <p> There is no comment yet </p>
         </>
       )}
 
@@ -113,10 +124,10 @@ function Product({ productId, id, userInfo }) {
           return (
             <>
               {/* <Container className="d-flex flex-row mt-5"> */}
-              <Card style={{ marginLeft: "8vw",width: "63rem"}}>
+              <Card style={{ marginLeft: "8vw", width: "63rem" }}>
                 <Card.Text style={{ marginLeft: "1vw" }}>
                   <Card.Text className="fw-bold">
-                    {com.firstName && com.firstName}
+                    {com.firstName && com.firstName}  {com.lastName && com.lastName}
                   </Card.Text>
                   {com.comment && com.comment}
                 </Card.Text>
@@ -126,28 +137,37 @@ function Product({ productId, id, userInfo }) {
           );
         })}
       <>
-        <FloatingLabel controlId="floatingTextarea2" label="Comments" style={{ marginLeft: "8vw",width: "63rem" }}>
+        <FloatingLabel
+          controlId="floatingTextarea2"
+          label="Comments"
+          style={{ marginLeft: "8vw", width: "63rem" }}
+        >
           <Form.Control
             as="textarea"
             placeholder="Leave a comment here"
-            style={{ height: "100px" , marginTop:"2vw"}}
+            style={{ height: "100px", marginTop: "2vw" }}
             onChange={(e) => {
               setComment(e.target.value);
             }}
           />
         </FloatingLabel>
-        <Container  className = "d-flex justify-content-center">
-        <Button
-          variant="secondary"
-          onClick={() => {
-            addComment();
-          }}
-         style={{marginLeft:"58%" , marginTop:"2vw" , width:"20%" , marginBottom:"2vw" }}
-        >
-          Add
-        </Button>
-
-
+        <Container className="d-flex justify-content-center">
+          <Button
+            variant="secondary"
+            onClick={() => {
+              addComment();
+              setComment(" ")
+            }}
+            style={{
+              marginLeft: "58%",
+              marginTop: "2vw",
+              width: "20%",
+              marginBottom: "2vw",
+              
+            }}
+          >
+            Add
+          </Button>
         </Container>
       </>
     </>
