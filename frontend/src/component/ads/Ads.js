@@ -1,11 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./ads.css";
-import {
-  Button,
-  Card,
-  Container,
-  Form,
-} from "react-bootstrap";
+import { Button, Card, Container, Form } from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
 // import { Demo } from './Demo';
 import axios from "axios";
@@ -84,30 +79,27 @@ export default function Ads({ userInfo, setHome, setDetails, setId }) {
   };
   return (
     <>
-      {yourAdd &&
-        yourAdd.map((add) => {
-          return (
-            <>
-              <Container className="m-l-5">
+      <div className="divAds">
+        {yourAdd &&
+          yourAdd.map((add) => {
+            return (
+              <>
                 <Card
                   style={{
-                    width: "18rem",
-                    height: "25rem",
+                    width: "20rem",
+                    height: "30rem",
                     marginTop: "2%",
                     marginLeft: "3%",
+                    marginBottom: "2%",
                   }}
                   class="col"
                 >
                   <Card.Img variant="top" src={add.image && add.image} />
                   <Card.Body>
-                    <FiDelete
-                      onClick={handleShowDelete}
-                      className="edit-add"
-                    />
+                    <FiDelete onClick={handleShowDelete} className="edit-add" />
                     <Modal show={showDelete} onHide={handleCloseDelete}>
-                      <Modal.Header closeButton>
-                      </Modal.Header>
-                      <Modal.Body>Are You Sure To Delete Prpduct!!</Modal.Body>
+                      <Modal.Header closeButton></Modal.Header>
+                      <Modal.Body>Are You Sure To Delete Product .!!</Modal.Body>
                       <Modal.Footer>
                         <Button variant="secondary" onClick={handleCloseDelete}>
                           Close
@@ -124,10 +116,11 @@ export default function Ads({ userInfo, setHome, setDetails, setId }) {
                       </Modal.Footer>
                     </Modal>
                     <BiEditAlt onClick={handleShow} className="edit-add" />
-                    <Card.Title>
+                    <Card.Title style={{fontWeight: "bolder"}}>
                       {add.productName && add.productName}
                     </Card.Title>
                     <Card.Text>{add.description && add.description}</Card.Text>
+                    <Card.Text>{add.price && add.price} JD</Card.Text>
                     <button
                       type="button"
                       class="btn btn-outline-dark"
@@ -141,94 +134,96 @@ export default function Ads({ userInfo, setHome, setDetails, setId }) {
                     </button>
                   </Card.Body>
                 </Card>
-                <Modal show={show} onHide={handleClose}>
-                  <Modal.Header closeButton>
-                    <Modal.Title> Edit Your Product </Modal.Title>
-                  </Modal.Header>
-                  <Modal.Body>
-                    <Form>
-                      <Form.Group className="mb-3" controlId="formBasicEmail">
-                        <Form.Label>Product Name</Form.Label>
-                        <Form.Control
-                          // id="disabledTextInput"
-                          placeholder="Product Name"
-                          onChange={(e) => {
-                            setProductName(e.target.value);
-                          }}
-                        />
-                      </Form.Group>
-                      <Form.Group className="mb-3">
-                        <Form.Label htmlFor="disabledTextInput">
-                          Description
-                        </Form.Label>
-                        <Form.Control
-                          id="disabledTextInput"
-                          placeholder="Description"
-                          onChange={(e) => {
-                            setDescription(e.target.value);
-                          }}
-                        />
-                      </Form.Group>
-                      <Form.Group className="mb-3">
-                        <Form.Label htmlFor="disabledTextInput">
-                          Price
-                        </Form.Label>
-                        <Form.Control
-                          id="disabledTextInput"
-                          placeholder="Price"
-                          onChange={(e) => {
-                            setPrice(e.target.value);
-                          }}
-                        />
-                      </Form.Group>
-                      <Form.Group className="mb-3">
-                        <Form.Label htmlFor="disabledTextInput">
-                          Category
-                        </Form.Label>
-                        <Form.Control
-                          id="disabledTextInput"
-                          placeholder="Category"
-                          onChange={(e) => {
-                            setType(e.target.value);
-                          }}
-                        />
-                      </Form.Group>
-                      <Form.Group className="mb-3">
-                        <Form.Label htmlFor="disabledTextInput">
-                          Type
-                        </Form.Label>
-                        <Form.Select
-                          id="disabledSelect"
-                          onChange={(e) => {
-                            setType(e.target.value);
-                          }}
-                        >
-                          <option>Sell</option>
-                          <option>Rent</option>
-                        </Form.Select>
-                      </Form.Group>
-                    </Form>
-                  </Modal.Body>
-                  <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
-                      Close
-                    </Button>
-                    <Button
-                      variant="primary"
-                      onClick={() => {
-                        updateAdd(add.id, add.image);
-                        handleClose();
-                        getAds();
-                      }}
-                    >
-                      Update
-                    </Button>
-                  </Modal.Footer>
-                </Modal>
-              </Container>
-            </>
-          );
-        })}
+                <Container>
+                  <Modal show={show} onHide={handleClose}>
+                    <Modal.Header closeButton>
+                      <Modal.Title> Edit Your Product </Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                      <Form>
+                        <Form.Group className="mb-3" controlId="formBasicEmail">
+                          <Form.Label>Product Name</Form.Label>
+                          <Form.Control
+                            // id="disabledTextInput"
+                            placeholder="Product Name"
+                            onChange={(e) => {
+                              setProductName(e.target.value);
+                            }}
+                          />
+                        </Form.Group>
+                        <Form.Group className="mb-3">
+                          <Form.Label htmlFor="disabledTextInput">
+                            Description
+                          </Form.Label>
+                          <Form.Control
+                            id="disabledTextInput"
+                            placeholder="Description"
+                            onChange={(e) => {
+                              setDescription(e.target.value);
+                            }}
+                          />
+                        </Form.Group>
+                        <Form.Group className="mb-3">
+                          <Form.Label htmlFor="disabledTextInput">
+                            Price
+                          </Form.Label>
+                          <Form.Control
+                            id="disabledTextInput"
+                            placeholder="Price"
+                            onChange={(e) => {
+                              setPrice(e.target.value);
+                            }}
+                          />
+                        </Form.Group>
+                        <Form.Group className="mb-3">
+                          <Form.Label htmlFor="disabledTextInput">
+                            Category
+                          </Form.Label>
+                          <Form.Control
+                            id="disabledTextInput"
+                            placeholder="Category"
+                            onChange={(e) => {
+                              setType(e.target.value);
+                            }}
+                          />
+                        </Form.Group>
+                        <Form.Group className="mb-3">
+                          <Form.Label htmlFor="disabledTextInput">
+                            Type
+                          </Form.Label>
+                          <Form.Select
+                            id="disabledSelect"
+                            onChange={(e) => {
+                              setType(e.target.value);
+                            }}
+                          >
+                            <option>Sell</option>
+                            <option>Rent</option>
+                          </Form.Select>
+                        </Form.Group>
+                      </Form>
+                    </Modal.Body>
+                    <Modal.Footer>
+                      <Button variant="secondary" onClick={handleClose}>
+                        Close
+                      </Button>
+                      <Button
+                        variant="primary"
+                        onClick={() => {
+                          updateAdd(add.id, add.image);
+                          handleClose();
+                          getAds();
+                        }}
+                      >
+                        Update
+                      </Button>
+                    </Modal.Footer>
+                  </Modal>
+                </Container>
+              </>
+            );
+          })}
+      </div>
     </>
   );
 }
