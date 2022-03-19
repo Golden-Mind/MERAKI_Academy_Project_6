@@ -52,11 +52,9 @@ export default function Home({ setProductId, userInfo }) {
         .get(`http://localhost:5000/products/search_2?type=${category}`)
         .then((res) => {
           setCategoryOfProduct(res.data.result);
-
           setProfile(false);
           setDetails(false);
           setCategoryStatus(true);
-          console.log(res.data.result);
         })
         .catch((err) => {});
     }
@@ -75,7 +73,6 @@ export default function Home({ setProductId, userInfo }) {
       axios
         .get("http://localhost:5000/products/")
         .then((res) => {
-          console.log(res.data);
           setNumperOfProducts(res.data.result.length);
         })
         .catch((err) => {
@@ -92,7 +89,6 @@ export default function Home({ setProductId, userInfo }) {
       .get(`http://localhost:5000/products/search?page=${page}`)
       .then((res) => {
         setProducts(res.data.result);
-        console.log(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -108,9 +104,7 @@ export default function Home({ setProductId, userInfo }) {
         productId: id,
         userId: userInfo.userId,
       })
-      .then((res) => {
-        console.log(res.data);
-      })
+      .then((res) => {})
       .catch((err) => {});
   };
 
@@ -119,9 +113,7 @@ export default function Home({ setProductId, userInfo }) {
   useEffect(() => {
     axios
       .get(`http://localhost:5000/favorite/get-fav/${userInfo.userId}`)
-      .then((res) => {
-        console.log(res.data);
-      })
+      .then((res) => {})
       .catch((err) => {
         console.log(err);
       });
@@ -141,7 +133,10 @@ export default function Home({ setProductId, userInfo }) {
         }}
       >
         <Container fluid className="d-flex flex-row gap-5">
-          <Navbar.Brand className="navBrand" style={{ color: "white", textShadow: "0 0 5px" }}>
+          <Navbar.Brand
+            className="navBrand"
+            style={{ color: "white", textShadow: "0 0 5px" }}
+          >
             AMUR
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarScroll" />
@@ -199,7 +194,6 @@ export default function Home({ setProductId, userInfo }) {
                 title="Category"
                 id="navbarScrollingDropdown"
                 onClick={(e) => {
-                  console.log(e.target.innerText);
                   setCategory(e.target.innerText);
                   setHome(false);
                 }}
@@ -325,7 +319,7 @@ export default function Home({ setProductId, userInfo }) {
                   style={{
                     width: "20rem",
                     height: "26rem",
-                    marginBottom: "2vh"
+                    marginBottom: "2vh",
                   }}
                   class="col"
                 >
@@ -373,7 +367,7 @@ export default function Home({ setProductId, userInfo }) {
                   style={{
                     width: "20rem",
                     height: "26rem",
-                    marginBottom: "2vh"
+                    marginBottom: "2vh",
                   }}
                   class="col"
                 >
