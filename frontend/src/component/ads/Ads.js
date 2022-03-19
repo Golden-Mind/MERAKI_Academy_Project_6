@@ -2,11 +2,10 @@ import React, { useState, useEffect } from "react";
 import "./ads.css";
 import { Button, Card, Container, Form } from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
-// import { Demo } from './Demo';
 import axios from "axios";
 import { FiDelete } from "react-icons/fi";
 import { BiEditAlt } from "react-icons/bi";
-// import Location from "./Location";
+
 export default function Ads({ userInfo, setHome, setDetails, setId }) {
   const [position, setPosition] = useState(0);
   const [yourAdd, setYourAdd] = useState();
@@ -16,18 +15,17 @@ export default function Ads({ userInfo, setHome, setDetails, setId }) {
   const [price, setPrice] = useState("");
   const [type, setType] = useState();
   const [show, setShow] = useState(false);
+  const [showDelete, setShowDelete] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  // const [url, setUrl] = useState("");
-  // const [checkDelete, setCheckDelete] = useState(false);
-  // of delete add
-  const [showDelete, setShowDelete] = useState(false);
   const handleCloseDelete = () => setShowDelete(false);
   const handleShowDelete = () => setShowDelete(true);
   const [center, setCenter] = useState({
     lat: 0,
     lng: 0,
   });
+
+  // ------------------------------------------------------
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(function (position) {
@@ -40,6 +38,8 @@ export default function Ads({ userInfo, setHome, setDetails, setId }) {
     });
   }, []);
 
+  // ------------------------------------------------------
+
   const getAds = () => {
     axios
       .get(`http://localhost:5000/products/your-add/${userInfo.userId}`)
@@ -51,7 +51,9 @@ export default function Ads({ userInfo, setHome, setDetails, setId }) {
   useEffect(() => {
     getAds();
   }, []);
-  // update
+
+  // ------------------------------------------------------
+
   const updateAdd = (id, img) => {
     axios
       .patch(`http://localhost:5000/products/${id}`, {
@@ -67,7 +69,9 @@ export default function Ads({ userInfo, setHome, setDetails, setId }) {
       })
       .catch((err) => {});
   };
-  // delete
+
+  // ------------------------------------------------------
+
   const deleteAdd = (id) => {
     axios
       .delete(`http://localhost:5000/products/${id}`)
@@ -77,6 +81,9 @@ export default function Ads({ userInfo, setHome, setDetails, setId }) {
       })
       .catch((err) => {});
   };
+
+  // ------------------------------------------------------
+
   return (
     <>
       <div className="divAds">
@@ -99,7 +106,9 @@ export default function Ads({ userInfo, setHome, setDetails, setId }) {
                     <FiDelete onClick={handleShowDelete} className="edit-add" />
                     <Modal show={showDelete} onHide={handleCloseDelete}>
                       <Modal.Header closeButton></Modal.Header>
-                      <Modal.Body>Are You Sure To Delete Product .!!</Modal.Body>
+                      <Modal.Body>
+                        Are You Sure To Delete Product .!!
+                      </Modal.Body>
                       <Modal.Footer>
                         <Button variant="secondary" onClick={handleCloseDelete}>
                           Close
@@ -116,7 +125,7 @@ export default function Ads({ userInfo, setHome, setDetails, setId }) {
                       </Modal.Footer>
                     </Modal>
                     <BiEditAlt onClick={handleShow} className="edit-add" />
-                    <Card.Title style={{fontWeight: "bolder"}}>
+                    <Card.Title style={{ fontWeight: "bolder" }}>
                       {add.productName && add.productName}
                     </Card.Title>
                     <Card.Text>{add.description && add.description}</Card.Text>
@@ -144,7 +153,6 @@ export default function Ads({ userInfo, setHome, setDetails, setId }) {
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                           <Form.Label>Product Name</Form.Label>
                           <Form.Control
-                            // id="disabledTextInput"
                             placeholder="Product Name"
                             onChange={(e) => {
                               setProductName(e.target.value);
