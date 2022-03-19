@@ -13,19 +13,21 @@ import carNeed from "./img/car-need.jpg";
 import phoneNeed from "./img/phone-need.jpg";
 import Modal from "react-bootstrap/Modal";
 import emailjs from "@emailjs/browser";
-import {FiActivity} from "react-icons/fi";
-import {BiLogInCircle} from "react-icons/bi"
+import { FiActivity } from "react-icons/fi";
+import { BiLogInCircle } from "react-icons/bi";
 
 const Hero = () => {
-  const form = useRef();
   const [show, setShow] = useState(false);
   const [feedback, setFeedback] = useState({});
+  const form = useRef();
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const navigate = useNavigate();
+
+  // ------------------------------------------------------
+
   const sendEmail = (e) => {
     e.preventDefault();
-
     emailjs
       .send(
         "service_52xer57",
@@ -36,13 +38,15 @@ const Hero = () => {
       .then(
         (result) => {
           setFeedback({});
-          console.log(result.text);
         },
         (error) => {
           console.log(error.text);
         }
       );
   };
+
+  // ------------------------------------------------------
+
   return (
     <>
       <Navbar expand="lg" className="Navbar">
@@ -53,7 +57,7 @@ const Hero = () => {
               fontWeight: "bolder",
               fontSize: "2rem",
               marginLeft: "4vw",
-              textShadow: "0 0 5px"
+              textShadow: "0 0 5px",
             }}
           >
             AMUR
@@ -75,8 +79,8 @@ const Hero = () => {
                     marginLeft: "4vw",
                     marginTop: "0.5vw",
                   }}
-                  >
-                  <FiActivity style={{marginRight: "0.5vw"}}/>
+                >
+                  <FiActivity style={{ marginRight: "0.5vw" }} />
                   Active
                 </Nav.Link>
               </Nav.Item>
@@ -90,7 +94,7 @@ const Hero = () => {
                     marginTop: "0.5vw",
                   }}
                 >
-                  <FiActivity style={{marginRight: "0.5vw"}}/>
+                  <FiActivity style={{ marginRight: "0.5vw" }} />
                   About
                 </Nav.Link>
               </Nav.Item>
@@ -104,7 +108,7 @@ const Hero = () => {
                     marginTop: "0.5vw",
                   }}
                 >
-                  <FiActivity style={{marginRight: "0.5vw"}}/>
+                  <FiActivity style={{ marginRight: "0.5vw" }} />
                   Need
                 </Nav.Link>
               </Nav.Item>
@@ -116,7 +120,9 @@ const Hero = () => {
                   navigate("/login");
                 }}
               >
-                <BiLogInCircle style={{marginRight: "0.5vw", marginTop: "-0.5vw"}} />
+                <BiLogInCircle
+                  style={{ marginRight: "0.5vw", marginTop: "-0.5vw" }}
+                />
                 Log In
               </Nav.Link>
             </Form>

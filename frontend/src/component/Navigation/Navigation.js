@@ -30,6 +30,9 @@ function Navigation() {
       isLoggedIn: state.loginReducer.isLoggedIn,
     };
   });
+
+  // ------------------------------------------------------
+
   return (
     <>
       <Navbar

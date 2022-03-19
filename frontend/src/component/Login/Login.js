@@ -6,12 +6,10 @@ import login2 from "./img/login2.gif";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import {login} from "../../reducer/login/index";
-// import GoogleLogin from "react-google-login";
+import { login } from "../../reducer/login/index";
+import GoogleLogin from "react-google-login";
 
-
-
-function Login({ setUserInfo ,userInfo }) {
+function Login({ setUserInfo, userInfo }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
@@ -54,14 +52,11 @@ function Login({ setUserInfo ,userInfo }) {
         email,
         password,
       });
-    
-       if (res.data.success) {
+      if (res.data.success) {
         setMessage("");
         localStorage.setItem("token", res.data.token);
-       dispatch(login(res.data.token));
+        dispatch(login(res.data.token));
         setUserInfo(res.data.payload);
-        console.log(userInfo);
-        console.log("token", res.data.token);
       } else throw Error;
     } catch (error) {
       if (error.response && error.response.data) {
@@ -75,7 +70,6 @@ function Login({ setUserInfo ,userInfo }) {
 
   useEffect(() => {
     if (state.isLoggedIn) {
-      console.log("token", state.token);
       navigate("/home");
     }
   }, [state.isLoggedIn]);
@@ -133,6 +127,20 @@ function Login({ setUserInfo ,userInfo }) {
                 </Col>
               </Row>
             </Form.Group>
+            <Form.Group className="mb-3 w-100">
+              <Row>
+                <Col>
+                  <GoogleLogin
+                    className="w-100"
+                    clientId="1036615723540-ppf72gmnljg8fi0msga16shtnt5mnsc0.apps.googleusercontent.com"
+                    buttonText="Login with Google"
+                    onSuccess={handleLogin}
+                    onFailure={handelFailure}
+                    cookiePolicy={"single_host_origin"}
+                  />
+                </Col>
+              </Row>
+            </Form.Group>
             <button className="btnLogin">Sign In</button>
             {status
               ? message && (
@@ -154,14 +162,6 @@ function Login({ setUserInfo ,userInfo }) {
             className="loginImg col-10 col-sm-6 col-md-5 col-lg-5 col-xl-5 mt-3 p-3"
           />
         </Container>
-
-        {/* <GoogleLogin
-            clientId="1036615723540-ppf72gmnljg8fi0msga16shtnt5mnsc0.apps.googleusercontent.com"
-            buttonText="Login with Google"
-            onSuccess={handleLogin}
-            onFailure={handelFailure}
-            cookiePolicy={"single_host_origin"}
-          /> */}
       </div>
     </>
   );

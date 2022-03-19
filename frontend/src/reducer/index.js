@@ -3,7 +3,7 @@
 // import Reducers
 import { combineReducers, createStore } from "redux";
 import loginReducer from "./login/index";
-const reducers = combineReducers({ loginReducer  });
+const reducers = combineReducers({ loginReducer });
 
 // create store
 // root state

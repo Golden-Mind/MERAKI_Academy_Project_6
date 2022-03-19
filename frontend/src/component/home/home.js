@@ -56,7 +56,6 @@ export default function Home({ setProductId, userInfo, fav }) {
           setProfile(false);
           setDetails(false);
           setCategoryStatus(true);
-          console.log(res.data.result);
         })
         .catch((err) => {});
     }
@@ -76,7 +75,6 @@ export default function Home({ setProductId, userInfo, fav }) {
       axios
         .get("http://localhost:5000/products/")
         .then((res) => {
-          console.log(res.data);
           setNumperOfProducts(res.data.result.length);
         })
         .catch((err) => {
@@ -93,7 +91,6 @@ export default function Home({ setProductId, userInfo, fav }) {
       .get(`http://localhost:5000/products/search?page=${page}`)
       .then((res) => {
         setProducts(res.data.result);
-        console.log(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -109,9 +106,7 @@ export default function Home({ setProductId, userInfo, fav }) {
         productId: id,
         userId: userInfo.userId,
       })
-      .then((res) => {
-        console.log(res.data);
-      })
+      .then((res) => {})
       .catch((err) => {});
   };
 
@@ -203,7 +198,6 @@ export default function Home({ setProductId, userInfo, fav }) {
                 title="Category"
                 id="navbarScrollingDropdown"
                 onClick={(e) => {
-                  console.log(e.target.innerText);
                   setCategory(e.target.innerText);
                   setHome(false);
                 }}
@@ -219,8 +213,9 @@ export default function Home({ setProductId, userInfo, fav }) {
                 style={{
                   marginLeft: "10vw",
                   height: "7vh",
+                  width: "60vh",
                   marginTop: "1vh",
-                  marginRight: "6vw",
+                  marginRight: "5vw",
                 }}
               >
                 <FormControl

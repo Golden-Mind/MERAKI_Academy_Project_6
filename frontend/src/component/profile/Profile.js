@@ -12,10 +12,12 @@ export default function Profile({ userInfo, setId, setHome, setDetails }) {
   const [ads, setAds] = useState(false);
   const [add, setAdd] = useState(true);
   const [getFav, setGetFav] = useState(false);
-  console.log(userInfo);
+
+  //===============================================================
+
   return (
     <>
-      <div style={{ display: "flex", flexDirection: "row", gap: "5vw" }}>
+      <div className="divProfile">
         <Nav className="Nav">
           <Nav.Link
             className="NavLink"

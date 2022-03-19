@@ -1,3 +1,4 @@
+import "./Product.css";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { Card, Container, ListGroup, ListGroupItem } from "react-bootstrap";
@@ -7,18 +8,25 @@ import Form from "react-bootstrap/Form";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import { Button } from "react-bootstrap";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
+
 function Product({ productId, id, userInfo }) {
   const [product, setProduct] = useState();
   const [comment, setComment] = useState("");
   const [getComments, setGetComments] = useState();
+
+
+  //===============================================================
+
   const [addcomments, setAddComments] = useState("");
+
   const state = useSelector((state) => {
     return {
       token: state.loginReducer.token,
       isLoggedIn: state.loginReducer.isLoggedIn,
     };
   });
-  // //===============================================================
+
+  //===============================================================
 
   const addComment = () => {
     // e.preventDefault();
@@ -43,7 +51,9 @@ function Product({ productId, id, userInfo }) {
         console.log(err);
       });
   };
+
   //=============================================================
+
   useEffect(() => {
     axios
       .get(`http://localhost:5000/comment/${id}`, {
@@ -53,32 +63,40 @@ function Product({ productId, id, userInfo }) {
       })
       .then((res) => {
         setGetComments(res.data.result);
-
       })
       .catch((err) => {
         console.log(err);
       });
   }, [getComments]);
+
+  //===============================================================
+
   useEffect(() => {
     axios
       .get(`http://localhost:5000/products/product-by/${id}`)
       .then((res) => {
         setProduct(res.data.result[0]);
-
       })
       .catch((err) => {
         console.log(err);
       });
   }, [productId]);
+
+  //===============================================================
+
   return (
     <>
       {product ? (
-        <Container className="d-flex flex-row mt-5">
+        <Container className="d-flex flex-row mt-5 justify-content-center">
           <Card style={{ width: "30rem" }}>
-            <Card.Img variant="top" src={product.image && product.image} />
+            <Card.Img
+              variant="top"
+              src={product.image && product.image}
+              style={{ height: "100%" }}
+            />
           </Card>
-          <Card>
-            <Card.Title style={{ marginLeft: "1vw" }}>
+          <Card className="cardPro">
+            <Card.Title className="cardTPro" style={{ color: "#0e5a55" }}>
               {product.productName && product.productName}
             </Card.Title>
             <Card.Text style={{ marginLeft: "1vw" }}>
@@ -88,13 +106,14 @@ function Product({ productId, id, userInfo }) {
               <ListGroupItem>{product.price && product.price} JD</ListGroupItem>
               <ListGroupItem>{product.forr && product.forr}</ListGroupItem>
               <ListGroupItem>{product.type && product.type}</ListGroupItem>
+              <ListGroupItem>
+                {product.phoneNumber && product.phoneNumber}
+              </ListGroupItem>
+              <ListGroupItem>
+                {product.date.split("").slice(0, 10).join("") &&
+                  product.date.split("").slice(0, 10).join("")}
+              </ListGroupItem>
             </ListGroup>
-            <Card.Body>
-              <Card.Link>
-                <WhatsUp product={product} userInfo={userInfo} />
-              </Card.Link>
-              <Card.Link href="#">Another Link</Card.Link>
-            </Card.Body>
           </Card>
         </Container>
       ) : (
@@ -102,16 +121,24 @@ function Product({ productId, id, userInfo }) {
       )}
       {getComments ? (
         <>
-          <Card
-            style={{
-              marginLeft: "8vw",
-              marginTop: "5vw",
-              marginBottom: "2vw",
-              width: "63rem",
-            }}
-          >
-            <Card.Title style={{ marginLeft: "1vw" }}>Comments</Card.Title>
-          </Card>
+          <Container className="d-flex flex-row mt-5 justify-content-center">
+            <Card
+              style={{
+                width: "94%",
+              }}
+            >
+              <Card.Title
+                style={{
+                  marginLeft: "3vw",
+                  marginTop: "1vw",
+                  color: "#0e5a55",
+                  textDecoration: "underline",
+                }}
+              >
+                COMMENTS :
+              </Card.Title>
+            </Card>
+          </Container>
         </>
       ) : (
         <>
@@ -123,24 +150,26 @@ function Product({ productId, id, userInfo }) {
         getComments.map((com) => {
           return (
             <>
-              {/* <Container className="d-flex flex-row mt-5"> */}
-              <Card style={{ marginLeft: "8vw", width: "63rem" }}>
-                <Card.Text style={{ marginLeft: "1vw" }}>
-                  <Card.Text className="fw-bold">
-                    {com.firstName && com.firstName}  {com.lastName && com.lastName}
+              <Container className="d-flex flex-row justify-content-center">
+                <Card style={{ width: "94%" }}>
+                  <Card.Text style={{ marginLeft: "3vw" }}>
+                    <Card.Text className="fw-bold" style={{ color: "#0e5a55" }}>
+                      {com.firstName + " " + com.lastName &&
+                        com.firstName + " " + com.lastName}
+                    </Card.Text>
+                    {com.comment && com.comment}
                   </Card.Text>
-                  {com.comment && com.comment}
-                </Card.Text>
-              </Card>
-              {/* </Container> */}
+                </Card>
+              </Container>
             </>
           );
         })}
-      <>
+
+      <Container className="mt-1" style={{ width: "78.5%" }}>
         <FloatingLabel
           controlId="floatingTextarea2"
-          label="Comments"
-          style={{ marginLeft: "8vw", width: "63rem" }}
+          label="Comments ..."
+          className="floating"
         >
           <Form.Control
             as="textarea"
@@ -151,25 +180,22 @@ function Product({ productId, id, userInfo }) {
             }}
           />
         </FloatingLabel>
-        <Container className="d-flex justify-content-center">
-          <Button
-            variant="secondary"
-            onClick={() => {
-              addComment();
-              setComment(" ")
-            }}
-            style={{
-              marginLeft: "58%",
-              marginTop: "2vw",
-              width: "20%",
-              marginBottom: "2vw",
-              
-            }}
-          >
-            Add
-          </Button>
-        </Container>
-      </>
+      </Container>
+      <Container className="d-flex justify-content-center">
+        <Button
+          variant="secondary"
+          onClick={() => {
+            addComment();
+          }}
+          style={{
+            marginTop: "2vw",
+            marginBottom: "2vw",
+            width: "30%",
+          }}
+        >
+          Add
+        </Button>
+      </Container>
     </>
   );
 }

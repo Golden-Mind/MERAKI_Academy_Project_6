@@ -13,6 +13,7 @@ const Cloudinary = ({ setCloudinary }) => {
   const [description, setDescription] = useState("");
 
   //==============================================
+
   //cloudinary to upload images
   const uploadImage = () => {
     const data = new FormData();
@@ -29,7 +30,9 @@ const Cloudinary = ({ setCloudinary }) => {
       })
       .catch((err) => console.log(err));
   };
+
   //=====================================================
+
   const handleAddProduct = () => {
     axios
       .post(`/products/`, {
@@ -52,6 +55,7 @@ const Cloudinary = ({ setCloudinary }) => {
   };
 
   //=====================================================
+
   return (
     <div className="AddContainer">
       <img
@@ -83,7 +87,6 @@ const Cloudinary = ({ setCloudinary }) => {
             <></>
           )}
         </div>
-        {/* //======================================= */}
         <div className="divInput">
           <div className="addName">
             <label>Name :</label>
@@ -102,7 +105,8 @@ const Cloudinary = ({ setCloudinary }) => {
             <label>Price :</label>
           </div>
           <div className="input">
-            <input className="inputCloudinary"
+            <input
+              className="inputCloudinary"
               placeholder="Price ..."
               value={price}
               onChange={(e) => {
@@ -114,7 +118,8 @@ const Cloudinary = ({ setCloudinary }) => {
             <label>Description :</label>
           </div>
           <div className="input">
-            <input className="inputCloudinary"
+            <input
+              className="inputCloudinary"
               placeholder="Description ..."
               value={description}
               onChange={(e) => {
@@ -126,7 +131,8 @@ const Cloudinary = ({ setCloudinary }) => {
             <label>Category :</label>
           </div>
           <div className="input">
-            <input className="inputCloudinary"
+            <input
+              className="inputCloudinary"
               placeholder="Category ..."
               value={type}
               onChange={(e) => {
