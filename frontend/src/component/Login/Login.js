@@ -52,14 +52,11 @@ function Login({ setUserInfo, userInfo }) {
         email,
         password,
       });
-
       if (res.data.success) {
         setMessage("");
         localStorage.setItem("token", res.data.token);
         dispatch(login(res.data.token));
         setUserInfo(res.data.payload);
-        console.log(userInfo);
-        console.log("token", res.data.token);
       } else throw Error;
     } catch (error) {
       if (error.response && error.response.data) {
@@ -73,7 +70,6 @@ function Login({ setUserInfo, userInfo }) {
 
   useEffect(() => {
     if (state.isLoggedIn) {
-      console.log("token", state.token);
       navigate("/home");
     }
   }, [state.isLoggedIn]);
@@ -134,7 +130,8 @@ function Login({ setUserInfo, userInfo }) {
             <Form.Group className="mb-3 w-100">
               <Row>
                 <Col>
-                  <GoogleLogin className="w-100"
+                  <GoogleLogin
+                    className="w-100"
                     clientId="1036615723540-ppf72gmnljg8fi0msga16shtnt5mnsc0.apps.googleusercontent.com"
                     buttonText="Login with Google"
                     onSuccess={handleLogin}
