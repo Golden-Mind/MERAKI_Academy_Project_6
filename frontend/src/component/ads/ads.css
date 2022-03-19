@@ -1,3 +1,12 @@
-.edit-add:hover{
-    cursor: pointer;
+.divAds {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 3%;
+  margin-top: 3%;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+.edit-add:hover {
+  cursor: pointer;
 }
