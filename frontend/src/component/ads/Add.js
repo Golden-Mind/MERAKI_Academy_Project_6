@@ -76,7 +76,6 @@ export default function Add() {
         setAddress("");
         setStatus(true);
         setMessage("Successfly Add Ads");
-        console.log(result);
       })
       .catch((err) => {
         console.log(err);
