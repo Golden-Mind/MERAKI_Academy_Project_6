@@ -214,8 +214,9 @@ export default function Home({ setProductId, userInfo }) {
                 style={{
                   marginLeft: "10vw",
                   height: "7vh",
+                  width: "60vh",
                   marginTop: "1vh",
-                  marginRight: "6vw",
+                  marginRight: "5vw",
                 }}
               >
                 <FormControl
