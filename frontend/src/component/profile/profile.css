@@ -1,3 +1,9 @@
+.divProfile {
+  display: grid;
+  grid-template-columns: 20vw auto;
+
+}
+
 .Nav {
   display: flex;
   flex-direction: column;
@@ -5,9 +11,9 @@
   padding-top: 20vh;
   background-color: #13b2a7;
   box-shadow: 0 0 10px #0e5a55;
-  width: 18vw;
+  width: 15vw;
   font-size: 1.3rem;
-  padding-bottom: 10vh;
+  padding-bottom: 50vh;
 }
 
 .NavLink {
