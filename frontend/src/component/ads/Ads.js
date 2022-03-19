@@ -99,7 +99,6 @@ export default function Ads({ userInfo, setHome, setDetails, setId }) {
                     marginLeft: "3%",
                     marginBottom: "2%",
                   }}
-                
                 >
                   <Card.Img variant="top" src={add.image && add.image} />
                   <Card.Body>
@@ -144,92 +143,82 @@ export default function Ads({ userInfo, setHome, setDetails, setId }) {
                   </Card.Body>
                 </Card>
                 <Container>
-                <Modal show={show} onHide={handleClose}>
-                  <Modal.Header closeButton>
-                    <Modal.Title> Edit Your Product </Modal.Title>
-                  </Modal.Header>
-                  <Modal.Body>
-                    <Form>
-                      <Form.Group  >
-                        <Form.Label>Product Name</Form.Label>
-                        <Form.Control
-                          placeholder="Product Name"
-                          onChange={(e) => {
-                            setProductName(e.target.value);
-                          }}
-                        />
-                      </Form.Group>
-                      <Form.Group >
-                        <Form.Label >
-                          Description
-                        </Form.Label>
-                        <Form.Control
-                          
-                          placeholder="Description"
-                          onChange={(e) => {
-                            setDescription(e.target.value);
-                          }}
-                        />
-                      </Form.Group>
-                      <Form.Group >
-                        <Form.Label >
-                          Price
-                        </Form.Label>
-                        <Form.Control
-                        
-                          placeholder="Price"
-                          onChange={(e) => {
-                            setPrice(e.target.value);
-                          }}
-                        />
-                      </Form.Group>
-                      <Form.Group >
-                        <Form.Label >
-                          Category
-                        </Form.Label>
-                        <Form.Control
-                          placeholder="Category"
-                          onChange={(e) => {
-                            setType(e.target.value);
-                          }}
-                        />
-                      </Form.Group>
-                      <Form.Group >
-                        <Form.Label >
-                          Type
-                        </Form.Label>
-                        <Form.Select
-                      
-                          onChange={(e) => {
-                            setType(e.target.value);
-                          }}
-                        >
-                          <option>Sell</option>
-                          <option>Rent</option>
-                        </Form.Select>
-                      </Form.Group>
-                    </Form>
-                  </Modal.Body>
-                  <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
-                      Close
-                    </Button>
-                    <Button
-                      variant="primary"
-                      onClick={() => {
-                        updateAdd(add.id, add.image);
-                        handleClose();
-                        getAds();
-                      }}
-                    >
-                      Update
-                    </Button>
-                  </Modal.Footer>
-                </Modal>
-              </Container>
-            </>
-          );
-        })}
+                  <Modal show={show} onHide={handleClose}>
+                    <Modal.Header closeButton>
+                      <Modal.Title> Edit Your Product </Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                      <Form>
+                        <Form.Group>
+                          <Form.Label>Product Name</Form.Label>
+                          <Form.Control
+                            placeholder="Product Name"
+                            onChange={(e) => {
+                              setProductName(e.target.value);
+                            }}
+                          />
+                        </Form.Group>
+                        <Form.Group>
+                          <Form.Label>Description</Form.Label>
+                          <Form.Control
+                            placeholder="Description"
+                            onChange={(e) => {
+                              setDescription(e.target.value);
+                            }}
+                          />
+                        </Form.Group>
+                        <Form.Group>
+                          <Form.Label>Price</Form.Label>
+                          <Form.Control
+                            placeholder="Price"
+                            onChange={(e) => {
+                              setPrice(e.target.value);
+                            }}
+                          />
+                        </Form.Group>
+                        <Form.Group>
+                          <Form.Label>Category</Form.Label>
+                          <Form.Control
+                            placeholder="Category"
+                            onChange={(e) => {
+                              setType(e.target.value);
+                            }}
+                          />
+                        </Form.Group>
+                        <Form.Group>
+                          <Form.Label>Type</Form.Label>
+                          <Form.Select
+                            onChange={(e) => {
+                              setType(e.target.value);
+                            }}
+                          >
+                            <option>Sell</option>
+                            <option>Rent</option>
+                          </Form.Select>
+                        </Form.Group>
+                      </Form>
+                    </Modal.Body>
+                    <Modal.Footer>
+                      <Button variant="secondary" onClick={handleClose}>
+                        Close
+                      </Button>
+                      <Button
+                        variant="primary"
+                        onClick={() => {
+                          updateAdd(add.id, add.image);
+                          handleClose();
+                          getAds();
+                        }}
+                      >
+                        Update
+                      </Button>
+                    </Modal.Footer>
+                  </Modal>
+                </Container>
+              </>
+            );
+          })}
+      </div>
     </>
   );
 }
