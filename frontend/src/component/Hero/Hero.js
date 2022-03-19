@@ -4,10 +4,13 @@ import Container from "react-bootstrap/Container";
 import { Nav, Button, Navbar, NavDropdown, FormControl } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import "./hero.css";
-import background from "./background-image.jpg";
-import Ecommerce from "./Ecommerce.gif";
-import about from "./Business Plan.gif";
-import home from "./home.jpg";
+import background from "./img/background-image.jpg";
+import Ecommerce from "./img/Ecommerce.gif";
+import about from "./img/BusinessPlan.gif";
+import home from "./img/home.jpg";
+import houseNeed from "./img/house-need.jpg";
+import carNeed from "./img/car-need.jpg";
+import phoneNeed from "./img/phone-need.jpg";
 import Modal from "react-bootstrap/Modal";
 import emailjs from "@emailjs/browser";
 import {FiActivity} from "react-icons/fi";
@@ -166,7 +169,7 @@ const Hero = () => {
         <div className="card c col-10 col-sm-6 col-md-4 col-lg-4 col-xl-4">
           <div className=" div-need">
             <img
-              src={home}
+              src={houseNeed}
               className="card-img-top need"
               alt="home"
               onClick={() => {
@@ -176,15 +179,14 @@ const Hero = () => {
           </div>
           <div className="card-body">
             <p className="card-text">
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
+            There are some beautiful homes for sale or rent, if you like
             </p>
           </div>
         </div>
         <div className="card c col-10 col-sm-6 col-md-4 col-lg-4 col-xl-4 ">
           <div className=" div-need">
             <img
-              src={home}
+              src={carNeed}
               className="card-img-top need"
               alt="home"
               onClick={() => {
@@ -194,15 +196,14 @@ const Hero = () => {
           </div>
           <div className="card-body">
             <p className="card-text">
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
+            There are some nice cars for sale or rent, if you like
             </p>
           </div>
         </div>
         <div className="card c col-10 col-sm-6 col-md-4 col-lg-4 col-xl-4">
           <div className=" div-need">
             <img
-              src={home}
+              src={phoneNeed}
               className="card-img-top need"
               alt="home"
               onClick={() => {
@@ -212,8 +213,7 @@ const Hero = () => {
           </div>
           <div className="card-body">
             <p className="card-text">
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
+            There are some nice phones for sale, if you want to
             </p>
           </div>
         </div>

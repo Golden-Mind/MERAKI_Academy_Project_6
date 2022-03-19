@@ -33,7 +33,7 @@ export default function Ads({ userInfo, setHome, setDetails, setId }) {
     lat: 0,
     lng: 0,
   });
-
+// console.log(yourAdd);
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(function (position) {
       console.log(position.coords.altitude);
@@ -88,7 +88,7 @@ export default function Ads({ userInfo, setHome, setDetails, setId }) {
         yourAdd.map((add) => {
           return (
             <>
-              <Container className="m-l-5">
+              <Container >
                 <Card
                   style={{
                     width: "18rem",
@@ -96,7 +96,7 @@ export default function Ads({ userInfo, setHome, setDetails, setId }) {
                     marginTop: "2%",
                     marginLeft: "3%",
                   }}
-                  class="col"
+                
                 >
                   <Card.Img variant="top" src={add.image && add.image} />
                   <Card.Body>
@@ -147,58 +147,56 @@ export default function Ads({ userInfo, setHome, setDetails, setId }) {
                   </Modal.Header>
                   <Modal.Body>
                     <Form>
-                      <Form.Group className="mb-3" controlId="formBasicEmail">
+                      <Form.Group  >
                         <Form.Label>Product Name</Form.Label>
                         <Form.Control
-                          // id="disabledTextInput"
                           placeholder="Product Name"
                           onChange={(e) => {
                             setProductName(e.target.value);
                           }}
                         />
                       </Form.Group>
-                      <Form.Group className="mb-3">
-                        <Form.Label htmlFor="disabledTextInput">
+                      <Form.Group >
+                        <Form.Label >
                           Description
                         </Form.Label>
                         <Form.Control
-                          id="disabledTextInput"
+                          
                           placeholder="Description"
                           onChange={(e) => {
                             setDescription(e.target.value);
                           }}
                         />
                       </Form.Group>
-                      <Form.Group className="mb-3">
-                        <Form.Label htmlFor="disabledTextInput">
+                      <Form.Group >
+                        <Form.Label >
                           Price
                         </Form.Label>
                         <Form.Control
-                          id="disabledTextInput"
+                        
                           placeholder="Price"
                           onChange={(e) => {
                             setPrice(e.target.value);
                           }}
                         />
                       </Form.Group>
-                      <Form.Group className="mb-3">
-                        <Form.Label htmlFor="disabledTextInput">
+                      <Form.Group >
+                        <Form.Label >
                           Category
                         </Form.Label>
                         <Form.Control
-                          id="disabledTextInput"
                           placeholder="Category"
                           onChange={(e) => {
                             setType(e.target.value);
                           }}
                         />
                       </Form.Group>
-                      <Form.Group className="mb-3">
-                        <Form.Label htmlFor="disabledTextInput">
+                      <Form.Group >
+                        <Form.Label >
                           Type
                         </Form.Label>
                         <Form.Select
-                          id="disabledSelect"
+                      
                           onChange={(e) => {
                             setType(e.target.value);
                           }}

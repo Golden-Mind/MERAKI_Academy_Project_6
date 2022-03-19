@@ -2,7 +2,7 @@ import "./Login.css";
 import React, { useEffect, useState } from "react";
 import Form from "react-bootstrap/Form";
 import { Col, Row, Alert, Container } from "react-bootstrap";
-import login2 from "./login2.gif";
+import login2 from "./img/login2.gif";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
