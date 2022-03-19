@@ -1,0 +1,17 @@
+.cardTPro {
+    margin-left: 1vw;
+    margin-top: 2vw;
+    font-weight: bolder;
+}
+
+.cardPro {
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-size: larger;
+  padding-right: 2vw;
+}
+
+.floating {
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-size: larger;
+  /* padding-left: 5%; */
+}
